@@ -45,4 +45,24 @@ site_con %>% dplyr::filter(
 site_tibble %>% dplyr::filter(
   Latitude > 5
 )
-W
+
+filter_by_tag <- function(x, include = c(), exclude = c()) {
+  unnested_tags <- x %>%
+    dplyr::mutate(
+      tags_split = stringr::str_split(.data[["Tags"]], ",")
+    ) %>%
+    tidyr::unnest(cols = c("tags_split"))
+  
+  unnested_tags %>%
+    dplyr::group_by(.data[["Id"]]) %>%
+    dplyr::filter(
+      all(include %in% tags_split),
+      !any(exclude %in% tags_split)
+    ) %>%
+    dplyr::top_n(1) %>%
+    dplyr::ungroup() %>%
+    dplyr::select(-"tags_split")
+}
+
+filter_by_tag(site_tibble, include = c("DFG_Spain_KWA_legacy"), exclude =  c("", "James Fellows Yates", "El Argar Project"))$Tags
+
