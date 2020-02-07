@@ -54,7 +54,7 @@ filter_by_tag <- function(x, include = c(), exclude = c()) {
     tidyr::unnest(cols = c("tags_split"))
   
   unnested_tags %>%
-    dplyr::group_by(.data[["Id"]]) %>%
+    dplyr::group_by_at("Id") %>%
     dplyr::filter(
       all(include %in% tags_split),
       !any(exclude %in% tags_split)
@@ -64,5 +64,6 @@ filter_by_tag <- function(x, include = c(), exclude = c()) {
     dplyr::select(-"tags_split")
 }
 
+filter_by_tag(site_con, include = c("DFG_Spain_KWA_legacy"), exclude =  c("", "James Fellows Yates", "El Argar Project"))$Tags
 filter_by_tag(site_tibble, include = c("DFG_Spain_KWA_legacy"), exclude =  c("", "James Fellows Yates", "El Argar Project"))$Tags
 
