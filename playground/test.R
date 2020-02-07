@@ -47,23 +47,13 @@ site_tibble %>% dplyr::filter(
 )
 
 filter_by_tag <- function(x, include = c(), exclude = c()) {
-  unnested_tags <- x %>%
-    dplyr::mutate(
-      tags_split = stringr::str_split(.data[["Tags"]], ",")
-    ) %>%
-    tidyr::unnest(cols = c("tags_split"))
-  
-  unnested_tags %>%
-    dplyr::group_by_at("Id") %>%
+  x %>%
     dplyr::filter(
-      all(include %in% tags_split),
-      !any(exclude %in% tags_split)
-    ) %>%
-    dplyr::top_n(1) %>%
-    dplyr::ungroup() %>%
-    dplyr::select(-"tags_split")
+      sapply(Tags, function(y) {all(sapply(include, function(z) {grepl(z, y)}))}), 
+      !sapply(Tags, function(y) {any(sapply(exclude, function(z) {grepl(z, y)}))})
+    )
 }
 
 filter_by_tag(site_con, include = c("DFG_Spain_KWA_legacy"), exclude =  c("", "James Fellows Yates", "El Argar Project"))$Tags
-filter_by_tag(site_tibble, include = c("DFG_Spain_KWA_legacy"), exclude =  c("", "James Fellows Yates", "El Argar Project"))$Tags
+filter_by_tag(site_tibble, include = c("DFG_Spain_KWA_legacy", "Wolfgang Haak"), exclude =  c("James Fellows Yates"))$Tags
 
