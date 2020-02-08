@@ -47,13 +47,14 @@ site_tibble %>% dplyr::filter(
 )
 
 filter_by_tag <- function(x, include = c(), exclude = c()) {
-  x %>%
-    dplyr::filter(
-      sapply(Tags, function(y) {all(sapply(include, function(z) {grepl(z, y)}))}), 
-      !sapply(Tags, function(y) {any(sapply(exclude, function(z) {grepl(z, y)}))})
-    )
+  tags_down <- x %>% dplyr::select("Tags") %>% dplyr::collect() %>% dplyr::pull("Tags")
+  include_all <- unname(sapply(tags_down, function(y) {all(sapply(include, function(z) {grepl(z, y)}))}))
+  exlude_any <- unname(sapply(tags_down, function(y) {any(sapply(exclude, function(z) {grepl(z, y)}))}))
+  filter_condition <- include_all & !exlude_any
+  filter_id <- which(filter_condition)
+  x %>% dplyr::filter(Id %in% filter_id)
 }
 
-filter_by_tag(site_con, include = c("DFG_Spain_KWA_legacy"), exclude =  c("", "James Fellows Yates", "El Argar Project"))$Tags
-filter_by_tag(site_tibble, include = c("DFG_Spain_KWA_legacy", "Wolfgang Haak"), exclude =  c("James Fellows Yates"))$Tags
+filter_by_tag(site_con, include = c("DFG_Spain_KWA_legacy", "Wolfgang Haak"), exclude =  c("James Fellows Yates"))
+filter_by_tag(site_tibble, include = c("DFG_Spain_KWA_legacy", "Wolfgang Haak"), exclude =  c("James Fellows Yates"))
 
