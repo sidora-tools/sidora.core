@@ -1,14 +1,19 @@
 Package: sidora.core
-Title: What the Package Does (One Line, Title Case)
+Title: Basic Interface for PANDORA (MPI-SHH DAG)
 Version: 0.0.0.9000
 Authors@R: 
-    person(given = "First",
-           family = "Last",
+    person(given = "Clemens",
+           family = "Schmid",
            role = c("aut", "cre"),
-           email = "first.last@example.com",
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
+           email = "clemens@nevrome.de",
+           comment = c(ORCID = "0000-0003-3448-5715"))
+Description: A basic interface to access data from the internal database PANDORA (MPI-SHH DAG).
 License: What license it uses
 Encoding: UTF-8
 LazyData: true
+Imports:
+  dplyr,
+  dbplyr,
+  magrittr,
+  tibble
 RoxygenNote: 7.0.2

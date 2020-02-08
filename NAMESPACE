@@ -2,3 +2,4 @@
 
 export(get_raw_con)
 export(get_raw_df)
+importFrom(magrittr,"%>%")
