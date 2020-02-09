@@ -50,7 +50,7 @@ get_df <- function(
     }
   # caching is not activated
   } else {
-    this_tab <- get_raw_con(tab, con) %>% tibble::as_tibble()
+    this_tab <- get_con(tab, con) %>% tibble::as_tibble()
   }
   return(this_tab) 
 }
