@@ -3,4 +3,5 @@
 export(get_con)
 export(get_df)
 export(get_df_list)
+export(join_df_list)
 importFrom(magrittr,"%>%")

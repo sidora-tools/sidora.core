@@ -9,7 +9,6 @@ con <- DBI::dbConnect(
 
 site_con <- get_con("TAB_Site", con)
 site_tibble <- get_df("TAB_Site", con)
-test_list <- get_df_list(c("TAB_Site", "TAB_Individual"), con)
 
 
 site_con %>% dplyr::filter(
@@ -32,3 +31,14 @@ filter_by_tag <- function(x, include = c(), exclude = c()) {
 filter_by_tag(site_con, include = c("DFG_Spain_KWA_legacy", "Wolfgang Haak"), exclude =  c("James Fellows Yates"))
 filter_by_tag(site_tibble, include = c("DFG_Spain_KWA_legacy", "Wolfgang Haak"), exclude =  c("James Fellows Yates"))
 
+#### joining ####
+
+df_list <- get_df_list(c(
+  "TAB_Site", "TAB_Individual", "TAB_Sample", "TAB_Extract", "TAB_Library"
+), con = con)
+
+jt <- join_df_list(df_list)
+
+jt$Latitude
+
+colnames(jt)
