@@ -37,8 +37,13 @@ df_list <- get_df_list(c(
   "TAB_Site", "TAB_Individual", "TAB_Sample", "TAB_Extract", "TAB_Library"
 ), con = con)
 
+df_list <- get_df_list(c(
+  "TAB_Site", "TAB_Individual"
+), con = con)
+
 jt <- join_df_list(df_list)
 
-jt$Latitude
+get_df_list(c(
+  "TAB_Site", "TAB_Individual"
+), con = con) %>% join_df_list()
 
-colnames(jt)

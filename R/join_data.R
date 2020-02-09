@@ -24,40 +24,40 @@ join_df_list <- function(df_list) {
     
   if (all(c("TAB_Site", "TAB_Individual") %in% tabs)) {
     df_list[["TAB_Individual"]] <- dplyr::left_join(
+      df_list[["TAB_Site"]] %>% dplyr::rename("Site" = "Id"), 
       df_list[["TAB_Individual"]], 
-      df_list[["TAB_Site"]], 
-      by = ("Site" = "Id"), 
-      suffix = c(".Individual", ".Site")
+      by = "Site", 
+      suffix = c(".Site", ".Individual")
     )
     return_table <- "TAB_Individual"
   }
   
   if (all(c("TAB_Individual", "TAB_Sample") %in% tabs)) {
     df_list[["TAB_Sample"]] <- dplyr::left_join(
+      df_list[["TAB_Individual"]] %>% dplyr::rename("Individual" = "Id"), 
       df_list[["TAB_Sample"]], 
-      df_list[["TAB_Individual"]], 
-      by = ("Individual" = "Id"), 
-      suffix = c(".Sample", ".Individual")
+      by = "Individual", 
+      suffix = c(".Individual", ".Sample")
     )
     return_table <- "TAB_Sample"
   }
   
   if (all(c("TAB_Sample", "TAB_Extract") %in% tabs)) {
     df_list[["TAB_Extract"]] <- dplyr::left_join(
+      df_list[["TAB_Sample"]] %>% dplyr::rename("Sample" = "Id"), 
       df_list[["TAB_Extract"]], 
-      df_list[["TAB_Sample"]], 
-      by = ("Sample" = "Id"), 
-      suffix = c(".Extract", ".Sample")
+      by = "Sample", 
+      suffix = c(".Sample", ".Extract")
     )
     return_table <- "TAB_Extract"
   }
   
   if (all(c("TAB_Extract", "TAB_Library") %in% tabs)) {
     df_list[["TAB_Library"]] <- dplyr::left_join(
+      df_list[["TAB_Extract"]] %>% dplyr::rename("Extract" = "Id"), 
       df_list[["TAB_Library"]], 
-      df_list[["TAB_Extract"]], 
-      by = ("Extract" = "Id"), 
-      suffix = c(".Library", ".Extract")
+      by = "Extract", 
+      suffix = c(".Extract", ".Library")
     )
     return_table <- "TAB_Library"
   }
