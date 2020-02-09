@@ -35,6 +35,7 @@ get_raw_df <- function(
   ), 
   con, 
   cache = T, cache_dir = tempdir(), cache_max_age = 24 * 60 * 60) {
+  
   if (length(tab) != 1) {
     stop("Select one table.")
   }
@@ -52,4 +53,33 @@ get_raw_df <- function(
     this_tab <- get_raw_con(tab, con) %>% tibble::as_tibble()
   }
   return(this_tab) 
+}
+
+#' Download multiple tables from database
+#'
+#' @param tab Names of tables that should be downloaded
+#' @param con Database connection
+#' @param cache Should data be cached?
+#' @param cache_dir Path to cache directory
+#' @param cache_max_age Maximum age of cache in seconds
+#'
+#' @return A list of dataframes
+#' @export
+get_raw_list <- function(
+  tab = c(
+    "TAB_Site", "TAB_Individual", "TAB_Sample", "TAB_Extract", 
+    "TAB_Library", "TAB_Capture", "TAB_Sequencing", 
+    "TAB_Raw_Data", "TAB_Sequencing_Sequencer", "TAB_Tag", "TAB_Project"
+  ), 
+  con, 
+  cache = T, cache_dir = tempdir(), cache_max_age = 24 * 60 * 60) {
+  
+  raw_list <- lapply(
+    tab, function(cur_tab) {
+      get_raw_df(cur_tab, con, cache, cache_dir, cache_max_age)
+    }
+  )
+  names(raw_list) <- tab
+  
+  return(raw_list)
 }
