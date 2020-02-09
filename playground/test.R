@@ -7,9 +7,9 @@ con <- DBI::dbConnect(
   db = "pandora"
 )
 
-site_con <- get_raw_con("TAB_Site", con)
-site_tibble <- get_raw_df("TAB_Site", con)
-test_list <- get_raw_list(c("TAB_Site", "TAB_Individual"), con)
+site_con <- get_con("TAB_Site", con)
+site_tibble <- get_df("TAB_Site", con)
+test_list <- get_df_list(c("TAB_Site", "TAB_Individual"), con)
 
 
 site_con %>% dplyr::filter(

@@ -5,7 +5,7 @@
 #'
 #' @return A table connection
 #' @export
-get_raw_con <- function(
+get_con <- function(
   tab = c(
     "TAB_Site", "TAB_Individual", "TAB_Sample", "TAB_Extract", 
     "TAB_Library", "TAB_Capture", "TAB_Sequencing", 
@@ -27,7 +27,7 @@ get_raw_con <- function(
 #'
 #' @return A dataframe
 #' @export
-get_raw_df <- function(
+get_df <- function(
   tab = c(
     "TAB_Site", "TAB_Individual", "TAB_Sample", "TAB_Extract", 
     "TAB_Library", "TAB_Capture", "TAB_Sequencing", 
@@ -45,7 +45,7 @@ get_raw_df <- function(
     if (file.exists(tab_cache_file) & file.mtime(tab_cache_file) > (Sys.time() - cache_max_age)) {
       load(tab_cache_file)
     } else {
-      this_tab <- get_raw_con(tab, con) %>% tibble::as_tibble()
+      this_tab <- get_con(tab, con) %>% tibble::as_tibble()
       save(this_tab, file = tab_cache_file)
     }
   # caching is not activated
@@ -65,7 +65,7 @@ get_raw_df <- function(
 #'
 #' @return A list of dataframes
 #' @export
-get_raw_list <- function(
+get_df_list <- function(
   tab = c(
     "TAB_Site", "TAB_Individual", "TAB_Sample", "TAB_Extract", 
     "TAB_Library", "TAB_Capture", "TAB_Sequencing", 
@@ -76,7 +76,7 @@ get_raw_list <- function(
   
   raw_list <- lapply(
     tab, function(cur_tab) {
-      get_raw_df(cur_tab, con, cache, cache_dir, cache_max_age)
+      get_df(cur_tab, con, cache, cache_dir, cache_max_age)
     }
   )
   names(raw_list) <- tab
