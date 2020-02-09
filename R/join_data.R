@@ -7,7 +7,7 @@
 join_df_list <- function(df_list) {
   
   if (length(df_list) == 1) {
-    df_list[[1]]
+    return(df_list[[1]])
   }
   
   join_order_vector <- c(
