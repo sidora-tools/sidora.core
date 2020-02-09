@@ -67,7 +67,7 @@ join_df_list <- function(df_list) {
 
 check_completeness <- function(tabs, join_order_vector) {
   all(sapply(
-    combn(tabs, 2, simplify = F), function(x) {
+    utils::combn(tabs, 2, simplify = F), function(x) {
       a_pos <- which(x[1] == join_order_vector)
       b_pos <- which(x[2] == join_order_vector)
       if (b_pos < a_pos) { inter_b <- b_pos; inter_a <- a_pos; b_pos <- inter_a; a_pos <- inter_b }
