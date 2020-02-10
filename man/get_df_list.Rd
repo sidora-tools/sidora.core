@@ -15,7 +15,7 @@ get_df_list(
 )
 }
 \arguments{
-\item{tab}{Names of tables that should be downloaded}
+\item{tab}{Names of tables}
 
 \item{con}{Database connection}
 

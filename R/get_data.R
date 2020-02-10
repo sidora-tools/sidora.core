@@ -1,6 +1,6 @@
 #' Establish connection to database table
 #'
-#' @param tab Name of table that should be downloaded
+#' @param tab Name of table
 #' @param con Database connection
 #'
 #' @return A table connection
@@ -17,9 +17,35 @@ get_con <- function(
   dplyr::tbl(con, tab)
 }
 
-#' Download table from database
+#' Establish connections to multiple database tables
 #'
-#' @param tab Name of table that should be downloaded
+#' @param tab Names of tables
+#' @param con Database connection
+#'
+#' @return A list of table connections
+#' @export
+get_con_list <- function(
+  tab = c(
+    "TAB_Site", "TAB_Individual", "TAB_Sample", "TAB_Extract", 
+    "TAB_Library", "TAB_Capture", "TAB_Sequencing", 
+    "TAB_Raw_Data", "TAB_Sequencing_Sequencer", "TAB_Tag", "TAB_Project"
+  ), 
+  con, 
+  cache = T, cache_dir = tempdir(), cache_max_age = 24 * 60 * 60) {
+  
+  raw_list <- lapply(
+    tab, function(cur_tab) {
+      get_con(cur_tab, con)
+    }
+  )
+  names(raw_list) <- tab
+  
+  return(raw_list)
+}
+
+#' Download table from database
+#'t
+#' @param tab Name of table
 #' @param con Database connection
 #' @param cache Should data be cached?
 #' @param cache_dir Path to cache directory
@@ -57,7 +83,7 @@ get_df <- function(
 
 #' Download multiple tables from database
 #'
-#' @param tab Names of tables that should be downloaded
+#' @param tab Names of tables
 #' @param con Database connection
 #' @param cache Should data be cached?
 #' @param cache_dir Path to cache directory

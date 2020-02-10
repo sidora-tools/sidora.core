@@ -1,20 +1,20 @@
 #' Join multiple tables
 #'
-#' @param df_list Named list of tables as produced by \code{get_df_list}
+#' @param x Named list of tables or connections as produced by \code{get_df_list} or \code{get_con_list}
 #'
 #' @return Joined dataframe
 #' @export
-join_df_list <- function(df_list) {
+join_pandora_tables <- function(x) {
   
-  if (length(df_list) == 1) {
-    return(df_list[[1]])
+  if (length(x) == 1) {
+    return(x[[1]])
   }
   
   join_order_vector <- c(
     "TAB_Site", "TAB_Individual", "TAB_Sample", "TAB_Extract", "TAB_Library"
   )
   
-  tabs <- names(df_list)
+  tabs <- names(x)
   
   if (!check_completeness(tabs, join_order_vector)) {
     stop("Missing intermediate table.")
@@ -23,9 +23,9 @@ join_df_list <- function(df_list) {
   return_table <- ""
     
   if (all(c("TAB_Site", "TAB_Individual") %in% tabs)) {
-    df_list[["TAB_Individual"]] <- dplyr::left_join(
-      df_list[["TAB_Site"]] %>% dplyr::rename("Site" = "Id"), 
-      df_list[["TAB_Individual"]], 
+    x[["TAB_Individual"]] <- dplyr::left_join(
+      x[["TAB_Site"]] %>% dplyr::rename("Site" = "Id"), 
+      x[["TAB_Individual"]], 
       by = "Site", 
       suffix = c(".Site", ".Individual")
     )
@@ -33,9 +33,9 @@ join_df_list <- function(df_list) {
   }
   
   if (all(c("TAB_Individual", "TAB_Sample") %in% tabs)) {
-    df_list[["TAB_Sample"]] <- dplyr::left_join(
-      df_list[["TAB_Individual"]] %>% dplyr::rename("Individual" = "Id"), 
-      df_list[["TAB_Sample"]], 
+    x[["TAB_Sample"]] <- dplyr::left_join(
+      x[["TAB_Individual"]] %>% dplyr::rename("Individual" = "Id"), 
+      x[["TAB_Sample"]], 
       by = "Individual", 
       suffix = c(".Individual", ".Sample")
     )
@@ -43,9 +43,9 @@ join_df_list <- function(df_list) {
   }
   
   if (all(c("TAB_Sample", "TAB_Extract") %in% tabs)) {
-    df_list[["TAB_Extract"]] <- dplyr::left_join(
-      df_list[["TAB_Sample"]] %>% dplyr::rename("Sample" = "Id"), 
-      df_list[["TAB_Extract"]], 
+    x[["TAB_Extract"]] <- dplyr::left_join(
+      x[["TAB_Sample"]] %>% dplyr::rename("Sample" = "Id"), 
+      x[["TAB_Extract"]], 
       by = "Sample", 
       suffix = c(".Sample", ".Extract")
     )
@@ -53,16 +53,16 @@ join_df_list <- function(df_list) {
   }
   
   if (all(c("TAB_Extract", "TAB_Library") %in% tabs)) {
-    df_list[["TAB_Library"]] <- dplyr::left_join(
-      df_list[["TAB_Extract"]] %>% dplyr::rename("Extract" = "Id"), 
-      df_list[["TAB_Library"]], 
+    x[["TAB_Library"]] <- dplyr::left_join(
+      x[["TAB_Extract"]] %>% dplyr::rename("Extract" = "Id"), 
+      x[["TAB_Library"]], 
       by = "Extract", 
       suffix = c(".Extract", ".Library")
     )
     return_table <- "TAB_Library"
   }
   
-  return(df_list[[return_table]])
+  return(x[[return_table]])
 }
 
 check_completeness <- function(tabs, join_order_vector) {

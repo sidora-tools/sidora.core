@@ -31,6 +31,12 @@ filter_by_tag <- function(x, include = c(), exclude = c()) {
 filter_by_tag(site_con, include = c("DFG_Spain_KWA_legacy", "Wolfgang Haak"), exclude =  c("James Fellows Yates"))
 filter_by_tag(site_tibble, include = c("DFG_Spain_KWA_legacy", "Wolfgang Haak"), exclude =  c("James Fellows Yates"))
 
+#### get multiple connections ####
+
+get_con_list(c(
+  "TAB_Site", "TAB_Individual", "TAB_Sample", "TAB_Extract", "TAB_Library"
+), con = con)
+
 #### joining ####
 
 df_list <- get_df_list(c(
@@ -41,9 +47,9 @@ df_list <- get_df_list(c(
   "TAB_Site", "TAB_Individual"
 ), con = con)
 
-jt <- join_df_list(df_list)
+jt <- join_pandora_tables(df_list)
 
 get_df_list(c(
   "TAB_Site", "TAB_Individual"
-), con = con) %>% join_df_list()
+), con = con) %>% join_pandora_tables()
 

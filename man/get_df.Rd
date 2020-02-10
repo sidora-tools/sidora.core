@@ -2,7 +2,8 @@
 % Please edit documentation in R/get_data.R
 \name{get_df}
 \alias{get_df}
-\title{Download table from database}
+\title{Download table from database
+t}
 \usage{
 get_df(
   tab = c("TAB_Site", "TAB_Individual", "TAB_Sample", "TAB_Extract", "TAB_Library",
@@ -15,7 +16,7 @@ get_df(
 )
 }
 \arguments{
-\item{tab}{Name of table that should be downloaded}
+\item{tab}{Name of table}
 
 \item{con}{Database connection}
 
@@ -30,4 +31,5 @@ A dataframe
 }
 \description{
 Download table from database
+t
 }
