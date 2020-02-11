@@ -1,6 +1,6 @@
 creds <- readLines("playground/.credentials")
 con <- DBI::dbConnect(
-  RMySQL::MySQL(), 
+  RMariaDB::MariaDB(), 
   host = creds[1],
   user = creds[2],
   password = creds[3],
