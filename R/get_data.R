@@ -11,10 +11,21 @@ get_con <- function(
     "TAB_Library", "TAB_Capture", "TAB_Sequencing", 
     "TAB_Raw_Data", "TAB_Sequencing_Sequencer", "TAB_Tag", "TAB_Project"
   ), con) {
+  
   if (length(tab) != 1) {
     stop("Select one valid PANDORA SQL table.")
   }
-  dplyr::tbl(con, tab)
+  
+  # establish data connection
+  my_con <- dplyr::tbl(con, tab)
+
+  # remove deleted objects  
+  if ("Deleted" %in% colnames(my_con)) {
+    my_con <- my_con %>%
+      dplyr::filter(!!as.symbol("Deleted") == "false")
+  }
+  
+  return(my_con)
 }
 
 #' Establish connections to multiple database tables
