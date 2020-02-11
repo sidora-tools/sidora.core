@@ -1,4 +1,4 @@
-context("join_data()")
+context("join functions")
 
 test_that("check_completeness passes or fails under different conditions", {
   expect_true(check_completeness(c("a", "b", "c"), c("a", "b", "c", "d", "e")))
