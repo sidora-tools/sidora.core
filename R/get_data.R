@@ -12,7 +12,7 @@ get_con <- function(
     "TAB_Raw_Data", "TAB_Sequencing_Sequencer", "TAB_Tag", "TAB_Project"
   ), con) {
   if (length(tab) != 1) {
-    stop("Select one table.")
+    stop("Select one valid PANDORA SQL table.")
   }
   dplyr::tbl(con, tab)
 }
