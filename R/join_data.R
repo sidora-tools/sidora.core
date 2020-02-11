@@ -17,7 +17,7 @@ join_pandora_tables <- function(x) {
   tabs <- names(x)
   
   if (!check_completeness(tabs, join_order_vector)) {
-    stop("Missing intermediate table.")
+    stop("Missing intermediate PANDORA table.")
   }
   
   return_table <- ""

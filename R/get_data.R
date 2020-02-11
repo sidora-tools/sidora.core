@@ -20,7 +20,7 @@ get_con <- function(
 #' Establish connections to multiple database tables
 #'
 #' @param tab Names of tables
-#' @param con Database connection
+#' @param con Database connection (set manually by user)
 #'
 #' @return A list of table connections
 #' @export
@@ -43,8 +43,8 @@ get_con_list <- function(
   return(raw_list)
 }
 
-#' Download table from database
-#'t
+#' Download table from PANDORA database
+#'
 #' @param tab Name of table
 #' @param con Database connection
 #' @param cache Should data be cached?
@@ -63,25 +63,24 @@ get_df <- function(
   cache = T, cache_dir = tempdir(), cache_max_age = 24 * 60 * 60) {
   
   if (length(tab) != 1) {
-    stop("Select one table.")
-  }
+    stop("Select one valid PANDORA SQL table.")  }
   # caching is activated
   if (cache) {
     tab_cache_file <- file.path(cache_dir, paste0(tab, ".RData"))
     if (file.exists(tab_cache_file) & file.mtime(tab_cache_file) > (Sys.time() - cache_max_age)) {
       load(tab_cache_file)
     } else {
-      this_tab <- get_con(tab, con) %>% tibble::as_tibble()
+      this_tab <- get_con(tab, con) %>% tibble::as_tibble() %>% dplyr::filter(Deleted == "false")
       save(this_tab, file = tab_cache_file)
     }
   # caching is not activated
   } else {
-    this_tab <- get_con(tab, con) %>% tibble::as_tibble()
+    this_tab <- get_con(tab, con) %>% tibble::as_tibble() %>% dplyr::filter(Deleted == "false")
   }
   return(this_tab) 
 }
 
-#' Download multiple tables from database
+#' Download multiple tables from PANDORA database
 #'
 #' @param tab Names of tables
 #' @param con Database connection
