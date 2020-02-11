@@ -55,7 +55,7 @@ get_con_list <- function(
 }
 
 #' Download table from database
-#'t
+#'
 #' @param tab Name of table
 #' @param con Database connection
 #' @param cache Should data be cached?
