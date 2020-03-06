@@ -11,7 +11,8 @@ join_pandora_tables <- function(x) {
   }
   
   join_order_vector <- c(
-    "TAB_Site", "TAB_Individual", "TAB_Sample", "TAB_Extract", "TAB_Library"
+    "TAB_Site", "TAB_Individual", "TAB_Sample", "TAB_Extract", "TAB_Library", "TAB_Capture", "TAB_Sequencing", 
+    "TAB_Raw_Data", "TAB_Analysis", "TAB_Analysis_Result_String"
   )
   
   tabs <- names(x)
@@ -62,6 +63,25 @@ join_pandora_tables <- function(x) {
     return_table <- "TAB_Library"
   }
   
+  if (all(c("TAB_Library", "TAB_Capture") %in% tabs)) {
+    x[["TAB_Capture"]] <- dplyr::left_join(
+      x[["TAB_Library"]] %>% dplyr::rename("Library" = "Id"), 
+      x[["TAB_Capture"]], 
+      by = "Library", 
+      suffix = c(".Library", ".Capture")
+    )
+    return_table <- "TAB_Capture"
+  }
+  
+  if (all(c("TAB_Capture", "TAB_Sequencing") %in% tabs)) {
+    x[["TAB_Sequencing"]] <- dplyr::left_join(
+      x[["TAB_Capture"]] %>% dplyr::rename("Capture" = "Id"), 
+      x[["TAB_Sequencing"]], 
+      by = "Capture", 
+      suffix = c(".Capture", ".Sequencing")
+    )
+    return_table <- "TAB_Sequencing"
+  }
   return(x[[return_table]])
 }
 
