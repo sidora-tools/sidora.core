@@ -22,6 +22,7 @@ get_con <- function(
   # remove deleted objects  
   if ("Deleted" %in% colnames(my_con)) {
     my_con <- my_con %>%
+      enforce_types() %>%
       dplyr::filter(!!as.symbol("Deleted") == "false")
   }
   
@@ -82,12 +83,12 @@ get_df <- function(
     if (file.exists(tab_cache_file) & file.mtime(tab_cache_file) > (Sys.time() - cache_max_age)) {
       load(tab_cache_file)
     } else {
-      this_tab <- get_con(tab, con) %>% tibble::as_tibble()
+      this_tab <- get_con(tab, con) %>% tibble::as_tibble() %>% enforce_types()
       save(this_tab, file = tab_cache_file)
     }
   # caching is not activated
   } else {
-    this_tab <- get_con(tab, con) %>% tibble::as_tibble()
+    this_tab <- get_con(tab, con) %>% tibble::as_tibble() %>% enforce_types()
   }
   return(this_tab) 
 }
