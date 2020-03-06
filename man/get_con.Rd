@@ -4,12 +4,7 @@
 \alias{get_con}
 \title{Establish connection to database table}
 \usage{
-get_con(
-  tab = c("TAB_Site", "TAB_Individual", "TAB_Sample", "TAB_Extract", "TAB_Library",
-    "TAB_Capture", "TAB_Sequencing", "TAB_Raw_Data", "TAB_Sequencing_Sequencer",
-    "TAB_Tag", "TAB_Project"),
-  con
-)
+get_con(tab = sidora.core::pandora_tables, con)
 }
 \arguments{
 \item{tab}{Name of table}

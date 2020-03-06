@@ -5,9 +5,7 @@
 \title{Download multiple tables from database}
 \usage{
 get_df_list(
-  tab = c("TAB_Site", "TAB_Individual", "TAB_Sample", "TAB_Extract", "TAB_Library",
-    "TAB_Capture", "TAB_Sequencing", "TAB_Raw_Data", "TAB_Sequencing_Sequencer",
-    "TAB_Tag", "TAB_Project"),
+  tab = sidora.core::pandora_tables,
   con,
   cache = T,
   cache_dir = tempdir(),

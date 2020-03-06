@@ -5,12 +5,7 @@
 #'
 #' @return A table connection
 #' @export
-get_con <- function(
-  tab = c(
-    "TAB_Site", "TAB_Individual", "TAB_Sample", "TAB_Extract", 
-    "TAB_Library", "TAB_Capture", "TAB_Sequencing", 
-    "TAB_Raw_Data", "TAB_Sequencing_Sequencer", "TAB_Tag", "TAB_Project"
-  ), con) {
+get_con <- function(tab = sidora.core::pandora_tables, con) {
   
   if (length(tab) != 1) {
     stop("Select one valid PANDORA SQL table.")
@@ -35,14 +30,7 @@ get_con <- function(
 #'
 #' @return A list of table connections
 #' @export
-get_con_list <- function(
-  tab = c(
-    "TAB_Site", "TAB_Individual", "TAB_Sample", "TAB_Extract", 
-    "TAB_Library", "TAB_Capture", "TAB_Sequencing", 
-    "TAB_Raw_Data", "TAB_Sequencing_Sequencer", "TAB_Tag", "TAB_Project"
-  ), 
-  con, 
-  cache = T, cache_dir = tempdir(), cache_max_age = 24 * 60 * 60) {
+get_con_list <- function(tab = sidora.core::pandora_tables, con) {
   
   raw_list <- lapply(
     tab, function(cur_tab) {
@@ -65,17 +53,13 @@ get_con_list <- function(
 #' @return A dataframe
 #' @export
 get_df <- function(
-  tab = c(
-    "TAB_Site", "TAB_Individual", "TAB_Sample", "TAB_Extract", 
-    "TAB_Library", "TAB_Capture", "TAB_Sequencing", 
-    "TAB_Raw_Data", "TAB_Sequencing_Sequencer", "TAB_Tag", "TAB_Project"
-  ), 
-  con, 
+  tab = sidora.core::pandora_tables, con, 
   cache = T, cache_dir = tempdir(), cache_max_age = 24 * 60 * 60) {
   
   if (length(tab) != 1) {
-    stop("Select one table.")
+    stop("Select one valid PANDORA SQL table.")
   }
+  
   # caching is activated
   if (cache) {
     tab_cache_file <- file.path(cache_dir, paste0(tab, ".RData"))
@@ -89,6 +73,7 @@ get_df <- function(
   } else {
     this_tab <- get_con(tab, con) %>% tibble::as_tibble() %>% enforce_types()
   }
+  
   return(this_tab) 
 }
 
@@ -103,12 +88,7 @@ get_df <- function(
 #' @return A list of dataframes
 #' @export
 get_df_list <- function(
-  tab = c(
-    "TAB_Site", "TAB_Individual", "TAB_Sample", "TAB_Extract", 
-    "TAB_Library", "TAB_Capture", "TAB_Sequencing", 
-    "TAB_Raw_Data", "TAB_Sequencing_Sequencer", "TAB_Tag", "TAB_Project"
-  ), 
-  con, 
+  tab = sidora.core::pandora_tables, con, 
   cache = T, cache_dir = tempdir(), cache_max_age = 24 * 60 * 60) {
   
   raw_list <- lapply(
