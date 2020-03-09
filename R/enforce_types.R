@@ -14,12 +14,12 @@
 #'
 #' @examples
 #' # initial situation
-#'\dontrun{
+#' \dontrun{
 #' ex <- get_df("TAB_Site", con)
 #' 
 #' # fix type with enforce_types()
-# 'ex <- enforce_types(ex)
-#'} 
+#' ex <- enforce_types(ex)
+#' } 
 #'
 
 #' @rdname enforce_types

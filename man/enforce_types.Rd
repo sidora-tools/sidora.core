@@ -20,10 +20,11 @@ Enforce variable types in a \strong{PANDORA table}
 }
 \examples{
 # initial situation
+\dontrun{
 ex <- get_df("TAB_Site", con)
 
-# modify variable/column type
-
 # fix type with enforce_types()
+ex <- enforce_types(ex)
+} 
 
 }
