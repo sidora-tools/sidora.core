@@ -2,8 +2,7 @@
 % Please edit documentation in R/get_data.R
 \name{get_df}
 \alias{get_df}
-\title{Download table from database
-t}
+\title{Download table from database}
 \usage{
 get_df(
   tab = sidora.core::pandora_tables,
@@ -29,5 +28,4 @@ A dataframe
 }
 \description{
 Download table from database
-t
 }
