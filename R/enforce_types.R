@@ -33,7 +33,7 @@ enforce_types <- function(x, suppress_na_introduced_warnings = TRUE) {
   if (suppress_na_introduced_warnings) {
     withCallingHandlers({
       x <- x %>%
-        dplyr::mutate_if(colnames(.) == "Robot", funs(. == 'Yes')) %>%
+        dplyr::mutate_if(colnames(.) == "Robot", dplyr::funs(. == 'Yes')) %>%
         dplyr::mutate_if(colnames(.) %in% coltypes_character, as.character) %>%
         dplyr::mutate_if(colnames(.) %in% coltypes_integer, as.integer) %>%
         dplyr::mutate_if(colnames(.) %in% coltypes_double, as.double) %>%
@@ -44,7 +44,7 @@ enforce_types <- function(x, suppress_na_introduced_warnings = TRUE) {
     )
   } else {
     x <- x %>%
-      dplyr::mutate_if(colnames(.) == "Robot", funs(. == 'Yes')) %>%
+      dplyr::mutate_if(colnames(.) == "Robot", dplyr::funs(. == 'Yes')) %>%
       dplyr::mutate_if(colnames(.) %in% coltypes_character, as.character) %>%
       dplyr::mutate_if(colnames(.) %in% coltypes_integer, as.integer) %>%
       dplyr::mutate_if(colnames(.) %in% coltypes_double, as.double) %>%
