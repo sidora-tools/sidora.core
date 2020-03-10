@@ -1,9 +1,19 @@
-#' Establish connection to database table
+#' Access and download tables from Pandora
 #'
-#' @param tab Name of table
-#' @param con Database connection
+#' See readme for more information.
 #'
-#' @return A table connection
+#' @param tab character vector. Names of tables
+#' @param con database connection
+#' @param cache logical. Should data be cached?
+#' @param cache_dir character. Path to cache directory
+#' @param cache_max_age numeric. Maximum age of cache in seconds
+#'
+#' @return connection, list of connections, data.frame or list of data.frames
+#' 
+#' @name get_data
+NULL
+
+#' @rdname get_data
 #' @export
 get_con <- function(tab = sidora.core::pandora_tables, con) {
   
@@ -23,12 +33,7 @@ get_con <- function(tab = sidora.core::pandora_tables, con) {
   return(my_con)
 }
 
-#' Establish connections to multiple database tables
-#'
-#' @param tab Names of tables
-#' @param con Database connection
-#'
-#' @return A list of table connections
+#' @rdname get_data
 #' @export
 get_con_list <- function(tab = sidora.core::pandora_tables, con) {
   
@@ -42,15 +47,7 @@ get_con_list <- function(tab = sidora.core::pandora_tables, con) {
   return(raw_list)
 }
 
-#' Download table from database
-#'
-#' @param tab Name of table
-#' @param con Database connection
-#' @param cache Should data be cached?
-#' @param cache_dir Path to cache directory
-#' @param cache_max_age Maximum age of cache in seconds
-#'
-#' @return A dataframe
+#' @rdname get_data
 #' @export
 get_df <- function(
   tab = sidora.core::pandora_tables, con, 
@@ -77,15 +74,7 @@ get_df <- function(
   return(this_tab) 
 }
 
-#' Download multiple tables from database
-#'
-#' @param tab Names of tables
-#' @param con Database connection
-#' @param cache Should data be cached?
-#' @param cache_dir Path to cache directory
-#' @param cache_max_age Maximum age of cache in seconds
-#'
-#' @return A list of dataframes
+#' @rdname get_data
 #' @export
 get_df_list <- function(
   tab = sidora.core::pandora_tables, con, 

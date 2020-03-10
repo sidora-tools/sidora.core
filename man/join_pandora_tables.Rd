@@ -2,16 +2,17 @@
 % Please edit documentation in R/join_data.R
 \name{join_pandora_tables}
 \alias{join_pandora_tables}
-\title{Join multiple tables}
+\title{Join multiple \strong{PANDORA table}s}
 \usage{
 join_pandora_tables(x)
 }
 \arguments{
-\item{x}{Named list of tables or connections as produced by \code{get_df_list} or \code{get_con_list}}
+\item{x}{named list of data.frames or connections (\strong{PANDORA table}s) as returned by 
+\code{get_con_list} or \code{get_df_list}}
 }
 \value{
-Joined dataframe
+data.frame (joined from multiple data.frames)
 }
 \description{
-Join multiple tables
+See readme for more information.
 }

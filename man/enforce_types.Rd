@@ -7,24 +7,14 @@
 enforce_types(x, suppress_na_introduced_warnings = TRUE)
 }
 \arguments{
-\item{x}{an object a PANDORA table}
+\item{x}{data.frame (PANDORA table)}
 
-\item{suppress_na_introduced_warnings}{suppress warnings caused by data removal in
+\item{suppress_na_introduced_warnings}{logical. Suppress warnings caused by data removal in
 type transformation due to unrecognised columns}
 }
 \value{
-a PANDORA table
+data.frame (PANDORA table) with correct column types
 }
 \description{
-Enforce variable types in a \strong{PANDORA table}
-}
-\examples{
-# initial situation
-\dontrun{
-ex <- get_df("TAB_Site", con)
-
-# fix type with enforce_types()
-ex <- enforce_types(ex)
-} 
-
+See readme for more information.
 }

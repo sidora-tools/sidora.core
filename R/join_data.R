@@ -1,8 +1,11 @@
-#' Join multiple tables
+#' Join multiple \strong{PANDORA table}s
 #'
-#' @param x Named list of tables or connections as produced by \code{get_df_list} or \code{get_con_list}
+#' See readme for more information.
 #'
-#' @return Joined dataframe
+#' @param x named list of data.frames or connections (\strong{PANDORA table}s) as returned by 
+#' \code{get_con_list} or \code{get_df_list}
+#'
+#' @return data.frame (joined from multiple data.frames)
 #' @export
 join_pandora_tables <- function(x) {
   
@@ -84,6 +87,8 @@ join_pandora_tables <- function(x) {
   }
   return(x[[return_table]])
 }
+
+#### helpers ####
 
 check_completeness <- function(tabs, join_order_vector) {
   all(sapply(

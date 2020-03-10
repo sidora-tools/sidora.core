@@ -1,28 +1,12 @@
-#### enforce variable types ####
-
-#' @name enforce_types
-#' @title Enforce column types in a \strong{PANDORA table}
+#' Enforce column types in a \strong{PANDORA table}
 #'
-#' @description Enforce variable types in a \strong{PANDORA table}
+#' See readme for more information.
 #'
-#' @param x an object a PANDORA table
-#' @param suppress_na_introduced_warnings suppress warnings caused by data removal in
+#' @param x data.frame (PANDORA table)
+#' @param suppress_na_introduced_warnings logical. Suppress warnings caused by data removal in
 #' type transformation due to unrecognised columns
 #'
-#' @return a PANDORA table
-#' @export
-#'
-#' @examples
-#' # initial situation
-#' \dontrun{
-#' ex <- get_df("TAB_Site", con)
-#' 
-#' # fix type with enforce_types()
-#' ex <- enforce_types(ex)
-#' } 
-#'
-
-#' @rdname enforce_types
+#' @return data.frame (PANDORA table) with correct column types
 #' @export
 enforce_types <- function(x, suppress_na_introduced_warnings = TRUE) {
   
