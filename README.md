@@ -5,40 +5,45 @@
 
 Functions to access and download tables of the MPI-SHH DAG Pandora database. Serves as backend for all sidora applications. 
 
-## Basic functions 
+## Quickstart
+
+Load the package and establish a database connection to Pandora.
 
 ```
 library(magrittr)
 library(sidora.core)
 
-#### establish connection to the Pandora database server ####
-
 con <- DBI::dbConnect(
   RMariaDB::MariaDB(), 
   host = "host", user = "user", password = "password", db = "pandora"
 )
+```
 
-#### get tables ####
+You can access individual tables either by establishing a DBI connection (`get_con()`) to them or by downloading them as a data.frame (`get_df()`). `get_df()` does two additional things: It transforms the columns of the downloaded table to the correct data type (with `enforce_types()`) and it caches the downloaded table locally. The default is a per-R-session cache, but you can cache more permanently by changing the `cache_dir` and `cache_max_age` parameters.
 
-# as DBI connection
+```
+# get DBI connection
 get_con("TAB_Site", con)
-# as a local data.frame (data is cached in a tempdir by default)
+# get a local data.frame 
 get_df("TAB_Site", con)
+```
 
-#### get multiple tables ####
+You can download multiple tables at once with `get_con_list()` and `get_df_list()`, which return a named list of objects. The latter again includes the additional type transformation and caching feature.
 
-# as list of DBI connections
+```
+# get list of DBI connections
 get_con_list(c(
   "TAB_Site", "TAB_Individual", "TAB_Sample", "TAB_Extract", "TAB_Library"
 ), con = con)
-
-# as list of data.frames
+# get list of data.frames
 df_list <- get_df_list(c(
   "TAB_Site", "TAB_Individual", "TAB_Sample", "TAB_Extract", "TAB_Library"
 ), con = con)
+```
 
-#### join tables ####
+Some Pandora tables can be merged following a hierarchical, pair-wise logic of primary and foreign keys. `join_pandora_tables()` is a join function which is aware of this logic and automatically combines lists of data.frames with Pandora tables (as produced by `get_con_list()` or `get_df_list()`) to long data.frames.
 
+```
 jt <- join_pandora_tables(df_list)
 
 get_df_list(c(
@@ -52,5 +57,3 @@ get_df_list(c(
 2. Next you will need to create the `.credentials` file - please speak to the repository contributors for details.
 3. Open Rstudio and go to File > Open Project and select the file 'sidora.core.Rproj' in the repository. 
 4. Press `Ctrl` + `shift` + `b` to build the package and load the library. (alternatively, in the top right pane go to the 'Build' tab and press Install and Restart)
-4. Now you can start your own, or open the file `playground/test.R` to test out the core functions.
-
