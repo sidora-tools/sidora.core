@@ -59,6 +59,7 @@ get_df <- function(
   
   # caching is activated
   if (cache) {
+    if (!dir.exists(cache_dir)) { dir.create(cache_dir) }
     tab_cache_file <- file.path(cache_dir, paste0(tab, ".RData"))
     if (file.exists(tab_cache_file) & file.mtime(tab_cache_file) > (Sys.time() - cache_max_age)) {
       load(tab_cache_file)
