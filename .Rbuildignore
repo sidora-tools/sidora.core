@@ -5,3 +5,4 @@
 ^data-raw$
 ^tests/testthat/\.credentials$
 ^LICENSE\.md$
+^\.credentials$

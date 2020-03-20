@@ -17,6 +17,8 @@ Imports:
   dplyr,
   dbplyr,
   magrittr,
+  purrr,
+  rlang,
   tibble,
   utils
 Suggests: 
