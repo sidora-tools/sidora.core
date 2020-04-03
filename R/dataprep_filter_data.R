@@ -11,6 +11,9 @@
 #' @export
 filter_pr_tag <- function(x, col, ins = c(), outs = c()) {
 
+  if (length(ins) != 0 && is.na(ins)) { ins <- c() }
+  if (length(outs) != 0 && is.na(outs)) { outs <- c() }
+  
   if (!(length(ins) == 0) & (length(outs) == 0)) {
     dplyr::filter(x, is_in(ins, .data[[col]]))
   } else if ((length(ins) == 0) & !(length(outs) == 0)) {
