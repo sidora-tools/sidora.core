@@ -7,7 +7,7 @@ Functions to access and download tables of the MPI-SHH DAG Pandora database. Ser
 
 ## Quickstart
 
-Load the package and establish a database connection to Pandora.
+Load the package and establish a database connection to Pandora. (if you have the right *.credentials* file that's also possible with `con <- get_pandora_connection()`)
 
 ```
 library(magrittr)
