@@ -9,20 +9,9 @@
 #' @export
 join_pandora_tables <- function(x) {
   
-  if (length(x) == 1) {
-    return(x[[1]])
-  }
-  
-  join_order_vector <- c(
-    "TAB_Site", "TAB_Individual", "TAB_Sample", "TAB_Extract", "TAB_Library", "TAB_Capture", "TAB_Sequencing", 
-    "TAB_Raw_Data", "TAB_Analysis", "TAB_Analysis_Result_String"
-  )
-  
+  if (length(x) == 1) { return(x[[1]]) }
   tabs <- names(x)
-  
-  if (!check_completeness(tabs, join_order_vector)) {
-    stop("Missing intermediate table.")
-  }
+  if (!check_completeness(tabs)) { stop("Missing intermediate table.") }
   
   return_table <- ""
     
@@ -90,7 +79,11 @@ join_pandora_tables <- function(x) {
 
 #### helpers ####
 
-check_completeness <- function(tabs, join_order_vector) {
+check_completeness <- function(tabs) {
+  join_order_vector <- c(
+    "TAB_Site", "TAB_Individual", "TAB_Sample", "TAB_Extract", "TAB_Library", "TAB_Capture", "TAB_Sequencing", 
+    "TAB_Raw_Data", "TAB_Analysis", "TAB_Analysis_Result_String"
+  )
   all(sapply(
     utils::combn(tabs, 2, simplify = F), function(x) {
       a_pos <- which(x[1] == join_order_vector)
