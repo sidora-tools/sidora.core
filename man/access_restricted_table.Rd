@@ -7,6 +7,8 @@
 access_restricted_table(con, entity_id)
 }
 \arguments{
+\item{con}{database connection}
+
 \item{entity_id}{sidora table name of restricted tables (e.g. 'worker' etc.)}
 }
 \description{
