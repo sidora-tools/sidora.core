@@ -63,6 +63,4 @@ convert_entity_table_name <- function(entity_type = c(), table_name = c()) {
     return(names(entity_map)[entity_map %in% table_name])
   }
   
-  return(result)
-  
 }
