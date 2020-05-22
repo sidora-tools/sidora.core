@@ -20,7 +20,10 @@ join_pandora_tables <- function(x) {
       x[["TAB_Site"]], 
       x[["TAB_Individual"]], 
       by = c("site.Id" = "individual.Site")
-    )
+    ) %>%
+      dplyr::mutate(
+        individual.Site = .data[["site.Id"]]
+      )
     return_table <- "TAB_Individual"
   }
   
@@ -29,7 +32,10 @@ join_pandora_tables <- function(x) {
       x[["TAB_Individual"]], 
       x[["TAB_Sample"]], 
       by = c("individual.Id" = "sample.Individual")
-    )
+    ) %>%
+      dplyr::mutate(
+        sample.Individual = .data[["individual.Id"]]
+      )
     return_table <- "TAB_Sample"
   }
   
@@ -38,7 +44,10 @@ join_pandora_tables <- function(x) {
       x[["TAB_Sample"]], 
       x[["TAB_Extract"]], 
       by = c("sample.Id" = "extract.Sample")
-    )
+    ) %>%
+      dplyr::mutate(
+        extract.Sample = .data[["sample.Id"]]
+      )
     return_table <- "TAB_Extract"
   }
   
@@ -47,7 +56,10 @@ join_pandora_tables <- function(x) {
       x[["TAB_Extract"]], 
       x[["TAB_Library"]], 
       by = c("extract.Id" = "library.Extract")
-    )
+    ) %>%
+      dplyr::mutate(
+        library.Extract = .data[["extract.Id"]]
+      )
     return_table <- "TAB_Library"
   }
   
@@ -56,7 +68,10 @@ join_pandora_tables <- function(x) {
       x[["TAB_Library"]], 
       x[["TAB_Capture"]], 
       by = c("library.Id" = "capture.Library")
-    )
+    ) %>%
+      dplyr::mutate(
+        capture.Library = .data[["library.Id"]]
+      )
     return_table <- "TAB_Capture"
   }
   
@@ -65,7 +80,10 @@ join_pandora_tables <- function(x) {
       x[["TAB_Capture"]], 
       x[["TAB_Sequencing"]], 
       by = c("capture.Id" = "sequencing.Capture")
-    )
+    ) %>%
+      dplyr::mutate(
+        sequencing.Capture = .data[["capture.Id"]]
+      )
     return_table <- "TAB_Sequencing"
   }
   return(x[[return_table]])
