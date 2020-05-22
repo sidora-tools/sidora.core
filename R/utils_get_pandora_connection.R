@@ -6,7 +6,7 @@
 #' @return The Pandora DB connection object.
 #' 
 #' @export
-get_pandora_connection <- function (cred_file = ".credentials") {
+get_pandora_connection <- function(cred_file = ".credentials") {
   
   check_if_packages_are_available("RMariaDB")
   

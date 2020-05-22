@@ -90,3 +90,28 @@ get_df_list <- function(
   
   return(raw_list)
 }
+
+#' access_restricted_table
+#'
+#' Some tables are restricted, e.g. the pandora_read user does not have access 
+#' to certain columns. This function will use custom SQL queries to get all
+#' useful (non-restricted) columns.
+#'
+#' @param entity_id sidora table name of restricted tables (e.g. 'worker' etc.)
+#'
+#' @export
+access_restricted_table <- function(con, entity_id){
+  
+  restricted_map <- c("worker")
+  
+  if ( !entity_id %in% restricted_map )
+    stop(paste0("[sidora.core] error: entity_id not found in restricted table list. Options: ",
+               paste(restricted_map, collapse = ","),
+               ". Your selection: ", entity_id))
+  
+  
+  ## Assumes con already generated
+  if ( entity_id == "worker" )
+    dplyr::tbl(con, dbplyr::build_sql("SELECT Id, Name, Username FROM TAB_User", con = con))
+  
+}
