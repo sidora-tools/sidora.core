@@ -107,4 +107,19 @@ check_completeness <- function(
   ))
 }
 
-
+#' make_complete_table_list
+#'
+#' @param tabs test
+#' @param join_order_vector test
+#'
+#' @export
+make_complete_table_list <- function(
+  tabs,
+  join_order_vector = sidora.core::pandora_tables
+) {
+  positions <- sapply(tabs, function(x) { which(x == join_order_vector) })
+  res <- join_order_vector[seq(min(positions), max(positions), 1)]
+  return(res)
+}
+  
+  
