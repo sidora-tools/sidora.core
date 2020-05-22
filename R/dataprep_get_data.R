@@ -18,12 +18,16 @@ NULL
 get_con <- function(tab = sidora.core::pandora_tables, con) {
   
   if (length(tab) != 1) {
-    stop("Select one valid PANDORA SQL table.")
+    stop("[sidora.core] error: Select one valid PANDORA SQL table.")
   }
   
   # establish data connection
-  my_con <- dplyr::tbl(con, tab)
-
+  if (tab %in% c("TAB_worker")) { 
+    my_con <- access_restricted_table(con, tab)
+  } else {
+    my_con <- dplyr::tbl(con, tab)
+  }
+    
   # remove deleted objects  
   if ("Deleted" %in% colnames(my_con)) {
     my_con <- my_con %>%
@@ -54,7 +58,7 @@ get_df <- function(
   cache = T, cache_dir = tempdir(), cache_max_age = 24 * 60 * 60) {
   
   if (length(tab) != 1) {
-    stop("Select one valid PANDORA SQL table.")
+    stop("[sidora.core] error: Select one valid PANDORA SQL table.")
   }
   
   # caching is activated

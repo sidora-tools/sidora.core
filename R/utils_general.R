@@ -14,7 +14,7 @@ check_if_packages_are_available <- function(packages_ch) {
   ) {
     stop(
       paste0(
-        "R packages ",
+        "[sidora.core] error: R packages ",
         paste(packages_ch, collapse = ", "),
         " needed for this function to work. Please install with ",
         "install.packages(c('", paste(packages_ch, collapse = "', '"), "'))"
