@@ -22,7 +22,7 @@ get_con <- function(tab = sidora.core::pandora_tables, con) {
   }
   
   # establish data connection
-  if (tab %in% pandora_tables_restricted)
+  if (tab %in% sidora.core::pandora_tables_restricted)
     my_con <- access_restricted_table(con, tab)
   else {
     my_con <- dplyr::tbl(con, tab)
@@ -116,9 +116,9 @@ get_df_list <- function(
 #' @export
 access_restricted_table <- function(con, entity_id){
   
-  if ( !entity_id %in% pandora_tables_restricted )
+  if ( !entity_id %in% sidora.core::pandora_tables_restricted )
     stop(paste0("[sidora.core] error: entity_id not found in restricted table list. Options: ",
-               paste(pandora_tables_restricted, collapse = ","),
+               paste(sidora.core::pandora_tables_restricted, collapse = ","),
                ". Your selection: ", entity_id))
   
   
