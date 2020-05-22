@@ -17,60 +17,54 @@ join_pandora_tables <- function(x) {
     
   if (all(c("TAB_Site", "TAB_Individual") %in% tabs)) {
     x[["TAB_Individual"]] <- dplyr::left_join(
-      x[["TAB_Site"]] %>% dplyr::rename("Site" = "Id"), 
+      x[["TAB_Site"]], 
       x[["TAB_Individual"]], 
-      by = "Site", 
-      suffix = c(".Site", ".Individual")
+      by = c("site.Id" = "individual.Site")
     )
     return_table <- "TAB_Individual"
   }
   
   if (all(c("TAB_Individual", "TAB_Sample") %in% tabs)) {
     x[["TAB_Sample"]] <- dplyr::left_join(
-      x[["TAB_Individual"]] %>% dplyr::rename("Individual" = "Id"), 
+      x[["TAB_Individual"]], 
       x[["TAB_Sample"]], 
-      by = "Individual", 
-      suffix = c(".Individual", ".Sample")
+      by = c("individual.Id" = "sample.Individual")
     )
     return_table <- "TAB_Sample"
   }
   
   if (all(c("TAB_Sample", "TAB_Extract") %in% tabs)) {
     x[["TAB_Extract"]] <- dplyr::left_join(
-      x[["TAB_Sample"]] %>% dplyr::rename("Sample" = "Id"), 
+      x[["TAB_Sample"]], 
       x[["TAB_Extract"]], 
-      by = "Sample", 
-      suffix = c(".Sample", ".Extract")
+      by = c("sample.Id" = "extract.Sample")
     )
     return_table <- "TAB_Extract"
   }
   
   if (all(c("TAB_Extract", "TAB_Library") %in% tabs)) {
     x[["TAB_Library"]] <- dplyr::left_join(
-      x[["TAB_Extract"]] %>% dplyr::rename("Extract" = "Id"), 
+      x[["TAB_Extract"]], 
       x[["TAB_Library"]], 
-      by = "Extract", 
-      suffix = c(".Extract", ".Library")
+      by = c("extract.Id" = "library.Extract")
     )
     return_table <- "TAB_Library"
   }
   
   if (all(c("TAB_Library", "TAB_Capture") %in% tabs)) {
     x[["TAB_Capture"]] <- dplyr::left_join(
-      x[["TAB_Library"]] %>% dplyr::rename("Library" = "Id"), 
+      x[["TAB_Library"]], 
       x[["TAB_Capture"]], 
-      by = "Library", 
-      suffix = c(".Library", ".Capture")
+      by = c("library.Id" = "capture.Library")
     )
     return_table <- "TAB_Capture"
   }
   
   if (all(c("TAB_Capture", "TAB_Sequencing") %in% tabs)) {
     x[["TAB_Sequencing"]] <- dplyr::left_join(
-      x[["TAB_Capture"]] %>% dplyr::rename("Capture" = "Id"), 
+      x[["TAB_Capture"]], 
       x[["TAB_Sequencing"]], 
-      by = "Capture", 
-      suffix = c(".Capture", ".Sequencing")
+      by = c("capture.Id" = "sequencing.Capture")
     )
     return_table <- "TAB_Sequencing"
   }
