@@ -25,7 +25,7 @@ test_that("get_df() behaves as expected", {
   expect_s3_class(ind_table_df, c("tbl_df", "tbl", "data.frame"), exact = T)
   expect_equal(ncol(ind_table_df), 17)
   expect_gt(nrow(ind_table_df), 1000)
-  expect_false(as.logical(unique(ind_table_df$Deleted)))
+  expect_false(as.logical(unique(ind_table_df$site.Deleted)))
 })
 
 test_that("get_df_list() behaves as expected", {

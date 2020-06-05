@@ -1,4 +1,31 @@
-#' convert_entity_table_name
+#' get_namecol_from_entity
+#'
+#' @param entity_type a valid entity type (e.g. site, sample, individual etc.)
+#'
+#' @export
+get_namecol_from_entity <- function(entity_type) {
+  
+  selected_tables <- entity2table(entity_type)
+  
+  id_col_map <- c(
+    TAB_Site = "Full_Site_Id",
+    TAB_Individual = "Full_Individual_Id",
+    TAB_Sample = "Full_Sample_Id",
+    TAB_Extract = "Full_Extract_Id",
+    TAB_Library = "Full_Library_Id",
+    TAB_Capture  = "Full_Capture_Id",
+    TAB_Sequencing = "Full_Sequencing_Id",
+    TAB_Raw_Data = "Full_Raw_Data_Id",
+    TAB_Sequencer = "Name",
+    TAB_Tag = "Name",
+    TAB_Project = "Name"
+  )
+  
+  return(paste0(entity_type, ".", unname(id_col_map[selected_tables])))
+  
+}
+
+#' name_conversion
 #'
 #' @param entity_type a valid entity type (e.g. site, sample, individual etc.)
 #' @param table_name a valid table name (e.g. TAB_Site, TAB_Sample etc.)
@@ -63,8 +90,6 @@ convert_entity_table_name <- function(entity_type = c(), table_name = c()) {
     
     return(names(entity_map)[entity_map %in% table_name])
   }
-  
-  return(result)
   
 }
 

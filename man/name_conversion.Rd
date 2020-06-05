@@ -4,7 +4,7 @@
 \alias{entity2table}
 \alias{table2entity}
 \alias{convert_entity_table_name}
-\title{convert_entity_table_name}
+\title{name_conversion}
 \usage{
 entity2table(entity_type)
 
@@ -18,5 +18,5 @@ convert_entity_table_name(entity_type = c(), table_name = c())
 \item{table_name}{a valid table name (e.g. TAB_Site, TAB_Sample etc.)}
 }
 \description{
-convert_entity_table_name
+name_conversion
 }
