@@ -17,61 +17,73 @@ join_pandora_tables <- function(x) {
     
   if (all(c("TAB_Site", "TAB_Individual") %in% tabs)) {
     x[["TAB_Individual"]] <- dplyr::left_join(
-      x[["TAB_Site"]] %>% dplyr::rename("Site" = "Id"), 
+      x[["TAB_Site"]], 
       x[["TAB_Individual"]], 
-      by = "Site", 
-      suffix = c(".Site", ".Individual")
-    )
+      by = c("site.Id" = "individual.Site")
+    ) %>%
+      dplyr::mutate(
+        individual.Site = .data[["site.Id"]]
+      )
     return_table <- "TAB_Individual"
   }
   
   if (all(c("TAB_Individual", "TAB_Sample") %in% tabs)) {
     x[["TAB_Sample"]] <- dplyr::left_join(
-      x[["TAB_Individual"]] %>% dplyr::rename("Individual" = "Id"), 
+      x[["TAB_Individual"]], 
       x[["TAB_Sample"]], 
-      by = "Individual", 
-      suffix = c(".Individual", ".Sample")
-    )
+      by = c("individual.Id" = "sample.Individual")
+    ) %>%
+      dplyr::mutate(
+        sample.Individual = .data[["individual.Id"]]
+      )
     return_table <- "TAB_Sample"
   }
   
   if (all(c("TAB_Sample", "TAB_Extract") %in% tabs)) {
     x[["TAB_Extract"]] <- dplyr::left_join(
-      x[["TAB_Sample"]] %>% dplyr::rename("Sample" = "Id"), 
+      x[["TAB_Sample"]], 
       x[["TAB_Extract"]], 
-      by = "Sample", 
-      suffix = c(".Sample", ".Extract")
-    )
+      by = c("sample.Id" = "extract.Sample")
+    ) %>%
+      dplyr::mutate(
+        extract.Sample = .data[["sample.Id"]]
+      )
     return_table <- "TAB_Extract"
   }
   
   if (all(c("TAB_Extract", "TAB_Library") %in% tabs)) {
     x[["TAB_Library"]] <- dplyr::left_join(
-      x[["TAB_Extract"]] %>% dplyr::rename("Extract" = "Id"), 
+      x[["TAB_Extract"]], 
       x[["TAB_Library"]], 
-      by = "Extract", 
-      suffix = c(".Extract", ".Library")
-    )
+      by = c("extract.Id" = "library.Extract")
+    ) %>%
+      dplyr::mutate(
+        library.Extract = .data[["extract.Id"]]
+      )
     return_table <- "TAB_Library"
   }
   
   if (all(c("TAB_Library", "TAB_Capture") %in% tabs)) {
     x[["TAB_Capture"]] <- dplyr::left_join(
-      x[["TAB_Library"]] %>% dplyr::rename("Library" = "Id"), 
+      x[["TAB_Library"]], 
       x[["TAB_Capture"]], 
-      by = "Library", 
-      suffix = c(".Library", ".Capture")
-    )
+      by = c("library.Id" = "capture.Library")
+    ) %>%
+      dplyr::mutate(
+        capture.Library = .data[["library.Id"]]
+      )
     return_table <- "TAB_Capture"
   }
   
   if (all(c("TAB_Capture", "TAB_Sequencing") %in% tabs)) {
     x[["TAB_Sequencing"]] <- dplyr::left_join(
-      x[["TAB_Capture"]] %>% dplyr::rename("Capture" = "Id"), 
+      x[["TAB_Capture"]], 
       x[["TAB_Sequencing"]], 
-      by = "Capture", 
-      suffix = c(".Capture", ".Sequencing")
-    )
+      by = c("capture.Id" = "sequencing.Capture")
+    ) %>%
+      dplyr::mutate(
+        sequencing.Capture = .data[["capture.Id"]]
+      )
     return_table <- "TAB_Sequencing"
   }
   return(x[[return_table]])
@@ -79,11 +91,10 @@ join_pandora_tables <- function(x) {
 
 #### helpers ####
 
-check_completeness <- function(tabs) {
-  join_order_vector <- c(
-    "TAB_Site", "TAB_Individual", "TAB_Sample", "TAB_Extract", "TAB_Library", "TAB_Capture", "TAB_Sequencing", 
-    "TAB_Raw_Data", "TAB_Analysis", "TAB_Analysis_Result_String"
-  )
+check_completeness <- function(
+  tabs, 
+  join_order_vector = sidora.core::pandora_tables
+) {
   all(sapply(
     utils::combn(tabs, 2, simplify = F), function(x) {
       a_pos <- which(x[1] == join_order_vector)
@@ -96,4 +107,19 @@ check_completeness <- function(tabs) {
   ))
 }
 
-
+#' make_complete_table_list
+#'
+#' @param tabs test
+#' @param join_order_vector test
+#'
+#' @export
+make_complete_table_list <- function(
+  tabs,
+  join_order_vector = sidora.core::pandora_tables
+) {
+  positions <- sapply(tabs, function(x) { which(x == join_order_vector) })
+  res <- join_order_vector[seq(min(positions), max(positions), 1)]
+  return(res)
+}
+  
+  
