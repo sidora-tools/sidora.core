@@ -79,6 +79,8 @@ get_df <- function(
   return(this_tab) 
 }
 
+#' @rdname get_data
+#' @export
 add_prefix_to_colnames <- function(x, prefix) {
   colnames(x) <- paste0(prefix, ".", colnames(x))
   return(x)
@@ -121,9 +123,11 @@ access_restricted_table <- function(con, entity_id){
                paste(sidora.core::pandora_tables_restricted, collapse = ","),
                ". Your selection: ", entity_id))
   
-  
   ## Assumes con already generated
   if ( entity_id == "TAB_User" )
-    dplyr::tbl(con, dbplyr::build_sql("SELECT Id, Name, Username FROM TAB_User", con = con))
+    dplyr::tbl(con, dbplyr::build_sql("SELECT Id, Name, Username FROM TAB_User", 
+                                      con = con)) %>%
+    dplyr::as_tibble() %>%
+    add_prefix_to_colnames(table2entity(entity_id))
   
 }

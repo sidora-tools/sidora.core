@@ -16,9 +16,10 @@ get_namecol_from_entity <- function(entity_type) {
     TAB_Capture  = "Full_Capture_Id",
     TAB_Sequencing = "Full_Sequencing_Id",
     TAB_Raw_Data = "Full_Raw_Data_Id",
-    TAB_Sequencer = "Name",
+    TAB_Sequencing = "Name",
     TAB_Tag = "Name",
-    TAB_Project = "Name"
+    TAB_Project = "Name",
+    TAB_User = "Name"
   )
   
   return(paste0(entity_type, ".", unname(id_col_map[selected_tables])))
@@ -57,12 +58,13 @@ convert_entity_table_name <- function(entity_type = c(), table_name = c()) {
     extract = "TAB_Extract",
     library = "TAB_Library",
     capture = "TAB_Capture",
-    sequencing = "TAB_Sequencing_Sequencer",
+    sequencing = "TAB_Sequencing",
     raw_data = "TAB_Raw_Data",
-    sequencer = "TAB_Sequencer",
+    sequencer = "TAB_Sequencing_Sequencer",
     tag = "TAB_Tag",
-    project = "TAB_Project"
-    worker = "TAB_Worker"
+    project = "TAB_Project",
+    user = "TAB_User",
+    sequencing_setup = "TAB_Sequencing_Setup"
   )
   
   if (length(entity_type) > 0) {
