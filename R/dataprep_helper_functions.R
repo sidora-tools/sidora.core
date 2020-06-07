@@ -108,12 +108,19 @@ convert_entity_table_name <- function(entity_type = c(), table_name = c()) {
 
 id2string <- function(con, entity_type, id, cache_dir){
   
-  tab_info <- table2entity(entity_type)
+  tab_info <- convert_entity_table_name(entity_type)
   
   selected_table <- sidora.core::get_df(con, 
-                                        tab = tab_info$pandora_table, 
+                                        tab = tab_info, 
                                         cache_dir = cache_dir)
   
-  selected_table %>% dplyr::filter(Id = .data$id)
-  
+  selected_table %>% dplyr::filter(!!str_to_colname(entity_type, "Id") == id) %>%
+    dplyr::select(get_namecol_from_entity(entity_type)) %>%
+    dplyr::pull(.)
 }
+
+#' @rdname col_conversion
+#' @export
+str_to_colname <- function(entity_type, col) { 
+  as.name(paste0(entity_type, ".", col)) 
+  }
