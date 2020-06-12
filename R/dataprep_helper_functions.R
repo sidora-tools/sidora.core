@@ -119,6 +119,16 @@ id2string <- function(con, entity_type, id, cache_dir){
     dplyr::pull(.)
 }
 
+#' col_conversion
+#' 
+#' Simple helper function to get around NSE issues with R.
+#'  
+#' Converts a table/column selection into a usable Sidora column object for
+#' selecting columns by column name in a tibble.
+#' 
+#' @param entity_type the table name in sidora format the requested column is derived from 
+#' @param col the column name to be selected
+#' 
 #' @rdname col_conversion
 #' @export
 str_to_colname <- function(entity_type, col) { 
