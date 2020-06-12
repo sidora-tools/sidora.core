@@ -134,3 +134,5 @@ id2string <- function(con, entity_type, id, cache_dir){
 str_to_colname <- function(entity_type, col) { 
   as.name(paste0(entity_type, ".", col)) 
   }
+
+#' 
