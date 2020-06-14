@@ -7,11 +7,11 @@
 get_pandora_connection(cred_file = ".credentials")
 }
 \arguments{
-\item{cred_file}{A credentials file containing three lines
+\item{cred_file}{character. Path to a credentials file containing three lines
 listing host, user and password, respectively}
 }
 \value{
-The Pandora DB connection object.
+A Pandora DB connection object
 }
 \description{
 Get the connection object for the Pandora DB
