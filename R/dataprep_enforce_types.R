@@ -1,13 +1,13 @@
 #' Enforce column types in a \strong{PANDORA table}
 #'
-#' See readme for more information.
-#'
 #' @param x data.frame (PANDORA table)
 #' @param suppress_na_introduced_warnings logical. Suppress warnings caused by data removal in
 #' type transformation due to unrecognised columns
 #'
 #' @return data.frame (PANDORA table) with correct column types
-#' @export
+#' 
+#' @keywords internal
+#' @noRd
 enforce_types <- function(x, suppress_na_introduced_warnings = TRUE) {
   
   # define variable type lists - currently has site, sample individual, extract, library, capture, sequencing, analysis, analysis_result_string
