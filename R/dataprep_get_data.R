@@ -1,9 +1,23 @@
 #' Access and download tables from Pandora
 #'
-#' See readme for more information.
+#' You can access individual tables either by establishing a DBI connection 
+#' (\code{get_con()}) to them or by downloading them as a data.frame (\code{get_df()}). 
+#' You'll probably not need the former, which is only relevant if you want to 
+#' interact with the database server directly. \code{get_df()} does three additional 
+#' things: It transforms the columns of the downloaded table to the correct data 
+#' type (with \code{enforce_types()}), it adds a table name prefix to each column name
+#' and it caches the downloaded table locally. The default is a per-R-session 
+#' cache, but you can cache more permanently by changing the \code{cache_dir} 
+#' and \code{cache_max_age} parameters.\cr\cr
+#' You can download multiple tables at once with \code{get_con_list()} and 
+#' \code{get_df_list()}, which return a named list of objects. The latter again 
+#' includes the additional transformation and caching features. \cr\cr
+#' Some tables are restricted, i.e. the Pandora read user does not have access 
+#' to certain columns. \code{access_restricted_table()} allows you to get the open
+#' (non-restricted) columns of these tables.
 #'
 #' @param tab character vector. Names of tables
-#' @param con database connection
+#' @param con database connection object
 #' @param cache logical. Should data be cached?
 #' @param cache_dir character. Path to cache directory
 #' @param cache_max_age numeric. Maximum age of cache in seconds
@@ -104,26 +118,18 @@ get_df_list <- function(
   return(raw_list)
 }
 
-#' access_restricted_table
-#'
-#' Some tables are restricted, e.g. the pandora_read user does not have access 
-#' to certain columns. This function will use custom SQL queries to get all
-#' useful (non-restricted) columns.
-#'
-#' @param con database connection
-#' @param entity_id sidora table name of restricted tables (e.g. 'worker' etc.)
-#'
+#' @rdname get_data
 #' @export
-access_restricted_table <- function(con, entity_id){
+access_restricted_table <- function(con, tab){
   
-  if ( !entity_id %in% sidora.core::pandora_tables_restricted )
-    stop(paste0("[sidora.core] error: entity_id not found in restricted table list. Options: ",
+  if ( !tab %in% sidora.core::pandora_tables_restricted )
+    stop(paste0("[sidora.core] error: tab not found in restricted table list. Options: ",
                paste(sidora.core::pandora_tables_restricted, collapse = ","),
-               ". Your selection: ", entity_id))
+               ". Your selection: ", tab))
   
   
   ## Assumes con already generated
-  if ( entity_id == "TAB_User" )
+  if ( tab == "TAB_User" )
     dplyr::tbl(con, dbplyr::build_sql("SELECT Id, Name, Username FROM TAB_User", con = con))
   
 }
