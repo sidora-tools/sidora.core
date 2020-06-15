@@ -23,7 +23,8 @@ enforce_types <- function(x, suppress_na_introduced_warnings = TRUE) {
                           "Full_Library_Id", "P7_Barcode_Sequence", "P5_Barcode_Sequence", "P7_Index_Sequence", "P5_Index_Sequence", 
                           "P7_Index_Id", "P5_Index_Id", "External_Library_Id", "Position_on_Plate", "Capture_Id", "Full_Capture_Id",
                           "Full_Sequencing_Id", "Run_Id", "Single_Stranded", "Analysis_Id", "Full_Analysis_Id", "Result_Directory")
-  coltypes_logical <- c("Deleted", "Ethically_culturally_sensitive", "Robot", "Title") ## Skipping Analysis String 'Result' as should be numeric but includes mixed cells
+  coltypes_logical <- c("Deleted", "Title") ## Skipping Analysis String 'Result' as should be numeric but includes mixed cells
+  coltypes_yesno_logical <- c("Ethically_culturally_sensitive", "Robot")
   coltypes_double <- c("Latitude", "Longitude", "Sampled_Quantity", "Quantity_Sample", "Quantity_Lysate", "Sampled_Quantity", 
                        "Quantity_Extract", "Efficiency_Factor", "Weight_Lane_1-4", "Weight_Lane_1", "Weight_Lane_2", "Weight_Lane_3",
                        "Weight_Lane_4", "Weight_Lane_5", "Weight_Lane_6", "Weight_Lange_7", "Weight_Lane_8")
@@ -33,23 +34,23 @@ enforce_types <- function(x, suppress_na_introduced_warnings = TRUE) {
   if (suppress_na_introduced_warnings) {
     withCallingHandlers({
       x <- x %>%
-        dplyr::mutate_if(colnames(.) == "Robot", list(~. == 'Yes')) %>%
         dplyr::mutate_if(colnames(.) %in% coltypes_character, as.character) %>%
         dplyr::mutate_if(colnames(.) %in% coltypes_integer, as.integer) %>%
         dplyr::mutate_if(colnames(.) %in% coltypes_double, as.double) %>%
         dplyr::mutate_if(colnames(.) %in% coltypes_date, as.Date) %>%
-        dplyr::mutate_if(colnames(.) %in% coltypes_logical, as.logical)
+        dplyr::mutate_if(colnames(.) %in% coltypes_logical, as.logical) %>%
+        dplyr::mutate_if(colnames(.) %in% coltypes_yesno_logical, as.yesno_logical)
     },
     warning = na_introduced_warning_handler
     )
   } else {
     x <- x %>%
-      dplyr::mutate_if(colnames(.) == "Robot", list(~. == 'Yes')) %>%
       dplyr::mutate_if(colnames(.) %in% coltypes_character, as.character) %>%
       dplyr::mutate_if(colnames(.) %in% coltypes_integer, as.integer) %>%
       dplyr::mutate_if(colnames(.) %in% coltypes_double, as.double) %>%
       dplyr::mutate_if(colnames(.) %in% coltypes_date, as.Date) %>%
-      dplyr::mutate_if(colnames(.) %in% coltypes_logical, as.logical)
+      dplyr::mutate_if(colnames(.) %in% coltypes_logical, as.logical) %>%
+      dplyr::mutate_if(colnames(.) %in% coltypes_yesno_logical, as.yesno_logical)
   }
   
   return(x)
@@ -63,4 +64,8 @@ na_introduced_warning_handler <- function(x) {
   )) {
     invokeRestart("muffleWarning")
   }
+}
+
+as.yesno_logical <- function(x) {
+  x == "Yes"
 }
