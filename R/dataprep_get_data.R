@@ -100,6 +100,7 @@ add_prefix_to_colnames <- function(x, prefix) {
 
 core_tab_download <- function(tab, con) {
   get_con(tab, con) %>% tibble::as_tibble() %>% enforce_types() %>% add_prefix_to_colnames(table2entity(tab))
+  DBI::dbDisconnect(con)
 }
 
 #' @rdname get_data
