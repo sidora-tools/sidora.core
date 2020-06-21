@@ -6,23 +6,10 @@
 get_namecol_from_entity <- function(entity_type) {
   
   selected_tables <- entity2table(entity_type)
+
   
-  id_col_map <- c(
-    TAB_Site = "Full_Site_Id",
-    TAB_Individual = "Full_Individual_Id",
-    TAB_Sample = "Full_Sample_Id",
-    TAB_Extract = "Full_Extract_Id",
-    TAB_Library = "Full_Library_Id",
-    TAB_Capture  = "Full_Capture_Id",
-    TAB_Sequencing = "Full_Sequencing_Id",
-    TAB_Raw_Data = "Full_Raw_Data_Id",
-    TAB_Sequencing = "Name",
-    TAB_Tag = "Name",
-    TAB_Project = "Name",
-    TAB_User = "Name"
-  )
-  
-  return(paste0(entity_type, ".", unname(id_col_map[selected_tables])))
+    
+  return(paste0(entity_type, ".", unname(sidora.core::id_2_name_map[selected_tables])))
   
 }
 
@@ -51,21 +38,7 @@ convert_entity_table_name <- function(entity_type = c(), table_name = c()) {
     stop("[sidora.core] error: no entity type supplied.")
   }
     
-  entity_map <- c(
-    site = "TAB_Site",
-    individual = "TAB_Individual",
-    sample = "TAB_Sample",
-    extract = "TAB_Extract",
-    library = "TAB_Library",
-    capture = "TAB_Capture",
-    sequencing = "TAB_Sequencing",
-    raw_data = "TAB_Raw_Data",
-    sequencer = "TAB_Sequencing_Sequencer",
-    tag = "TAB_Tag",
-    project = "TAB_Project",
-    user = "TAB_User",
-    sequencing_setup = "TAB_Sequencing_Setup"
-  )
+  entity_map <- sidora.core::entity_map
   
   if (length(entity_type) > 0) {
     
@@ -99,10 +72,10 @@ convert_entity_table_name <- function(entity_type = c(), table_name = c()) {
 #'
 #' Given a requested table and a 'Id' name, will get the requested corresponding 'Full_*_ID' string.
 #'
-#' @param con
+#' @param con a pandora connection
 #' @param entity_type a sidora table name (e.g. 'site', 'individual' etc.)
 #' @param id the ID in the current table for which the 'string' version is requested
-#' @param cache_dir
+#' @param cache_dir a cache directory
 #'
 #' @export
 

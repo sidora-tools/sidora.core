@@ -7,11 +7,13 @@
 id2string(con, entity_type, id, cache_dir)
 }
 \arguments{
+\item{con}{a pandora connection}
+
 \item{entity_type}{a sidora table name (e.g. 'site', 'individual' etc.)}
 
 \item{id}{the ID in the current table for which the 'string' version is requested}
 
-\item{cache_dir}{}
+\item{cache_dir}{a cache directory}
 }
 \description{
 Given a requested table and a 'Id' name, will get the requested corresponding 'Full_*_ID' string.
