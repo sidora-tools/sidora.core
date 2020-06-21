@@ -6,10 +6,16 @@
 get_namecol_from_entity <- function(entity_type) {
   
   selected_tables <- entity2table(entity_type)
-
   
-    
-  return(paste0(entity_type, ".", unname(sidora.core::id_2_name_map[selected_tables])))
+  if ( !selected_tables %in% names(id_2_name_map) ) {
+    stop(paste(
+      "[sidora.core] error: supplied PANDORA table name not recognised Options:", 
+      paste(names(id_2_name_map), collapse = ", "),
+      sep = "\n"
+    ))  
+  }
+  
+  paste0(entity_type, ".", unname(sidora.core::id_2_name_map[selected_tables]))
   
 }
 
@@ -68,28 +74,61 @@ convert_entity_table_name <- function(entity_type = c(), table_name = c()) {
   
 }
 
-#' id2string
+#' get_name_from_id
 #'
-#' Given a requested table and a 'Id' name, will get the requested corresponding 'Full_*_ID' string.
+#' Given a requested table, 'Id' column and a 'Id' integet will get the 
+#' requested corresponding 'human readable' string version of the Id.
+#' 
+#' For example, given the.Batch ID 37 from the 'extract' sidora table,, would 
+#' result in Ex06_KE_2015-11-19
 #'
 #' @param con a pandora connection
-#' @param entity_type a sidora table name (e.g. 'site', 'individual' etc.)
-#' @param id the ID in the current table for which the 'string' version is requested
+#' @param query_tab a sidora table name (e.g. 'site', 'individual' etc.)
+#' @param query_col the column that that a pandora numeric Id to be converted is in
+#' @param query_id a pandora numeric Id to be converted to the human readable 'string' version
 #' @param cache_dir a cache directory
+#'
+#' @examples
+#' 
+#' get_name_from_id(con = con, query_tab = "extract", query_col = "extract.Batch", query_id = 37)
 #'
 #' @export
 
-id2string <- function(con, entity_type, id, cache_dir){
+get_name_from_id <- function(con, query_tab, query_col, query_id, cache_dir) {
   
-  tab_info <- convert_entity_table_name(entity_type)
+  ## Find which auxilary table 'col' is from, and sidora entity_types and id/name cols
+  aux_tab <- sidora.core::auxtablelookup[sub(paste0(query_tab, "."), "", query_col)]
+  aux_entity <- sidora.core::table2entity(aux_tab)
+  aux_id_col <- sidora.core::str_to_colname(aux_entity, "Id")
+  aux_name_col <- sidora.core::get_namecol_from_entity(aux_entity)
   
-  selected_table <- sidora.core::get_df(con, 
-                                        tab = tab_info, 
-                                        cache_dir = cache_dir)
   
-  selected_table %>% dplyr::filter(!!str_to_colname(entity_type, "Id") == id) %>%
-    dplyr::select(get_namecol_from_entity(entity_type)) %>%
-    dplyr::pull(.)
+  ## Now filter this to the requested ID number, and extract corresponding name
+  result <- sidora.core::get_df(con = con, aux_tab, cache_dir = cache_dir) %>%
+    dplyr::filter(!!aux_id_col == 10) %>%
+    dplyr::pull(aux_name_col)
+  
+  ## Check the ID actually exists
+  if (length(result) != 1) {
+    stop(paste0("[sidora.core] error: Requested Id from", query_col," was not found. Name string could not be resolved"))
+  } else {
+    return(result)
+  }
+}
+
+#' is_sidoracol_auxid
+#' 
+#' Provides logical value whether a given sidora column name is a valid
+#' 'Id' column that can be used for look-up in auxiliary tables 
+#' 
+#' @param entity_type a given sidora table of the column to be searched
+#' @param col_name a sidora table column to be checked whether it is an numeric 'Id' column can be looked up in auxilary tables 
+#' 
+#' @export
+
+is_sidoracol_auxid <- function(entity_type, col_name) {
+  cleaned_col <- gsub(paste0(entity_type, "."), "", as.character(col_name))
+  cleaned_col %in% names(auxtablelookup)
 }
 
 #' col_conversion
