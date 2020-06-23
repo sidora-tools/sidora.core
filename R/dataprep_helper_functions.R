@@ -1,5 +1,9 @@
 #' get_namecol_from_entity
 #'
+#' This gets the column of a given table, that contains the human-readable 'name' 
+#' columns that will correspond to a numeric PANDORA ID.
+#'  
+#'
 #' @param entity_type a valid entity type (e.g. site, sample, individual etc.)
 #'
 #' @export
@@ -20,6 +24,9 @@ get_namecol_from_entity <- function(entity_type) {
 }
 
 #' name_conversion
+#' 
+#' These functions converts a sidora entity type (e.g. site) to the 
+#' corresponding PANDORA API table name (e.g. 'TAB_Site') and vice versa.
 #'
 #' @param entity_type a valid entity type (e.g. site, sample, individual etc.)
 #' @param table_name a valid table name (e.g. TAB_Site, TAB_Sample etc.)
@@ -76,10 +83,10 @@ convert_entity_table_name <- function(entity_type = c(), table_name = c()) {
 
 #' get_name_from_id
 #'
-#' Given a requested table, 'Id' column and a 'Id' integet will get the 
+#' Given a requested table, 'Id' column and a 'Id' integer will get the 
 #' requested corresponding 'human readable' string version of the Id.
 #' 
-#' For example, given the.Batch ID 37 from the 'extract' sidora table,, would 
+#' For example, given the.Batch ID 37 from the 'extract' sidora table, would 
 #' result in Ex06_KE_2015-11-19
 #'
 #' @param con a pandora connection
@@ -101,7 +108,7 @@ get_name_from_id <- function(con, query_tab, query_col, query_id, cache_dir) {
   aux_entity <- sidora.core::table2entity(aux_tab)
   aux_id_col <- sidora.core::str_to_colname(aux_entity, "Id")
   aux_name_col <- sidora.core::get_namecol_from_entity(aux_entity)
-  
+  query_id <- as.numeric(query_id)
   
   ## Now filter this to the requested ID number, and extract corresponding name
   result <- sidora.core::get_df(con = con, aux_tab, cache_dir = cache_dir) %>%
@@ -110,7 +117,7 @@ get_name_from_id <- function(con, query_tab, query_col, query_id, cache_dir) {
   
   ## Check the ID actually exists
   if (length(result) != 1) {
-    stop(paste0("[sidora.core] error: Requested Id from", query_col," was not found. Name string could not be resolved"))
+    stop(paste0("[sidora.core] error: Requested Id from ", query_col," was not found. Name string could not be resolved"))
   } else {
     return(result)
   }

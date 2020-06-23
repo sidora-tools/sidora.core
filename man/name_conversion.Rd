@@ -18,5 +18,6 @@ convert_entity_table_name(entity_type = c(), table_name = c())
 \item{table_name}{a valid table name (e.g. TAB_Site, TAB_Sample etc.)}
 }
 \description{
-name_conversion
+These functions converts a sidora entity type (e.g. site) to the 
+corresponding PANDORA API table name (e.g. 'TAB_Site') and vice versa.
 }

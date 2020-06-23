@@ -18,11 +18,11 @@ get_name_from_id(con, query_tab, query_col, query_id, cache_dir)
 \item{cache_dir}{a cache directory}
 }
 \description{
-Given a requested table, 'Id' column and a 'Id' integet will get the 
+Given a requested table, 'Id' column and a 'Id' integer will get the 
 requested corresponding 'human readable' string version of the Id.
 }
 \details{
-For example, given the.Batch ID 37 from the 'extract' sidora table,, would 
+For example, given the.Batch ID 37 from the 'extract' sidora table, would 
 result in Ex06_KE_2015-11-19
 }
 \examples{

@@ -10,5 +10,6 @@ get_namecol_from_entity(entity_type)
 \item{entity_type}{a valid entity type (e.g. site, sample, individual etc.)}
 }
 \description{
-get_namecol_from_entity
+This gets the column of a given table, that contains the human-readable 'name' 
+columns that will correspond to a numeric PANDORA ID.
 }
