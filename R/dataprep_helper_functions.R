@@ -105,7 +105,7 @@ get_name_from_id <- function(con, query_tab, query_col, query_id, cache_dir) {
   
   ## Now filter this to the requested ID number, and extract corresponding name
   result <- sidora.core::get_df(con = con, aux_tab, cache_dir = cache_dir) %>%
-    dplyr::filter(!!aux_id_col == 10) %>%
+    dplyr::filter(!!aux_id_col == query_id) %>%
     dplyr::pull(aux_name_col)
   
   ## Check the ID actually exists
