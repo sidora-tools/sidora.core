@@ -13,7 +13,7 @@ get_name_from_id(con, query_tab, query_col, query_id, cache_dir)
 
 \item{query_col}{the column that that a pandora numeric Id to be converted is in}
 
-\item{query_id}{a pandora numeric Id to be converted to the human readable 'string' version}
+\item{query_id}{a vector of pandora numeric Id(s) to be converted to the human readable 'string' version}
 
 \item{cache_dir}{a cache directory}
 }

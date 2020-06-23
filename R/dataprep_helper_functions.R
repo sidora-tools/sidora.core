@@ -92,7 +92,7 @@ convert_entity_table_name <- function(entity_type = c(), table_name = c()) {
 #' @param con a pandora connection
 #' @param query_tab a sidora table name (e.g. 'site', 'individual' etc.)
 #' @param query_col the column that that a pandora numeric Id to be converted is in
-#' @param query_id a pandora numeric Id to be converted to the human readable 'string' version
+#' @param query_id a vector of pandora numeric Id(s) to be converted to the human readable 'string' version
 #' @param cache_dir a cache directory
 #'
 #' @examples
@@ -111,12 +111,13 @@ get_name_from_id <- function(con, query_tab, query_col, query_id, cache_dir) {
   query_id <- as.numeric(query_id)
   
   ## Now filter this to the requested ID number, and extract corresponding name
-  result <- sidora.core::get_df(con = con, aux_tab, cache_dir = cache_dir) %>%
-    dplyr::filter(!!aux_id_col == query_id) %>%
-    dplyr::pull(aux_name_col)
+  selected_tab <- sidora.core::get_df(con = con, aux_tab, cache_dir = cache_dir)
   
-  ## Check the ID actually exists
-  if (length(result) != 1) {
+  ## Report names in order
+  result <- selected_tab[[as.character(aux_name_col)]][match(query_id, selected_tab[[as.character(aux_id_col)]])]
+  
+  ## Check the ID(s) actually exists
+  if (length(result) == 0) {
     stop(paste0("[sidora.core] error: Requested Id from ", query_col," was not found. Name string could not be resolved"))
   } else {
     return(result)
