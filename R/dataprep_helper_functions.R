@@ -110,7 +110,7 @@ get_name_from_id <- function(con, query_tab, query_col, query_id, cache_dir) {
   aux_name_col <- sidora.core::get_namecol_from_entity(aux_entity)
   query_id <- as.numeric(query_id)
   
-  ## Now filter this to the requested ID number, and extract corresponding name
+  ## Now filter this to the requested ID number, and extract corresponding na(query_id)me
   selected_tab <- sidora.core::get_df(con = con, aux_tab, cache_dir = cache_dir)
   
   ## Report names in order

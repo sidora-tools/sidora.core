@@ -43,7 +43,7 @@ get_con_list <- function(tab = sidora.core::pandora_tables, con) {
   
   raw_list <- lapply(
     tab, function(cur_tab) {
-      get_con(cur_tab, con)
+      get_con(cur_tab, con) 
     }
   )
   names(raw_list) <- tab
@@ -127,7 +127,6 @@ access_restricted_table <- function(con, entity_id){
   if ( entity_id == "TAB_User" )
     dplyr::tbl(con, dbplyr::build_sql("SELECT Id, Name, Username FROM TAB_User", 
                                       con = con)) %>%
-    dplyr::as_tibble() %>%
-    add_prefix_to_colnames(table2entity(entity_id))
+    dplyr::as_tibble()
   
 }

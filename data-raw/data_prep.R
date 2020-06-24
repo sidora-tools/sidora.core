@@ -32,7 +32,7 @@ entity_map <- c(
   sequencer = "TAB_Sequencing_Sequencer",
   tag = "TAB_Tag",
   project = "TAB_Project",
-  user = "TAB_User",
+  #user = "TAB_User",
   sequencing_setup = "TAB_Sequencing_Setup",
   batch = "TAB_Batch",
   index_set = "TAB_Index_Set",
