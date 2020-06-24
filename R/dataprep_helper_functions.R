@@ -11,7 +11,7 @@ get_namecol_from_entity <- function(entity_type) {
   
   selected_tables <- entity2table(entity_type)
   
-  if ( !selected_tables %in% names(id_2_name_map) ) {
+  if ( !selected_tables %in% names(sidora.core::id_2_name_map) ) {
     stop(paste(
       "[sidora.core] error: supplied PANDORA table name not recognised Options:", 
       paste(names(id_2_name_map), collapse = ", "),
@@ -136,7 +136,7 @@ get_name_from_id <- function(con, query_tab, query_col, query_id, cache_dir) {
 
 is_sidoracol_auxid <- function(entity_type, col_name) {
   cleaned_col <- gsub(paste0(entity_type, "."), "", as.character(col_name))
-  cleaned_col %in% names(auxtablelookup)
+  cleaned_col %in% names(sidora.core::auxtablelookup)
 }
 
 #' col_conversion
