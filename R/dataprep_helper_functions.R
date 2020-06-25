@@ -116,10 +116,10 @@ get_name_from_id <- function(con, query_tab, query_col, query_id, cache_dir) {
   if (length(aux_name_col) > 1 || is.na(aux_name_col) ) {
     stop(paste0("[sidora.core] error: Two or no possible columns for name string look up were not found. Please report to the sidora-tools team. Cols:", aux_name_col))
   }
-
+  
   ## Report names in order
   result <- selected_tab[[as.character(aux_name_col)]][match(query_id, selected_tab[[as.character(aux_id_col)]])]
-
+  
   ## Check the ID(s) actually exists
   if (length(result) == 0) {
     stop(paste0("[sidora.core] error: Requested Id from ", query_col," was not found. Name string could not be resolved"))

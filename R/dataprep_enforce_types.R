@@ -15,10 +15,10 @@ enforce_types <- function(x, suppress_na_introduced_warnings = TRUE) {
                         "C14_Uncalibrated_Variation", "C14_Calibrated_From", "C14_Calibrated_To", "Type", "Location_Bone_Room",
                         "Location_Bone", "Location_Powder_Room", "Location_Powder", "Sample", "Extract", "Library_Id", "Index_Set", 
                         "Quantification_pre-Indexing_total", "Quantification_post-Indexing_total", "Post-Indexing_elution_volume",
-                        "Capture", "Sequencing_Id", "Sequencer", "Setup", "Raw_Data", "Analysis", "Order", "Probe_Set", "Library") # Skipping 'Type Group' because of same named columns and different types
+                        "Capture", "Sequencing_Id", "Sequencer", "Setup", "Raw_Data", "Analysis", "Order", "Probe_Set", "Library") # Skipping 'Type Group' and Archaeological_ID because of same named columns and different types
   coltypes_character <- c("Notes", "Tags", "Projects", "Contact_Person", "Position_on_Plate", "Location_Room", "Location", "Site_Id", 
                           "Full_Site_Id", "Name", "Locality", "Province", "Country", "Full_Individual_Id", "Owning_Institution", "Provenience",
-                          "Archaeological_ID", "C14_Info", "C14_Id", "Ethics", "Individual", "Sample_Id", "Extract_Id", "Full_Extract_Id",
+                          "C14_Info", "C14_Id", "Ethics", "Individual", "Sample_Id", "Extract_Id", "Full_Extract_Id",
                           "Full_Library_Id", "P7_Barcode_Sequence", "P5_Barcode_Sequence", "P7_Index_Sequence", "P5_Index_Sequence", 
                           "P7_Index_Id", "P5_Index_Id", "External_Library_Id", "Position_on_Plate", "Capture_Id", "Full_Capture_Id",
                           "Full_Sequencing_Id", "Run_Id", "Single_Stranded", "Analysis_Id", "Full_Analysis_Id", "Result_Directory",
