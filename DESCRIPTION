@@ -21,7 +21,6 @@ Imports:
   rlang,
   tibble,
   utils,
-  lubridate
 Suggests: 
   DBI,
   RMariaDB,
