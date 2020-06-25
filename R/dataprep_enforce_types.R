@@ -12,10 +12,10 @@ enforce_types <- function(x, suppress_na_introduced_warnings = TRUE) {
   
   # define variable type lists - currently has site, sample individual, extract, library, capture, sequencing, analysis, analysis_result_string
   coltypes_integer <- c("Id", "Worker", "Files", "Protocol", "Batch", "Site", "Individual", "Individual_Id", "Organism", "C14_Uncalibrated", 
-                        "C14_Uncalibrated_Variation", "C14_Calibrated_From", "C14_Calibrated_To", "Type_Group", "Type", "Location_Bone_Room",
+                        "C14_Uncalibrated_Variation", "C14_Calibrated_From", "C14_Calibrated_To", "Type", "Location_Bone_Room",
                         "Location_Bone", "Location_Powder_Room", "Location_Powder", "Sample", "Extract", "Library_Id", "Index_Set", 
                         "Quantification_pre-Indexing_total", "Quantification_post-Indexing_total", "Post-Indexing_elution_volume",
-                        "Capture", "Sequencing_Id", "Sequencer", "Setup", "Raw_Data", "Analysis", "Order", "Probe_Set", "Library")
+                        "Capture", "Sequencing_Id", "Sequencer", "Setup", "Raw_Data", "Analysis", "Order", "Probe_Set", "Library") # Skipping 'Type Group' because of same named columns and different types
   coltypes_character <- c("Notes", "Tags", "Projects", "Contact_Person", "Position_on_Plate", "Location_Room", "Location", "Site_Id", 
                           "Full_Site_Id", "Name", "Locality", "Province", "Country", "Full_Individual_Id", "Owning_Institution", "Provenience",
                           "Archaeological_ID", "C14_Info", "C14_Id", "Ethics", "Individual", "Sample_Id", "Extract_Id", "Full_Extract_Id",

@@ -7,7 +7,7 @@ pandora_tables <- c(
   "TAB_Library", "TAB_Capture", "TAB_Sequencing", 
   "TAB_Raw_Data", "TAB_Sequencing_Sequencer", "TAB_Tag", "TAB_Project",
   "TAB_User", "TAB_Batch", "TAB_Index_Set", "TAB_Location", "TAB_Location_Room",
-  "TAB_Organism", "TAB_Owner", "TAB_Probe_Set", "TAB_Type", "TAB_User",
+  "TAB_Organism", "TAB_Owner", "TAB_Probe_Set", "TAB_Type", "TAB_Type_Group", "TAB_User",
   "TAB_Index_Set_P5", "TAB_Index_Set_P7"
 )
 
@@ -43,10 +43,11 @@ entity_map <- c(
   probe_set = "TAB_Probe_Set",
   protocol = "TAB_Protocol",
   sequencing_setup = "TAB_Sequencing_Setup",
-  sample_type = "TAB_Type",
   worker = "TAB_User",
   index_p5 = "TAB_Index_Set_P5",
-  index_p7 = "TAB_Index_Set_P7"
+  index_p7 = "TAB_Index_Set_P7",
+  sample_type = "TAB_Type",
+  sample_type_group = "TAB_Type_Group"
 )
 
 usethis::use_data(entity_map)
@@ -58,7 +59,8 @@ auxtablelookup <- c(
   "Index_Set" =	"TAB_Index_Set",
   "Location" =	"TAB_Location",
   "Location_Bone" =	"TAB_Location",
-  "Location_Room" =	"TAB_Location_Room",
+  "Location_Room" =	"TAB_Location",
+  "Location_Powder" =	"TAB_Location",
   "Location_Bone_Room" =	"TAB_Location_Room",
   "Location_Powder_Room" =	"TAB_Location_Room",
   "Organism" =	"TAB_Organism",
@@ -68,7 +70,7 @@ auxtablelookup <- c(
   "Sequencer" =	"TAB_Sequencing_Sequencer",
   "Sequencing_Setup" =	"TAB_Sequencing_Setup",
   "Type" =	"TAB_Type",
-  "Type_Group" =	"TAB_Type",
+  "Type_Group" =	"TAB_Type_Group",
   "Worker" =	"TAB_User",
   "Index_Set" = "TAB_Index_Set",
   "P5_Index_Id" =	"TAB_Index_Set_P5",
@@ -103,6 +105,7 @@ id_2_name_map <- c(
   TAB_Sequencing_Sequencer = "Name",
   TAB_Sequencing_Setup = "Name",
   TAB_Type = "Name",
+  TAB_Type_Group = "Name",
   TAB_Index_Set = "Name", 
   TAB_Index_Set_P5 = "Index",
   TAB_Index_Set_P7 = "Index"
