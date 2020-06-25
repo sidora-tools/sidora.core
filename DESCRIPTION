@@ -20,7 +20,8 @@ Imports:
   purrr,
   rlang,
   tibble,
-  utils
+  utils,
+  lubridate
 Suggests: 
   DBI,
   RMariaDB,

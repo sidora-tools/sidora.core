@@ -70,6 +70,7 @@ auxtablelookup <- c(
   "Type" =	"TAB_Type",
   "Type_Group" =	"TAB_Type",
   "Worker" =	"TAB_User",
+  "Index_Set" = "TAB_Index_Set",
   "P5_Index_Id" =	"TAB_Index_Set_P5",
   "P7_Index_Id" =	"TAB_Index_Set_P7"
 )
@@ -102,8 +103,9 @@ id_2_name_map <- c(
   TAB_Sequencing_Sequencer = "Name",
   TAB_Sequencing_Setup = "Name",
   TAB_Type = "Name",
-  TAB_Index_Set_P5 = "Name",
-  TAB_Index_Set_P7 = "Name"
+  TAB_Index_Set = "Name", 
+  TAB_Index_Set_P5 = "Index",
+  TAB_Index_Set_P7 = "Index"
 )
 
 usethis::use_data(id_2_name_map)
