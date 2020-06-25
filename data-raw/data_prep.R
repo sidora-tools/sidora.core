@@ -113,3 +113,15 @@ id_2_name_map <- c(
 
 usethis::use_data(id_2_name_map)
 
+pandora_column_types <- readr::read_tsv(
+  "data-raw/column_types.tsv",
+  col_types = readr::cols(
+    table = readr::col_character(),
+    entity_type = readr::col_character(),
+    col_name = readr::col_character(),
+    type = readr::col_character()
+  )
+)
+
+usethis::use_data(pandora_column_types)
+
