@@ -62,7 +62,7 @@ auxtablelookup <- c(
   "Location_Bone_Room" =	"TAB_Location_Room",
   "Location_Powder_Room" =	"TAB_Location_Room",
   "Organism" =	"TAB_Organism",
-  "Owning_Institution" =	"TAB_Owner",
+  "Owning_institution" =	"TAB_Owner",
   "Probe_Set" =	"TAB_Probe_Set",
   "Protocol" =	"TAB_Protocol",
   "Sequencer" =	"TAB_Sequencing_Sequencer",
