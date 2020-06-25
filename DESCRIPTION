@@ -16,11 +16,12 @@ Depends:
 Imports:
   dplyr,
   dbplyr,
+  hash,
   magrittr,
   purrr,
   rlang,
   tibble,
-  utils,
+  utils
 Suggests: 
   DBI,
   RMariaDB,

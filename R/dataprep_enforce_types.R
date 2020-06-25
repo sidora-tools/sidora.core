@@ -10,50 +10,57 @@
 #' @export
 enforce_types <- function(x, suppress_na_introduced_warnings = TRUE) {
   
-  # define variable type lists - currently has site, sample individual, extract, library, capture, sequencing, analysis, analysis_result_string
-  coltypes_integer <- c("Id", "Worker", "Files", "Protocol", "Batch", "Site", "Individual", "Individual_Id", "Organism", "C14_Uncalibrated", 
-                        "C14_Uncalibrated_Variation", "C14_Calibrated_From", "C14_Calibrated_To", "Type", "Location_Bone_Room",
-                        "Location_Bone", "Location_Powder_Room", "Location_Powder", "Sample", "Extract", "Library_Id", "Index_Set", 
-                        "Quantification_pre-Indexing_total", "Quantification_post-Indexing_total", "Post-Indexing_elution_volume",
-                        "Capture", "Sequencing_Id", "Sequencer", "Setup", "Raw_Data", "Analysis", "Order", "Probe_Set", "Library") # Skipping 'Type Group' and Archaeological_ID because of same named columns and different types
-  coltypes_character <- c("Notes", "Tags", "Projects", "Contact_Person", "Position_on_Plate", "Location_Room", "Location", "Site_Id", 
-                          "Full_Site_Id", "Name", "Locality", "Province", "Country", "Full_Individual_Id", "Owning_Institution", "Provenience",
-                          "C14_Info", "C14_Id", "Ethics", "Individual", "Sample_Id", "Extract_Id", "Full_Extract_Id",
-                          "Full_Library_Id", "P7_Barcode_Sequence", "P5_Barcode_Sequence", "P7_Index_Sequence", "P5_Index_Sequence", 
-                          "P7_Index_Id", "P5_Index_Id", "External_Library_Id", "Position_on_Plate", "Capture_Id", "Full_Capture_Id",
-                          "Full_Sequencing_Id", "Run_Id", "Single_Stranded", "Analysis_Id", "Full_Analysis_Id", "Result_Directory",
-                          "Creation_Date", "Deleted_Date", "Experiment_Date") ## Dates will need to be converted internally for date-range filtering if required as R date object doesn't display as pandora itself (forces TZ)
-  coltypes_logical <- c("Deleted", "Ethically_culturally_sensitive", "Robot", "Title") ## Skipping Analysis String 'Result' as should be numeric but includes mixed cells
-  coltypes_double <- c("Latitude", "Longitude", "Sampled_Quantity", "Quantity_Sample", "Quantity_Lysate", "Sampled_Quantity", 
-                       "Quantity_Extract", "Efficiency_Factor", "Weight_Lane_1-4", "Weight_Lane_1", "Weight_Lane_2", "Weight_Lane_3",
-                       "Weight_Lane_4", "Weight_Lane_5", "Weight_Lane_6", "Weight_Lange_7", "Weight_Lane_8")
-  
-  ## convert known Yes/No columns to logical because R doesn't recognise former, 
-  ## then enforce types for faster filtering. Invalid values become NA.
-  if (suppress_na_introduced_warnings) {
-    withCallingHandlers({
-      x <- x %>%
-        dplyr::mutate_if(colnames(.) == "Robot", list(~. == 'Yes')) %>%
-        dplyr::mutate_if(colnames(.) %in% coltypes_character, as.character) %>%
-        dplyr::mutate_if(colnames(.) %in% coltypes_integer, as.integer) %>%
-        dplyr::mutate_if(colnames(.) %in% coltypes_double, as.double) %>%
-        dplyr::mutate_if(colnames(.) %in% coltypes_logical, as.logical)
-    },
-    warning = na_introduced_warning_handler
-    )
-  } else {
-    x <- x %>%
-      dplyr::mutate_if(colnames(.) == "Robot", list(~. == 'Yes')) %>%
-      dplyr::mutate_if(colnames(.) %in% coltypes_character, as.character) %>%
-      dplyr::mutate_if(colnames(.) %in% coltypes_integer, as.integer) %>%
-      dplyr::mutate_if(colnames(.) %in% coltypes_double, as.double) %>%
-      dplyr::mutate_if(colnames(.) %in% coltypes_logical, as.logical)
-  }
+  purrr::map2_df(
+    x, 
+    names(x), 
+    .f = apply_var_types,
+    suppress_na_introduced_warnings = suppress_na_introduced_warnings
+  )
   
   return(x)
 }
 
 #### helpers ####
+
+apply_var_types <- function(var_data, var_name, suppress_na_introduced_warnings) {
+  res <- var_data
+  # lookup type for variable in hash
+  var_type <- lookup_var_types(var_name)
+  # get trans function
+  var_trans_function <- string_to_as(var_type)
+  # transform variable, if trans function is available
+  if (!is.null(var_trans_function)) {
+    if (suppress_na_introduced_warnings) {
+      withCallingHandlers({
+        res <- var_trans_function(res) 
+      }, warning = na_introduced_warning_handler
+      )
+    } else 
+      res <- var_trans_function(res) 
+  }
+  return(res)
+}
+
+lookup_var_types <- function(var_names) {
+  var_type <- rep(NA, length(var_names))
+  # check which variables can be looked up
+  var_in_hash <- var_names %in% hash::keys(hash_var_type)
+  # lookup type for variable in hash
+  var_type[var_in_hash] <- hash::values(hash_var_type, var_names[var_in_hash])
+  return(unlist(var_type))
+}
+
+string_to_as <- function(x) {
+  switch(
+    x,
+    "integer" = as.integer,
+    "double" = as.numeric,
+    "factor" = as.factor,
+    "logical" = as.logical,
+    "character" = as.character,
+    NA
+  )
+}
 
 na_introduced_warning_handler <- function(x) {
   if (any(
