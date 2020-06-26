@@ -112,11 +112,11 @@ get_df_list <- function(
 #' to certain columns. This function will use custom SQL queries to get all
 #' useful (non-restricted) columns.
 #'
-#' @param con database connection
 #' @param entity_id sidora table name of restricted tables (e.g. 'worker' etc.)
+#' @param con database connection
 #'
 #' @export
-access_restricted_table <- function(con, entity_id){
+access_restricted_table <- function(entity_id, con){
   
   if ( !entity_id %in% sidora.core::pandora_tables_restricted )
     stop(paste0("[sidora.core] error: entity_id not found in restricted table list. Options: ",

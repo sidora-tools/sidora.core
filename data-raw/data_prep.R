@@ -127,13 +127,13 @@ usethis::use_data(pandora_column_types, overwrite = TRUE)
 
 #### internal lookup hash tables ####
 
-hash_var_type <- hash::hash(
+hash_col_type <- hash::hash(
   paste(pandora_column_types$entity_type, pandora_column_types$col_name, sep = "."),
   pandora_column_types$type
 )
 
 usethis::use_data(
-  hash_var_type,
+  hash_col_type,
   internal = TRUE, overwrite = TRUE
 )
 

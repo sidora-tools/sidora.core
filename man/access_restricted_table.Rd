@@ -4,12 +4,12 @@
 \alias{access_restricted_table}
 \title{access_restricted_table}
 \usage{
-access_restricted_table(con, entity_id)
+access_restricted_table(entity_id, con)
 }
 \arguments{
-\item{con}{database connection}
-
 \item{entity_id}{sidora table name of restricted tables (e.g. 'worker' etc.)}
+
+\item{con}{database connection}
 }
 \description{
 Some tables are restricted, e.g. the pandora_read user does not have access 

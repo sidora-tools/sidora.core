@@ -89,10 +89,10 @@ convert_entity_table_name <- function(entity_type = c(), table_name = c()) {
 #' For example, given the.Batch ID 37 from the 'extract' sidora table, would 
 #' result in Ex06_KE_2015-11-19
 #'
-#' @param con a pandora connection
 #' @param query_tab a sidora table name (e.g. 'site', 'individual' etc.)
 #' @param query_col the column that that a pandora numeric Id to be converted is in
 #' @param query_id a vector of pandora numeric Id(s) to be converted to the human readable 'string' version
+#' @param con a pandora connection
 #' @param cache_dir a cache directory
 #'
 #' @examples
@@ -101,7 +101,7 @@ convert_entity_table_name <- function(entity_type = c(), table_name = c()) {
 #'
 #' @export
 
-get_name_from_id <- function(con, query_tab, query_col, query_id, cache_dir) {
+get_name_from_id <- function(query_tab, query_col, query_id, con, cache_dir) {
   
   ## Find which auxilary table 'col' is from, and sidora entity_types and id/name cols
   aux_tab <- sidora.core::auxtablelookup[sub(paste0(query_tab, "."), "", query_col)]

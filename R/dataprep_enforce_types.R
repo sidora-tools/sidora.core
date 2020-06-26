@@ -13,7 +13,7 @@ enforce_types <- function(x, suppress_na_introduced_warnings = TRUE) {
   purrr::map2_df(
     x, 
     names(x), 
-    .f = apply_var_types,
+    .f = apply_col_types,
     suppress_na_introduced_warnings = suppress_na_introduced_warnings
   )
   
@@ -22,32 +22,32 @@ enforce_types <- function(x, suppress_na_introduced_warnings = TRUE) {
 
 #### helpers ####
 
-apply_var_types <- function(var_data, var_name, suppress_na_introduced_warnings) {
-  res <- var_data
+apply_col_types <- function(col_data, col_name, suppress_na_introduced_warnings) {
+  res <- col_data
   # lookup type for variable in hash
-  var_type <- lookup_var_types(var_name)
+  col_type <- lookup_col_types(col_name)
   # get trans function
-  var_trans_function <- string_to_as(var_type)
+  col_trans_function <- string_to_as(col_type)
   # transform variable, if trans function is available
-  if (!is.null(var_trans_function)) {
+  if (!is.null(col_trans_function)) {
     if (suppress_na_introduced_warnings) {
       withCallingHandlers({
-        res <- var_trans_function(res) 
+        res <- col_trans_function(res) 
       }, warning = na_introduced_warning_handler
       )
     } else 
-      res <- var_trans_function(res) 
+      res <- col_trans_function(res) 
   }
   return(res)
 }
 
-lookup_var_types <- function(var_names) {
-  var_type <- rep(NA, length(var_names))
+lookup_col_types <- function(col_names) {
+  col_type <- rep(NA, length(col_names))
   # check which variables can be looked up
-  var_in_hash <- var_names %in% hash::keys(hash_var_type)
+  col_in_hash <- col_names %in% hash::keys(hash_col_type)
   # lookup type for variable in hash
-  var_type[var_in_hash] <- hash::values(hash_var_type, var_names[var_in_hash])
-  return(unlist(var_type))
+  col_type[col_in_hash] <- hash::values(hash_col_type, col_names[col_in_hash])
+  return(unlist(col_type))
 }
 
 string_to_as <- function(x) {

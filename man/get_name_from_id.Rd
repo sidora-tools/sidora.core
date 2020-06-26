@@ -4,16 +4,16 @@
 \alias{get_name_from_id}
 \title{get_name_from_id}
 \usage{
-get_name_from_id(con, query_tab, query_col, query_id, cache_dir)
+get_name_from_id(query_tab, query_col, query_id, con, cache_dir)
 }
 \arguments{
-\item{con}{a pandora connection}
-
 \item{query_tab}{a sidora table name (e.g. 'site', 'individual' etc.)}
 
 \item{query_col}{the column that that a pandora numeric Id to be converted is in}
 
 \item{query_id}{a vector of pandora numeric Id(s) to be converted to the human readable 'string' version}
+
+\item{con}{a pandora connection}
 
 \item{cache_dir}{a cache directory}
 }
