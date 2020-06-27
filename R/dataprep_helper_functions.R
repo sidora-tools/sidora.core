@@ -2,12 +2,10 @@
 #' 
 #' Simple helper functions to transform colnames and get around NSE issues with R. 
 #' 
-#' str_to_colname converts a table/column selection into a usable Sidora column object for
-#' selecting columns by column name in a tibble.
-#' 
 #' @param entity_type character. An entity type (e.g. site, sample, individual etc.)
-#' @param col_name character. A pandora table column name
-#' @param sidora_col_name character. A sidora table column name
+#' @param col_name character. A pandora table column name (e.g. Full_Site_Id, Id, etc.)
+#' @param sidora_col_name character. A sidora table column name that includes the entity_type
+#' (e.g. site.Full_Site_Id, batch.Id, etc.)
 #' 
 #' @name col_conversion
 NULL

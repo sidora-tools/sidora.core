@@ -1,13 +1,13 @@
-#' get_name_from_id
+#' namecol_value_from_id
 #'
-#' Given a requested table, 'Id' column and a 'Id' integer will get the 
+#' Given a sidora column name and a 'Id' integer will get the 
 #' requested corresponding 'human readable' string version of the Id.
 #' 
-#' For example, given the.Batch ID 37 from the 'extract' sidora table, would 
-#' result in Ex06_KE_2015-11-19
+#' For example, given the ID 38 and the information that this ID was found in 
+#' 'extract.Batch', would result in Ex06_KE_2015-11-19
 #'
 #' @param sidora_col_name character. A sidora table column name
-#' @param query_id a vector of pandora numeric Id(s) to be converted to the human readable 'string' version
+#' @param query_id integer vector. ID(s) to be converted to the human readable 'string' version
 #' @param con a pandora connection
 #' @param cache_dir a cache directory
 #'

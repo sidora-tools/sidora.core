@@ -17,16 +17,13 @@ sidora_col_name_to_name(sidora_col_name)
 col_name_to_name(entity_type, col_name)
 }
 \arguments{
-\item{sidora_col_name}{character. A sidora table column name}
+\item{sidora_col_name}{character. A sidora table column name that includes the entity_type
+(e.g. site.Full_Site_Id, batch.Id, etc.)}
 
 \item{entity_type}{character. An entity type (e.g. site, sample, individual etc.)}
 
-\item{col_name}{character. A pandora table column name}
+\item{col_name}{character. A pandora table column name (e.g. Full_Site_Id, Id, etc.)}
 }
 \description{
 Simple helper functions to transform colnames and get around NSE issues with R.
-}
-\details{
-str_to_colname converts a table/column selection into a usable Sidora column object for
-selecting columns by column name in a tibble.
 }

@@ -23,15 +23,11 @@ sidora_col_name_has_aux(sidora_col_name)
 
 \item{table_name}{character. A table name (e.g. TAB_Site, TAB_Sample etc.)}
 
-\item{col_name}{character. A pandora table column name}
+\item{col_name}{character. A pandora table column name (e.g. Full_Site_Id, Id, etc.)}
 
-\item{sidora_col_name}{character. A sidora table column name}
+\item{sidora_col_name}{character. A sidora table column name that includes the entity_type
+(e.g. site.Full_Site_Id, batch.Id, etc.)}
 }
 \description{
 These functions convert names and allow to look up specific columns.
-\itemize{
-  \item table
-  \item entity_type
-  \item aux_table auxiliary tables 
-}
 }
