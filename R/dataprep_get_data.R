@@ -23,7 +23,7 @@ get_con <- function(tab = sidora.core::pandora_tables, con) {
   
   # establish data connection
   if (tab %in% sidora.core::pandora_tables_restricted)
-    my_con <- access_restricted_table(con, tab)
+    my_con <- access_restricted_table(tab, con)
   else {
     my_con <- dplyr::tbl(con, tab)
   }

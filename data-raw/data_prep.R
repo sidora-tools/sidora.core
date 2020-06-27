@@ -31,11 +31,11 @@ usethis::use_data(pandora_table_elements, overwrite = TRUE)
 
 # pandora_tables
 pandora_tables <- pandora_table_elements$table[!pandora_table_elements$restricted]
-usethis::use_data(pandora_tables, overwrite = T)
+usethis::use_data(pandora_tables, overwrite = TRUE)
 
 # pandora_tables_restricted
 pandora_tables_restricted <- pandora_table_elements$table[pandora_table_elements$restricted]
-usethis::use_data(pandora_tables_restricted, overwrite = T)
+usethis::use_data(pandora_tables_restricted, overwrite = TRUE)
 
 #### internal lookup hash tables ####
 
@@ -55,39 +55,13 @@ names(entity_map) <- pandora_table_elements$entity_type
 
 usethis::use_data(entity_map, overwrite = TRUE)
 
-# Column to auxilary table map
-
-auxtablelookup <- c(
-  "Batch" =	"TAB_Batch",
-  "Index_Set" =	"TAB_Index_Set",
-  "Location" =	"TAB_Location",
-  "Location_Bone" =	"TAB_Location",
-  "Location_Room" =	"TAB_Location",
-  "Location_Powder" =	"TAB_Location",
-  "Location_Bone_Room" =	"TAB_Location_Room",
-  "Location_Powder_Room" =	"TAB_Location_Room",
-  "Organism" =	"TAB_Organism",
-  "Owning_institution" =	"TAB_Owner",
-  "Probe_Set" =	"TAB_Probe_Set",
-  "Protocol" =	"TAB_Protocol",
-  "Sequencer" =	"TAB_Sequencing_Sequencer",
-  "Sequencing_Setup" =	"TAB_Sequencing_Setup",
-  "Type" =	"TAB_Type",
-  "Type_Group" =	"TAB_Type_Group",
-  "Worker" =	"TAB_User",
-  "Index_Set" = "TAB_Index_Set",
-  "P5_Index_Id" =	"TAB_Index_Set_P5",
-  "P7_Index_Id" =	"TAB_Index_Set_P7"
-)
-
-usethis::use_data(auxtablelookup, overwrite = TRUE)
-
+# Column to auxilary table map and
 # Table with 'ID' column to the corresponding 'Name' (string) map 
 
-id_2_name_map <- pandora_table_elements$name_col
-names(id_2_name_map) <- pandora_table_elements$table
+id_2_name_map <- readr::read_tsv(
+  "data-raw/id_to_name_map.tsv",
+  col_types = cols(.default = "c")
+)
 
-usethis::use_data(id_2_name_map, overwrite = TRUE)
-
-
+usethis::use_data(id_2_name_map, internal = TRUE, overwrite = TRUE)
 
