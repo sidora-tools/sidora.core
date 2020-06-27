@@ -1,6 +1,8 @@
 ## RUN THE CORRESPONDING USE THIS COMMAND AFTER CREATION 
 ## (WITH OVERWRITE = T IF UPDATING, THEN REBUILD DOCUMENTATION)
 
+#### load raw data #### 
+
 pandora_column_types <- readr::read_tsv(
   "data-raw/pandora_column_types.tsv",
   col_types = readr::cols(
