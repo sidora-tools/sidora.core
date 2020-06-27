@@ -7,7 +7,8 @@ pandora_column_types <- readr::read_tsv(
     table = readr::col_character(),
     entity_type = readr::col_character(),
     col_name = readr::col_character(),
-    type = readr::col_character()
+    type = readr::col_character(),
+    auxiliary_table = readr::col_character()
   )
 )
 
@@ -16,7 +17,7 @@ pandora_table_elements <- readr::read_tsv(
   col_types = readr::cols(
     table = readr::col_character(),
     entity_type = readr::col_character(),
-    name_col = readr::col_character(),
+    namecol = readr::col_character(),
     restricted = readr::col_logical()
   )
 )
@@ -39,29 +40,49 @@ usethis::use_data(pandora_tables_restricted, overwrite = TRUE)
 
 #### internal lookup hash tables ####
 
-# hash_col_type
-hash_col_type <- hash::hash(
+# hash_sidora_col_name_col_type
+hash_sidora_col_name_col_type <- hash::hash(
   paste(pandora_column_types$entity_type, pandora_column_types$col_name, sep = "."),
   pandora_column_types$type
 )
-usethis::use_data(hash_col_type, internal = TRUE, overwrite = TRUE)
 
-#### not yet transformed to the better structure above ####
-
-# List of sidora IDs to PANDORA SQL TABs
-
-entity_map <- pandora_table_elements$table
-names(entity_map) <- pandora_table_elements$entity_type
-
-usethis::use_data(entity_map, overwrite = TRUE)
-
-# Column to auxilary table map and
-# Table with 'ID' column to the corresponding 'Name' (string) map 
-
-id_2_name_map <- readr::read_tsv(
-  "data-raw/id_to_name_map.tsv",
-  col_types = cols(.default = "c")
+# hash_entity_type_table_name
+hash_entity_type_table_name <- hash::hash(
+  pandora_table_elements$entity_type,
+  pandora_table_elements$table
 )
 
-usethis::use_data(id_2_name_map, internal = TRUE, overwrite = TRUE)
+# hash_table_name_entity_type
+hash_table_name_entity_type <- hash::hash(
+  pandora_table_elements$table,
+  pandora_table_elements$entity_type
+)
 
+# hash_entity_type_namecol
+hash_entity_type_namecol <- hash::hash(
+  pandora_table_elements$entity_type,
+  paste(pandora_table_elements$entity_type, pandora_table_elements$namecol, sep = ".")
+)
+
+# hash_entity_type_idcol
+hash_entity_type_idcol <- hash::hash(
+  pandora_table_elements$entity_type,
+  paste(pandora_table_elements$entity_type, pandora_table_elements$idcol, sep = ".")
+)
+
+# hash_sidora_col_name_auxiliary_table
+pandora_column_types_with_auxiliary_table <- pandora_column_types[!is.na(pandora_column_types$auxiliary_table),]
+hash_sidora_col_name_auxiliary_table <- hash::hash(
+  paste(pandora_column_types_with_auxiliary_table$entity_type, pandora_column_types_with_auxiliary_table$col_name, sep = "."),
+  pandora_column_types_with_auxiliary_table$auxiliary_table
+)
+
+usethis::use_data(
+  hash_sidora_col_name_col_type,
+  hash_entity_type_table_name,
+  hash_table_name_entity_type,
+  hash_sidora_col_name_auxiliary_table,
+  hash_entity_type_namecol,
+  hash_entity_type_idcol,
+  internal = TRUE, overwrite = TRUE
+)
