@@ -4,10 +4,10 @@
 \alias{get_name_from_id}
 \title{get_name_from_id}
 \usage{
-get_name_from_id(query_tab, query_col, query_id, con, cache_dir)
+get_name_from_id(query_entity, query_col, query_id, con, cache_dir)
 }
 \arguments{
-\item{query_tab}{a sidora table name (e.g. 'site', 'individual' etc.)}
+\item{query_entity}{a sidora table name (e.g. 'site', 'individual' etc.)}
 
 \item{query_col}{the column that that a pandora numeric Id to be converted is in}
 

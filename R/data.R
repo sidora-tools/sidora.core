@@ -19,15 +19,6 @@ NULL
 #' @name pandora_tables_restricted
 NULL
 
-#' auxtablelookup
-#' 
-#' A named vector that includes all auxilary tables (e.g. Batch, Protocol, 
-#' Location) and the corresponding column names that may be present in main 
-#' tables
-#' 
-#' @name auxtablelookup
-NULL
-
 #' entitymap
 #' 
 #' A named vector that includes all sidora entity types and the corresponding

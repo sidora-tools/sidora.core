@@ -89,7 +89,7 @@ convert_entity_table_name <- function(entity_type = c(), table_name = c()) {
 #' For example, given the.Batch ID 37 from the 'extract' sidora table, would 
 #' result in Ex06_KE_2015-11-19
 #'
-#' @param query_tab a sidora table name (e.g. 'site', 'individual' etc.)
+#' @param query_entity a sidora table name (e.g. 'site', 'individual' etc.)
 #' @param query_col the column that that a pandora numeric Id to be converted is in
 #' @param query_id a vector of pandora numeric Id(s) to be converted to the human readable 'string' version
 #' @param con a pandora connection
@@ -101,24 +101,36 @@ convert_entity_table_name <- function(entity_type = c(), table_name = c()) {
 #'
 #' @export
 
-get_name_from_id <- function(query_tab, query_col, query_id, con, cache_dir) {
+get_name_from_id <- function(query_entity, query_col, query_id, con, cache_dir) {
   
   ## Find which auxilary table 'col' is from, and sidora entity_types and id/name cols
-  aux_tab <- sidora.core::auxtablelookup[sub(paste0(query_tab, "."), "", query_col)]
-  aux_entity <- sidora.core::table2entity(aux_tab)
-  aux_id_col <- sidora.core::str_to_colname(aux_entity, "Id")
-  aux_name_col <- sidora.core::get_namecol_from_entity(aux_entity)
+  aux_info <- id_2_name_map %>% 
+    dplyr::filter(entity_type == query_entity, 
+                  entity_col == gsub(paste0(query_entity, "."), "", query_col))
+  
+  if (nrow(aux_info) > 1)
+    stop(paste("[sidora.core] error: Aux. table lookup found multiple table/column combinations. Please report to the sidora-tools team. Search:", query_col, query_id,"
+               "))
+  
+  if (nrow(aux_info) < 1)
+    stop(paste("[sidora.core] error: Aux. table lookup found no combinations. Please report to the sidora-tools team. Search:", query_col, query_od, "
+               "))
+  
+  aux_id_col <- sidora.core::str_to_colname(aux_info$aux_entity_type, aux_info$aux_id_col)
+  aux_name_col <- sidora.core::str_to_colname(aux_info$aux_entity_type, aux_info$aux_name_col)
+  #TOREMOVE: aux_name_col <- sidora.core::get_namecol_from_entity(aux_tab$aux_entity)
   query_id <- as.numeric(query_id)
   
-  ## Now filter this to the requested ID number, and extract corresponding na(query_id)me
-  selected_tab <- sidora.core::get_df(con = con, aux_tab, cache_dir = cache_dir)
+  ## Now filter this to the requested ID number, and extract corresponding name
+  selected_tab <- sidora.core::get_df(con = con, aux_info$aux_table) 
   
-  if (length(aux_name_col) > 1 || is.na(aux_name_col) ) {
-    stop(paste0("[sidora.core] error: Two or no possible columns for name string look up were not found. Please report to the sidora-tools team. Cols:", aux_name_col))
+  if (length(aux_info$aux_name_col) > 1 || is.na(aux_info$aux_name_col) ) {
+    stop(paste("[sidora.core] error: Two or no possible columns for name string look up were not found. Please report to the sidora-tools team. Cols:", aux_name_col, "
+               "))
   }
   
   ## Report names in order
-  result <- selected_tab[[as.character(aux_name_col)]][match(query_id, selected_tab[[as.character(aux_id_col)]])]
+  result <- selected_tab[[as.character(aux_name_col)]][match(query_id, selected_tab[[aux_id_col]])]
   
   ## Check the ID(s) actually exists
   if (length(result) == 0) {
