@@ -1,6 +1,10 @@
 #' Join multiple \strong{PANDORA table}s
 #'
-#' See readme for more information.
+#' Some Pandora tables can be merged following a hierarchical, pair-wise logic 
+#' of primary and foreign keys. \code{join_pandora_tables()} is a join function 
+#' which is aware of this logic and automatically combines lists of data.frames 
+#' with Pandora tables (as produced by \code{get_con_list()} or \code{get_df_list()}) 
+#' to long data.frames.
 #'
 #' @param x named list of data.frames or connections (\strong{PANDORA table}s) as returned by 
 #' \code{get_con_list} or \code{get_df_list}
@@ -107,10 +111,16 @@ check_completeness <- function(
   ))
 }
 
-#' make_complete_table_list
+#' Make sequence-complete Pandora table list
 #'
-#' @param tabs test
-#' @param join_order_vector test
+#' Pandoras layout is a hierarchical sequence of tables: All tables have a clear 
+#' predecessor and successor. \code{join_pandora_tables()} uses this fact to 
+#' merge tables accordingly. \code{make_complete_table_list} is
+#' a helper function to fill the gaps in a sequence of Pandora tables.
+#'
+#' @param tabs character vector. List of Pandora table names
+#' @param join_order_vector character vector. Reference vector with the Pandora 
+#' structure
 #'
 #' @export
 make_complete_table_list <- function(

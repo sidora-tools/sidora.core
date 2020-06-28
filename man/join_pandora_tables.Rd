@@ -14,5 +14,9 @@ join_pandora_tables(x)
 data.frame (joined from multiple data.frames)
 }
 \description{
-See readme for more information.
+Some Pandora tables can be merged following a hierarchical, pair-wise logic 
+of primary and foreign keys. \code{join_pandora_tables()} is a join function 
+which is aware of this logic and automatically combines lists of data.frames 
+with Pandora tables (as produced by \code{get_con_list()} or \code{get_df_list()}) 
+to long data.frames.
 }

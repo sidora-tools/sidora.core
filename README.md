@@ -5,21 +5,29 @@
 
 Functions to access and download tables of the MPI-SHH DAG Pandora database. Serves as backend for all sidora applications. 
 
+## Install
+
+You can install the development version from github:
+
+```
+if(!require('remotes')) install.packages('remotes')
+remotes::install_github("sidora-tools/sidora.core")
+```
+
 ## Quickstart
 
-Load the package and establish a database connection to Pandora. (if you have the right *.credentials* file that's also possible with `con <- get_pandora_connection()`)
+Load the package and establish a database connection to Pandora. To do so you need the right *.credentials* file
 
 ```
 library(magrittr)
 library(sidora.core)
 
-con <- DBI::dbConnect(
-  RMariaDB::MariaDB(), 
-  host = "host", user = "user", password = "password", db = "pandora"
-)
+con <- get_pandora_connection(".credentials")
 ```
 
-You can access individual tables either by establishing a DBI connection (`get_con()`) to them or by downloading them as a data.frame (`get_df()`). `get_df()` does two additional things: It transforms the columns of the downloaded table to the correct data type (with `enforce_types()`) and it caches the downloaded table locally. The default is a per-R-session cache, but you can cache more permanently by changing the `cache_dir` and `cache_max_age` parameters.
+You can access individual tables either by establishing a DBI connection (`get_con()`) to them or by downloading them as a data.frame (`get_df()`). You'll probably not need the former, which is only relevant if you want to interact with the database server directly.
+
+`get_df()` does three additional things: It transforms the columns of the downloaded table to the correct data type (with `enforce_types()`), it adds a table name prefix to each column name and it caches the downloaded table locally. The default is a per-R-session cache, but you can cache more permanently by changing the `cache_dir` and `cache_max_age` parameters.
 
 ```
 # get DBI connection
@@ -28,7 +36,7 @@ get_con("TAB_Site", con)
 get_df("TAB_Site", con)
 ```
 
-You can download multiple tables at once with `get_con_list()` and `get_df_list()`, which return a named list of objects. The latter again includes the additional type transformation and caching feature.
+You can download multiple tables at once with `get_con_list()` and `get_df_list()`, which return a named list of objects. The latter again includes the additional transformation and caching features.
 
 ```
 # get list of DBI connections

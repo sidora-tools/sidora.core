@@ -1,9 +1,9 @@
 #' Get the connection object for the Pandora DB 
 #' 
-#' @param cred_file A credentials file containing three lines
+#' @param cred_file character. Path to a credentials file containing three lines
 #' listing host, user and password, respectively
 #'
-#' @return The Pandora DB connection object.
+#' @return A Pandora DB connection object
 #' 
 #' @export
 get_pandora_connection <- function(cred_file = ".credentials") {

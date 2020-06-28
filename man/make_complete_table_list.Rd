@@ -2,15 +2,19 @@
 % Please edit documentation in R/dataprep_join_data.R
 \name{make_complete_table_list}
 \alias{make_complete_table_list}
-\title{make_complete_table_list}
+\title{Make sequence-complete Pandora table list}
 \usage{
 make_complete_table_list(tabs, join_order_vector = sidora.core::pandora_tables)
 }
 \arguments{
-\item{tabs}{test}
+\item{tabs}{character vector. List of Pandora table names}
 
-\item{join_order_vector}{test}
+\item{join_order_vector}{character vector. Reference vector with the Pandora 
+structure}
 }
 \description{
-make_complete_table_list
+Pandoras layout is a hierarchical sequence of tables: All tables have a clear 
+predecessor and successor. \code{join_pandora_tables()} uses this fact to 
+merge tables accordingly. \code{make_complete_table_list} is
+a helper function to fill the gaps in a sequence of Pandora tables.
 }
