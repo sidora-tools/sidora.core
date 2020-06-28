@@ -6,6 +6,7 @@
 \alias{col_name_to_sidora_col_name}
 \alias{sidora_col_name_to_name}
 \alias{col_name_to_name}
+\alias{add_prefix_to_colnames}
 \title{col_conversion}
 \usage{
 sidora_col_name_to_col_name(sidora_col_name)
@@ -15,6 +16,8 @@ col_name_to_sidora_col_name(entity_type, col_name)
 sidora_col_name_to_name(sidora_col_name)
 
 col_name_to_name(entity_type, col_name)
+
+add_prefix_to_colnames(x, prefix)
 }
 \arguments{
 \item{sidora_col_name}{character. A sidora table column name that includes the entity_type
@@ -23,6 +26,10 @@ col_name_to_name(entity_type, col_name)
 \item{entity_type}{character. An entity type (e.g. site, sample, individual etc.)}
 
 \item{col_name}{character. A pandora table column name (e.g. Full_Site_Id, Id, etc.)}
+
+\item{x}{character}
+
+\item{prefix}{character}
 }
 \description{
 Simple helper functions to transform colnames and get around NSE issues with R.
