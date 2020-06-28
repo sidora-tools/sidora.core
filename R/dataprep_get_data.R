@@ -87,7 +87,7 @@ add_prefix_to_colnames <- function(x, prefix) {
 }
 
 core_tab_download <- function(tab, con) {
-  get_con(tab, con) %>% tibble::as_tibble() %>% enforce_types() %>% add_prefix_to_colnames(table_name_to_entity_type(tab))
+  get_con(tab, con) %>% tibble::as_tibble() %>% add_prefix_to_colnames(table_name_to_entity_type(tab)) %>% enforce_types()
 }
 
 #' @rdname get_data
