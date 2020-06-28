@@ -25,6 +25,6 @@ namecol_value_from_id <- function(sidora_col_name, query_id, con, cache_dir) {
   id_column <- hash::values(hash_entity_type_idcol, table_name_to_entity_type(aux_table))
   name_column <- hash::values(hash_entity_type_namecol, table_name_to_entity_type(aux_table))
   
-  lookup_table[[name_column]][match(query_id, lookup_table[[lookup_column]])]
+  lookup_table[[name_column]][match(query_id, lookup_table[[id_column]])]
   
 }
