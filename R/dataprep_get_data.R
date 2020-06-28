@@ -113,25 +113,17 @@ get_df_list <- function(
   return(raw_list)
 }
 
-#' access_restricted_table
-#'
-#' Some tables are restricted, e.g. the pandora_read user does not have access 
-#' to certain columns. This function will use custom SQL queries to get all
-#' useful (non-restricted) columns.
-#'
-#' @param entity_id sidora table name of restricted tables (e.g. 'worker' etc.)
-#' @param con database connection
-#'
+#' @rdname get_data
 #' @export
-access_restricted_table <- function(entity_id, con){
+access_restricted_table <- function(tab, con){
 
-  if ( any(!sidora.core::entity_type_to_table_name(entity_id) %in% sidora.core::pandora_tables_restricted) )
+  if ( any(!tab %in% sidora.core::pandora_tables_restricted) )
     stop(paste0("[sidora.core] error: tab not found in restricted table list. Options: ",
                paste(sidora.core::pandora_tables_restricted, collapse = ","),
-               ". Your selection: ", entity_id))
+               ". Your selection: ", tab))
   
   ## Assumes con already generated
-  if ( sidora.core::entity_type_to_table_name(entity_id) == "TAB_User" )
+  if ( tab == "TAB_User" )
     dplyr::tbl(con, dbplyr::build_sql("SELECT Id, Name, Username FROM TAB_User", 
                                       con = con)) %>%
     dplyr::as_tibble()
