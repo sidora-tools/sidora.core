@@ -24,7 +24,8 @@ For example, given the ID 38 and the information that this ID was found in
 'extract.Batch', would result in Ex06_KE_2015-11-19
 }
 \examples{
-
+\dontrun{
 namecol_value_from_id(sidora_col_name = "extract.Batch", query_id = 38, con = con)
+}
 
 }

@@ -12,8 +12,9 @@
 #' @param cache_dir a cache directory
 #'
 #' @examples
-#' 
+#' \dontrun{
 #' namecol_value_from_id(sidora_col_name = "extract.Batch", query_id = 38, con = con)
+#' }
 #'
 #' @export
 namecol_value_from_id <- function(sidora_col_name, query_id, con, cache_dir) {
