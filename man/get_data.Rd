@@ -6,7 +6,6 @@
 \alias{get_con_list}
 \alias{get_df}
 \alias{get_df_list}
-\alias{access_restricted_table}
 \title{Access and download tables from Pandora}
 \usage{
 get_con(tab = sidora.core::pandora_tables, con)
@@ -28,8 +27,6 @@ get_df_list(
   cache_dir = tempdir(),
   cache_max_age = 24 * 60 * 60
 )
-
-access_restricted_table(con, tab)
 }
 \arguments{
 \item{tab}{character vector. Names of tables}

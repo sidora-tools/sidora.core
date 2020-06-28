@@ -32,12 +32,12 @@ NULL
 get_con <- function(tab = sidora.core::pandora_tables, con) {
   
   if (length(tab) != 1) {
-    stop("Select one valid PANDORA SQL table.")
+    stop("[sidora.core] error: Select one valid PANDORA SQL table.")
   }
   
   # establish data connection
   if (tab %in% sidora.core::pandora_tables_restricted)
-    my_con <- access_restricted_table(con, tab)
+    my_con <- access_restricted_table(tab, con)
   else {
     my_con <- dplyr::tbl(con, tab)
   }
@@ -57,7 +57,7 @@ get_con_list <- function(tab = sidora.core::pandora_tables, con) {
   
   raw_list <- lapply(
     tab, function(cur_tab) {
-      get_con(cur_tab, con)
+      get_con(cur_tab, con) 
     }
   )
   names(raw_list) <- tab
@@ -72,7 +72,7 @@ get_df <- function(
   cache = T, cache_dir = tempdir(), cache_max_age = 24 * 60 * 60) {
   
   if (length(tab) != 1) {
-    stop("Select one valid PANDORA SQL table.")
+    stop("[sidora.core] error: Select one valid PANDORA SQL table.")
   }
   
   # caching is activated
@@ -93,14 +93,8 @@ get_df <- function(
   return(this_tab) 
 }
 
-add_prefix_to_colnames <- function(x, prefix) {
-  colnames(x) <- paste0(prefix, ".", colnames(x))
-  return(x)
-}
-
 core_tab_download <- function(tab, con) {
-  res <- get_con(tab, con) %>% tibble::as_tibble() %>% enforce_types() %>% add_prefix_to_colnames(table2entity(tab))
-  return(res)
+  get_con(tab, con) %>% tibble::as_tibble() %>% add_prefix_to_colnames(table_name_to_entity_type(tab)) %>% enforce_types()
 }
 
 #' @rdname get_data
@@ -119,18 +113,27 @@ get_df_list <- function(
   return(raw_list)
 }
 
-#' @rdname get_data
+#' access_restricted_table
+#'
+#' Some tables are restricted, e.g. the pandora_read user does not have access 
+#' to certain columns. This function will use custom SQL queries to get all
+#' useful (non-restricted) columns.
+#'
+#' @param entity_id sidora table name of restricted tables (e.g. 'worker' etc.)
+#' @param con database connection
+#'
 #' @export
-access_restricted_table <- function(con, tab){
-  
+access_restricted_table <- function(entity_id, con){
+
   if ( !tab %in% sidora.core::pandora_tables_restricted )
     stop(paste0("[sidora.core] error: tab not found in restricted table list. Options: ",
                paste(sidora.core::pandora_tables_restricted, collapse = ","),
                ". Your selection: ", tab))
   
-  
   ## Assumes con already generated
-  if ( tab == "TAB_User" )
-    dplyr::tbl(con, dbplyr::build_sql("SELECT Id, Name, Username FROM TAB_User", con = con))
-  
+  if ( entity_id == "TAB_User" )
+    dplyr::tbl(con, dbplyr::build_sql("SELECT Id, Name, Username FROM TAB_User", 
+                                      con = con)) %>%
+    dplyr::as_tibble()
+
 }

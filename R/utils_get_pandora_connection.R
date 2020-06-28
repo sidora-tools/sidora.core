@@ -12,7 +12,7 @@ get_pandora_connection <- function(cred_file = ".credentials") {
   
   if (!file.exists(cred_file)) {
     stop(paste(
-      "Can't find .credentials file. Please create one ",
+      "[sidora.core] error: can't find .credentials file. Please create one ",
       "containing three lines:", 
       "the database host, the username, the password."
     ))

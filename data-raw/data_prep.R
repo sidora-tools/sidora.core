@@ -1,12 +1,90 @@
-pandora_tables <- c(
-  "TAB_Site", "TAB_Individual", "TAB_Sample", "TAB_Extract", 
-  "TAB_Library", "TAB_Capture", "TAB_Sequencing", 
-  "TAB_Raw_Data", "TAB_Sequencing_Sequencer", "TAB_Tag", "TAB_Project",
-  "TAB_User"
+## RUN THE CORRESPONDING USE THIS COMMAND AFTER CREATION 
+## (WITH OVERWRITE = T IF UPDATING, THEN REBUILD DOCUMENTATION)
+
+#### load raw data #### 
+
+pandora_column_types <- readr::read_tsv(
+  "data-raw/pandora_column_types.tsv",
+  col_types = readr::cols(
+    table = readr::col_character(),
+    entity_type = readr::col_character(),
+    col_name = readr::col_character(),
+    type = readr::col_character(),
+    auxiliary_table = readr::col_character()
+  )
 )
 
-usethis::use_data(pandora_tables)
+pandora_table_elements <- readr::read_tsv(
+  "data-raw/pandora_table_elements.tsv",
+  col_types = readr::cols(
+    table = readr::col_character(),
+    entity_type = readr::col_character(),
+    namecol = readr::col_character(),
+    restricted = readr::col_logical()
+  )
+)
 
-pandora_tables_restricted <- c("TAB_User")
+#### tables and vectors for export ####
 
-usethis::use_data(pandora_tables_restricted)
+# pandora_column_types
+usethis::use_data(pandora_column_types, overwrite = TRUE)
+
+# pandora_table_elements
+usethis::use_data(pandora_table_elements, overwrite = TRUE)
+
+# pandora_tables
+pandora_tables <- pandora_table_elements$table[!pandora_table_elements$restricted]
+usethis::use_data(pandora_tables, overwrite = TRUE)
+
+# pandora_tables_restricted
+pandora_tables_restricted <- pandora_table_elements$table[pandora_table_elements$restricted]
+usethis::use_data(pandora_tables_restricted, overwrite = TRUE)
+
+#### internal lookup hash tables ####
+
+# hash_sidora_col_name_col_type
+hash_sidora_col_name_col_type <- hash::hash(
+  paste(pandora_column_types$entity_type, pandora_column_types$col_name, sep = "."),
+  pandora_column_types$type
+)
+
+# hash_entity_type_table_name
+hash_entity_type_table_name <- hash::hash(
+  pandora_table_elements$entity_type,
+  pandora_table_elements$table
+)
+
+# hash_table_name_entity_type
+hash_table_name_entity_type <- hash::hash(
+  pandora_table_elements$table,
+  pandora_table_elements$entity_type
+)
+
+# hash_entity_type_namecol
+hash_entity_type_namecol <- hash::hash(
+  pandora_table_elements$entity_type,
+  paste(pandora_table_elements$entity_type, pandora_table_elements$namecol, sep = ".")
+)
+
+# hash_entity_type_idcol
+hash_entity_type_idcol <- hash::hash(
+  pandora_table_elements$entity_type,
+  paste(pandora_table_elements$entity_type, pandora_table_elements$idcol, sep = ".")
+)
+
+# hash_sidora_col_name_auxiliary_table
+pandora_column_types_with_auxiliary_table <- pandora_column_types[!is.na(pandora_column_types$auxiliary_table),]
+hash_sidora_col_name_auxiliary_table <- hash::hash(
+  paste(pandora_column_types_with_auxiliary_table$entity_type, pandora_column_types_with_auxiliary_table$col_name, sep = "."),
+  pandora_column_types_with_auxiliary_table$auxiliary_table
+)
+
+usethis::use_data(
+  hash_sidora_col_name_col_type,
+  hash_entity_type_table_name,
+  hash_table_name_entity_type,
+  hash_sidora_col_name_auxiliary_table,
+  hash_entity_type_namecol,
+  hash_entity_type_idcol,
+  internal = TRUE, overwrite = TRUE
+)
