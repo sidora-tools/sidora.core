@@ -94,12 +94,7 @@ get_df <- function(
 }
 
 core_tab_download <- function(tab, con) {
-<<<<<<< HEAD
   get_con(tab, con) %>% tibble::as_tibble() %>% add_prefix_to_colnames(table_name_to_entity_type(tab)) %>% enforce_types()
-=======
-  res <- get_con(tab, con) %>% tibble::as_tibble() %>% enforce_types() %>% add_prefix_to_colnames(table2entity(tab))
-  return(res)
->>>>>>> master
 }
 
 #' @rdname get_data
@@ -118,7 +113,6 @@ get_df_list <- function(
   return(raw_list)
 }
 
-<<<<<<< HEAD
 #' access_restricted_table
 #'
 #' Some tables are restricted, e.g. the pandora_read user does not have access 
@@ -130,26 +124,16 @@ get_df_list <- function(
 #'
 #' @export
 access_restricted_table <- function(entity_id, con){
-=======
-#' @rdname get_data
-#' @export
-access_restricted_table <- function(con, tab){
->>>>>>> master
-  
+
   if ( !tab %in% sidora.core::pandora_tables_restricted )
     stop(paste0("[sidora.core] error: tab not found in restricted table list. Options: ",
                paste(sidora.core::pandora_tables_restricted, collapse = ","),
                ". Your selection: ", tab))
   
   ## Assumes con already generated
-<<<<<<< HEAD
   if ( entity_id == "TAB_User" )
     dplyr::tbl(con, dbplyr::build_sql("SELECT Id, Name, Username FROM TAB_User", 
                                       con = con)) %>%
     dplyr::as_tibble()
-=======
-  if ( tab == "TAB_User" )
-    dplyr::tbl(con, dbplyr::build_sql("SELECT Id, Name, Username FROM TAB_User", con = con))
->>>>>>> master
-  
+
 }
