@@ -17,7 +17,6 @@ enforce_types <- function(x, suppress_na_introduced_warnings = TRUE) {
     suppress_na_introduced_warnings = suppress_na_introduced_warnings
   )
   
-  return(x)
 }
 
 #### helpers ####
