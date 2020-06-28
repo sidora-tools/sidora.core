@@ -5,7 +5,6 @@
 \alias{get_con}
 \alias{get_con_list}
 \alias{get_df}
-\alias{add_prefix_to_colnames}
 \alias{get_df_list}
 \title{Access and download tables from Pandora}
 \usage{
@@ -20,8 +19,6 @@ get_df(
   cache_dir = tempdir(),
   cache_max_age = 24 * 60 * 60
 )
-
-add_prefix_to_colnames(x, prefix)
 
 get_df_list(
   tab = sidora.core::pandora_tables,

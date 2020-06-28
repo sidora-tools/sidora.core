@@ -118,7 +118,6 @@ TAB_Individual	individual	Deleted	logical
 TAB_Individual	individual	Deleted_Date	character	
 TAB_Sample	sample	Id	integer	
 TAB_Sample	sample	Individual	integer	
-TAB_Sample	sample	Individual	character	
 TAB_Sample	sample	Sample_Id	character	
 TAB_Sample	sample	Full_Sample_Id	character	
 TAB_Sample	sample	Archaeological_ID	integer	

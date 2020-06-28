@@ -17,7 +17,6 @@ enforce_types <- function(x, suppress_na_introduced_warnings = TRUE) {
     suppress_na_introduced_warnings = suppress_na_introduced_warnings
   )
   
-  return(x)
 }
 
 #### helpers ####
@@ -44,9 +43,9 @@ apply_col_types <- function(col_data, col_name, suppress_na_introduced_warnings)
 lookup_col_types <- function(col_names) {
   col_type <- rep(NA, length(col_names))
   # check which variables can be looked up
-  col_in_hash <- col_names %in% hash::keys(hash_col_type)
+  col_in_hash <- col_names %in% hash::keys(hash_sidora_col_name_col_type)
   # lookup type for variable in hash
-  col_type[col_in_hash] <- hash::values(hash_col_type, col_names[col_in_hash])
+  col_type[col_in_hash] <- hash::values(hash_sidora_col_name_col_type, col_names[col_in_hash])
   return(unlist(col_type))
 }
 

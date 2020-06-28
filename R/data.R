@@ -5,13 +5,6 @@
 #' @name pandora_tables
 NULL
 
-#' pandora column types
-#' 
-#' Table with all column names and respective data types
-#' 
-#' @name pandora_column_types
-NULL
-
 #' pandora tables restricted
 #' 
 #' List of all restricted tables in Pandora. Some columns maybe locked for privacy reasons.
@@ -19,19 +12,16 @@ NULL
 #' @name pandora_tables_restricted
 NULL
 
-#' entitymap
+#' pandora table elemens
 #' 
-#' A named vector that includes all sidora entity types and the corresponding
-#' PANDORA 'TAB_*' name.
+#' Table with all tables and names of certain column types
 #' 
-#' @name entitymap
+#' @name pandora_table_elements
 NULL
 
-#' id_2_name_map
+#' pandora column types
 #' 
-#' An named vector that includes all Pandora tables, but with the corresponding
-#' Name column, that can be used to convert a 'Id' in a main table to the 
-#' human-readable Name (as a string) column.
+#' Table with all column names and respective data types
 #' 
-#' @name id_2_name_map
-NULL 
+#' @name pandora_column_types
+NULL

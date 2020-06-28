@@ -79,15 +79,8 @@ get_df <- function(
   return(this_tab) 
 }
 
-#' @rdname get_data
-#' @export
-add_prefix_to_colnames <- function(x, prefix) {
-  colnames(x) <- paste0(prefix, ".", colnames(x))
-  return(x)
-}
-
 core_tab_download <- function(tab, con) {
-  get_con(tab, con) %>% tibble::as_tibble() %>% enforce_types() %>% add_prefix_to_colnames(table2entity(tab))
+  get_con(tab, con) %>% tibble::as_tibble() %>% add_prefix_to_colnames(table_name_to_entity_type(tab)) %>% enforce_types()
 }
 
 #' @rdname get_data
