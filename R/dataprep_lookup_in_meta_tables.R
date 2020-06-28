@@ -70,6 +70,26 @@ namecol_for_entity_type <- function(entity_type) {
 
 #' @rdname conversion_and_lookup
 #' @export
+idcol_for_entity_type <- function(entity_type) {
+  
+  if (length(entity_type) == 0) {
+    stop("[sidora.core] error: no entity type supplied.")
+  }
+  
+  if (any(!entity_type %in% hash::keys(hash_entity_type_idcol))) {
+    stop(paste(
+      "[sidora.core] error: at least one of your supplied names is not recognised. Options:", 
+      paste(hash::keys(hash_entity_type_idcol), collapse = ", "),
+      sep = "\n"
+    ))
+  }
+  
+  hash::values(hash_entity_type_idcol, entity_type)
+  
+}
+
+#' @rdname conversion_and_lookup
+#' @export
 col_name_has_aux <- function(entity_type, col_name) {
   sidora_col_name_has_aux(col_name_to_sidora_col_name(entity_type, col_name))
 }
@@ -79,5 +99,7 @@ col_name_has_aux <- function(entity_type, col_name) {
 sidora_col_name_has_aux <- function(sidora_col_name) {
   sidora_col_name %in% hash::keys(hash_sidora_col_name_auxiliary_table)
 }
+
+
 
 

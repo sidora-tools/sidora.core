@@ -4,6 +4,7 @@
 \alias{entity_type_to_table_name}
 \alias{table_name_to_entity_type}
 \alias{namecol_for_entity_type}
+\alias{idcol_for_entity_type}
 \alias{col_name_has_aux}
 \alias{sidora_col_name_has_aux}
 \title{Conversion and lookup functions}
@@ -13,6 +14,8 @@ entity_type_to_table_name(entity_type)
 table_name_to_entity_type(table_name)
 
 namecol_for_entity_type(entity_type)
+
+idcol_for_entity_type(entity_type)
 
 col_name_has_aux(entity_type, col_name)
 
