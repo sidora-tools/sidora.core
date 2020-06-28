@@ -125,13 +125,13 @@ get_df_list <- function(
 #' @export
 access_restricted_table <- function(entity_id, con){
 
-  if ( !tab %in% sidora.core::pandora_tables_restricted )
+  if ( any(!sidora.core::entity_type_to_table_name(entity_id) %in% sidora.core::pandora_tables_restricted) )
     stop(paste0("[sidora.core] error: tab not found in restricted table list. Options: ",
                paste(sidora.core::pandora_tables_restricted, collapse = ","),
-               ". Your selection: ", tab))
+               ". Your selection: ", entity_id))
   
   ## Assumes con already generated
-  if ( entity_id == "TAB_User" )
+  if ( sidora.core::entity_type_to_table_name(entity_id) == "TAB_User" )
     dplyr::tbl(con, dbplyr::build_sql("SELECT Id, Name, Username FROM TAB_User", 
                                       con = con)) %>%
     dplyr::as_tibble()
