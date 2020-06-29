@@ -179,9 +179,9 @@ TAB_Library	library	Robot	logical
 TAB_Library	library	Protocol	integer	TAB_Protocol	Name
 TAB_Library	library	Quantity_Extract	double		
 TAB_Library	library	Index_Set	integer	TAB_Index_Set	Name
-TAB_Library	library	P7_Index_Id	character	TAB_Index_Set_P7	Name
+TAB_Library	library	P7_Index_Id	integer	TAB_Index_Set_P7	Index
 TAB_Library	library	P7_Index_Sequence	character		
-TAB_Library	library	P5_Index_Id	character	TAB_Index_Set_P5	Name
+TAB_Library	library	P5_Index_Id	integer	TAB_Index_Set_P5	Index
 TAB_Library	library	P5_Index_Sequence	character		
 TAB_Library	library	P7_Barcode_Sequence	character		
 TAB_Library	library	P5_Barcode_Sequence	character		
