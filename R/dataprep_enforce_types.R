@@ -57,6 +57,7 @@ string_to_as <- function(x) {
     "factor" = as.factor,
     "logical" = as.logical,
     "character" = as.character,
+    "yesno_logical" = yesno_logical_to_logical,
     NA
   )
 }
@@ -69,6 +70,6 @@ na_introduced_warning_handler <- function(x) {
   }
 }
 
-as.yesno_logical <- function(x) {
-  x == "Yes"
+yesno_logical_to_logical <- function(x) {
+  tolower(x) == "yes"
 }
