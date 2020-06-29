@@ -20,7 +20,7 @@
 namecol_value_from_id <- function(sidora_col_name, query_id, con, cache_dir) {
 
   if (!any(is.integer(query_id))) {
-    stop("[sidora.core] error in function namecol_value_from_id()! query_id parameter must be an integer.")
+    stop(paste("[sidora.core] error in function namecol_value_from_id()! query_id parameter must be an integer. Sidora column:", sidora_col_name))
   }
   
   # determine auxiliary table and auxiliary id and auxiliary namecol given the lookup column

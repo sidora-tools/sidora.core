@@ -158,8 +158,8 @@ TAB_Extract	extract	Quantity_Lysate	double
 TAB_Extract	extract	External_Extract_Id	character		
 TAB_Extract	extract	Position_on_Plate	character		
 TAB_Extract	extract	Position_on_Plate	character		
-TAB_Extract	extract	Location_Room	character	TAB_Location_Room	Name
-TAB_Extract	extract	Location	character	TAB_Location	Name
+TAB_Extract	extract	Location_Room	integer	TAB_Location_Room	Name
+TAB_Extract	extract	Location	integer	TAB_Location	Name
 TAB_Extract	extract	Ethically_culturally_sensitive	logical		
 TAB_Extract	extract	Files	integer		
 TAB_Extract	extract	Notes	character		
@@ -192,8 +192,8 @@ TAB_Library	library	Post-Indexing_elution_volume	integer
 TAB_Library	library	External_Library_Id	character		
 TAB_Library	library	Position_on_Plate	character		
 TAB_Library	library	Position_on_Plate	character		
-TAB_Library	library	Location_Room	character	TAB_Location_Room	Name
-TAB_Library	library	Location	character	TAB_Location	Name
+TAB_Library	library	Location_Room	integer	TAB_Location_Room	Name
+TAB_Library	library	Location	integer	TAB_Location	Name
 TAB_Library	library	Ethically_culturally_sensitive	logical		
 TAB_Library	library	Files	integer		
 TAB_Library	library	Notes	character		
@@ -214,8 +214,8 @@ TAB_Capture	capture	Protocol	integer	TAB_Protocol	Name
 TAB_Capture	capture	Probe_Set	integer	TAB_Probe_Set	Name
 TAB_Capture	capture	Position_on_Plate	character		
 TAB_Capture	capture	Position_on_Plate	character		
-TAB_Capture	capture	Location_Room	character	TAB_Location_Room	Name
-TAB_Capture	capture	Location	character	TAB_Location	Name
+TAB_Capture	capture	Location_Room	integer	TAB_Location_Room	Name
+TAB_Capture	capture	Location	integer	TAB_Location	Name
 TAB_Capture	capture	Ethically_culturally_sensitive	logical		
 TAB_Capture	capture	Files	integer		
 TAB_Capture	capture	Notes	character		
@@ -244,8 +244,8 @@ TAB_Sequencing	sequencing	Weight_Lane_5	double
 TAB_Sequencing	sequencing	Weight_Lane_6	double		
 TAB_Sequencing	sequencing	Weight_Lane_7	double		
 TAB_Sequencing	sequencing	Weight_Lane_8	double		
-TAB_Sequencing	sequencing	Location_Room	character	TAB_Location_Room	Name
-TAB_Sequencing	sequencing	Location	character	TAB_Location	Name
+TAB_Sequencing	sequencing	Location_Room	integer	TAB_Location_Room	Name
+TAB_Sequencing	sequencing	Location	integer	TAB_Location	Name
 TAB_Sequencing	sequencing	Ethically_culturally_sensitive	logical		
 TAB_Sequencing	sequencing	Files	integer		
 TAB_Sequencing	sequencing	Notes	character		
