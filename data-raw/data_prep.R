@@ -79,6 +79,16 @@ hash_sidora_col_name_auxiliary_table <- hash::hash(
   pandora_column_types_with_auxiliary_table$auxiliary_table
 )
 
+# hash_sidora_col_name_auxiliary_namecol
+pandora_column_types_with_auxiliary_namecol <- pandora_column_types[!is.na(pandora_column_types$auxiliary_namecol),]
+hash_sidora_col_name_auxiliary_namecol <- hash::hash(
+  paste(pandora_column_types_with_auxiliary_table$entity_type, pandora_column_types_with_auxiliary_table$col_name, sep = "."),
+  paste(
+    hash::values(hash_table_name_entity_type, pandora_column_types_with_auxiliary_table$auxiliary_table), 
+    pandora_column_types_with_auxiliary_table$auxiliary_namecol, sep = "."
+  )
+)
+
 usethis::use_data(
   hash_sidora_col_name_col_type,
   hash_entity_type_table_name,
@@ -86,5 +96,6 @@ usethis::use_data(
   hash_sidora_col_name_auxiliary_table,
   hash_entity_type_namecol,
   hash_entity_type_idcol,
+  hash_sidora_col_name_auxiliary_namecol,
   internal = TRUE, overwrite = TRUE
 )
