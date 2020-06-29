@@ -18,6 +18,10 @@
 #'
 #' @export
 namecol_value_from_id <- function(sidora_col_name, query_id, con, cache_dir) {
+
+  if (!any(is.integer(query_id))) {
+    stop(paste("[sidora.core] error in function namecol_value_from_id()! query_id parameter must be an integer. Sidora column:", sidora_col_name))
+  }
   
   # determine auxiliary table and auxiliary id and auxiliary namecol given the lookup column
   aux_table <- hash::values(hash_sidora_col_name_auxiliary_table, sidora_col_name)
@@ -31,7 +35,7 @@ namecol_value_from_id <- function(sidora_col_name, query_id, con, cache_dir) {
   res_vector <- lookup_table[[name_column]][match(query_id, lookup_table[[id_column]])]
   
   # if lookup yields empty character then return input
-  res_vector[res_vector == "" | is.na(res_vector)] <- query_id[res_vector == "" | is.na(res_vector)]
+  res_vector[is.na(res_vector)] <- query_id[is.na(res_vector)]
   
   return(res_vector)
   
