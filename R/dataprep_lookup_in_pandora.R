@@ -18,6 +18,10 @@
 #'
 #' @export
 namecol_value_from_id <- function(sidora_col_name, query_id, con, cache_dir) {
+
+  if (!any(is.integer(query_id))) {
+    stop("[sidora.core] error in function namecol_value_from_id()! query_id parameter must be an integer.")
+  }
   
   # determine auxiliary table and auxiliary id and auxiliary namecol given the lookup column
   aux_table <- hash::values(hash_sidora_col_name_auxiliary_table, sidora_col_name)
