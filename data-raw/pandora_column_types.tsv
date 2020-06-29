@@ -152,7 +152,7 @@ TAB_Extract	extract	Worker	integer	TAB_User	Name
 TAB_Extract	extract	Creation_Date	character		
 TAB_Extract	extract	Experiment_Date	character		
 TAB_Extract	extract	Batch	integer	TAB_Batch	Name
-TAB_Extract	extract	Robot	logical		
+TAB_Extract	extract	Robot	yesno_logical		
 TAB_Extract	extract	Quantity_Sample	double		
 TAB_Extract	extract	Quantity_Lysate	double		
 TAB_Extract	extract	External_Extract_Id	character		
@@ -175,7 +175,7 @@ TAB_Library	library	Worker	integer	TAB_User	Name
 TAB_Library	library	Creation_Date	character		
 TAB_Library	library	Experiment_Date	character		
 TAB_Library	library	Batch	integer	TAB_Batch	Name
-TAB_Library	library	Robot	logical		
+TAB_Library	library	Robot	yesno_logical		
 TAB_Library	library	Protocol	integer	TAB_Protocol	Name
 TAB_Library	library	Quantity_Extract	double		
 TAB_Library	library	Index_Set	integer	TAB_Index_Set	Name
@@ -209,7 +209,7 @@ TAB_Capture	capture	Worker	integer	TAB_User	Name
 TAB_Capture	capture	Creation_Date	character		
 TAB_Capture	capture	Experiment_Date	character		
 TAB_Capture	capture	Batch	integer	TAB_Batch	Name
-TAB_Capture	capture	Robot	logical		
+TAB_Capture	capture	Robot	yesno_logical		
 TAB_Capture	capture	Protocol	integer	TAB_Protocol	Name
 TAB_Capture	capture	Probe_Set	integer	TAB_Probe_Set	Name
 TAB_Capture	capture	Position_on_Plate	character		
