@@ -3,7 +3,10 @@
 # should not run on travis
 if (Sys.getenv("USER") != "travis") {
 
-  creds <- readLines(".credentials")
+  # path to credentials file that is also valid in case of check
+  cred_file <- file.path(gsub(".Rcheck", "", getwd()), ".credentials")
+  
+  creds <- readLines(cred_file)
   con <- DBI::dbConnect(
     RMariaDB::MariaDB(), 
     host = creds[1],
