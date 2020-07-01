@@ -4,7 +4,7 @@
 \alias{namecol_value_from_id}
 \title{namecol_value_from_id}
 \usage{
-namecol_value_from_id(sidora_col_name, query_id, con, cache_dir)
+namecol_value_from_id(sidora_col_name, query_id, con, cache_dir = tempdir())
 }
 \arguments{
 \item{sidora_col_name}{character. A sidora table column name}
