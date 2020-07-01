@@ -14,16 +14,16 @@ LazyData: true
 Depends:
   R (>= 2.10)
 Imports:
-  dplyr,
-  dbplyr,
-  hash,
-  magrittr,
-  purrr,
-  rlang,
-  tibble,
-  utils
+  dbplyr (>= 1.4.4),
+  dplyr (>= 1.0.0),
+  hash (>= 2.2.6.1),
+  magrittr (>= 1.5),
+  purrr (>= 0.3.4),
+  rlang (>= 0.4.6),
+  tibble (>= 3.0.1),
+  utils (>= 3.6.3)
 Suggests: 
-  DBI,
-  RMariaDB,
-  testthat (>= 2.1.0)
+  DBI (>= 1.1.0),
+  RMariaDB (>= 1.0.8),
+  testthat (>= 2.3.2)
 RoxygenNote: 7.1.1
