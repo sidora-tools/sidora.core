@@ -10,7 +10,8 @@ pandora_column_types <- readr::read_tsv(
     entity_type = readr::col_character(),
     col_name = readr::col_character(),
     type = readr::col_character(),
-    auxiliary_table = readr::col_character()
+    auxiliary_table = readr::col_character(),
+    update_col_type = readr::col_character()
   )
 )
 
@@ -89,6 +90,13 @@ hash_sidora_col_name_auxiliary_namecol <- hash::hash(
   )
 )
 
+# hash_pandora_col_name_update_type
+hash_pandora_col_name_update_type <- hash::hash(
+  paste(pandora_column_types$entity_type, pandora_column_types$col_name, sep = "."),
+  pandora_column_types$update_col_type
+)
+
+
 usethis::use_data(
   hash_sidora_col_name_col_type,
   hash_entity_type_table_name,
@@ -97,5 +105,6 @@ usethis::use_data(
   hash_entity_type_namecol,
   hash_entity_type_idcol,
   hash_sidora_col_name_auxiliary_namecol,
+  hash_pandora_col_name_update_type,
   internal = TRUE, overwrite = TRUE
 )
