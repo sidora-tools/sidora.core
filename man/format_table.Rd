@@ -4,10 +4,12 @@
 \alias{format_table}
 \title{format_table}
 \usage{
-format_table(table, format)
+format_table(sidora_table, format)
 }
 \arguments{
-\item{format}{}
+\item{format}{a type of format to convert to.}
+
+\item{table}{a sidora table}
 }
 \description{
 This function takes a Sidora column-named table, and will re-format in 

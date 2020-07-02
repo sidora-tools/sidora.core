@@ -3,8 +3,8 @@
 #' This function takes a Sidora column-named table, and will re-format in 
 #' various ways for saving in different contexts.
 #' 
-#' @param table
-#' @param format
+#' @param table a sidora table
+#' @param format a type of format to convert to.
 #' 
 #' @examples
 #' \dontrun{
@@ -13,8 +13,9 @@
 #' }
 #' 
 #' @name format_table
+#' @export
 
-format_table <- function(table, format) {
+format_table <- function(sidora_table, format) {
   
   valid_formats <- c("pandora_update_existing")
   
@@ -22,10 +23,17 @@ format_table <- function(table, format) {
     stop(paste("[sidora.core] error: format_table() only accepts the following conversion formats:", paste(valid_formats, collapse = ", ")))
   
   if (format == "pandora_update_existing") {
-    sidora.core::as_update_existing(table)
+    sidora.core::as_update_existing(sidora_table)
   }
 }
 
+#' as_update_existing
+#' 
+#' Converts a sidora table to a format that can be use with pandora table upload
+#' interface
+#' 
+#' @param sidora_table a sidora table
+#' 
 #' @rdname as_update_existing
 #' @export
 as_update_existing <- function(sidora_table) {
@@ -43,6 +51,10 @@ as_update_existing <- function(sidora_table) {
   result %>% dplyr::rename_with(make_column_mandatory, valid_cols_table_clean_mandatory)
 }
 
+#' make_column_mandatory
+#'
+#' @param x column name to wrap with asterisks
+#' 
 #' @rdname make_column_mandatory
 #' @export
 make_column_mandatory <- function(x){
