@@ -40,7 +40,7 @@ as_update_existing <- function(sidora_table) {
   
   ## Find valid columns for uploading existing tables
   valid_cols_table_clean <- valid_cols_table <- hash::values(hash_pandora_col_name_update_type, colnames(sidora_table))
-  names(valid_cols_table_clean) <- sidora.core::sidora_col_name_to_col_name(names(valid_cols_table_clean)) %>% gsub("_", " ", .)
+  names(valid_cols_table_clean) <- sidora_col_name_to_update_col_name(names(valid_cols_table_clean))
   valid_cols_table_clean_mandatory <- names(valid_cols_table_clean[valid_cols_table_clean %in% "mandatory"])
   
   ## Clean up tables
