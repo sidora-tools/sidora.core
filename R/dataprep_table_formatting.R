@@ -45,7 +45,7 @@ as_update_existing <- function(sidora_table) {
   
   ## Clean up tables
   result <- sidora_table[, !is.na(valid_cols_table)]
-  colnames(result) <- sidora.core::sidora_col_name_to_col_name(colnames(result)) %>% gsub("_", " ", .)
+  colnames(result) <- sidora_col_name_to_update_col_name(names(result))
   
   ## Add formatting for mandatory upload columns
   result %>% dplyr::rename_with(make_column_mandatory, valid_cols_table_clean_mandatory)
@@ -54,9 +54,13 @@ as_update_existing <- function(sidora_table) {
 #' make_column_mandatory
 #'
 #' @param x column name to wrap with asterisks
-#' 
-#' @rdname make_column_mandatory
-#' @export
 make_column_mandatory <- function(x){
   gsub("^", "\\*", x) %>% gsub("$", "\\*", .)
+}
+
+#' sidora_col_name_to_update_col_name
+#'
+#' @param x sidora column name to be converted to Pandora upload existing data column
+sidora_col_name_to_update_col_name <- function(x){
+  sidora.core::sidora_col_name_to_col_name(x) %>% gsub("_", " ", .)
 }
