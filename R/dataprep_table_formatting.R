@@ -1,50 +1,44 @@
-#' format_table
-#' 
-#' This function takes a Sidora column-named table, and will re-format in 
-#' various ways for saving in different contexts.
-#' 
-#' @param table a sidora table
-#' @param format a type of format to convert to.
-#' 
-#' @examples
-#' \dontrun{
-#' sidora_table <- get_df("TAB_Site", con)
-#' format_table(sidora_table, "pandora_update_existing")
-#' }
-#' 
-#' @name format_table
-#' @export
-
-format_table <- function(sidora_table, format) {
-  
-  valid_formats <- c("pandora_update_existing")
-  
-  if (!format %in% valid_formats)
-    stop(paste("[sidora.core] error: format_table() only accepts the following conversion formats:", paste(valid_formats, collapse = ", ")))
-  
-  if (format == "pandora_update_existing") {
-    sidora.core::as_update_existing(sidora_table)
-  }
-}
-
 #' as_update_existing
 #' 
 #' Converts a sidora table to a format that can be use with pandora table upload
 #' interface
 #' 
+#' @examples
+#' \dontrun{
+#' sidora_table <- get_df("TAB_Site", con)
+#' format_as_update_existing(sidora_table,)
+#' }
+#' 
 #' @param sidora_table a sidora table
 #' 
-#' @rdname as_update_existing
+#' @rdname format_as_update_existing
 #' @export
-as_update_existing <- function(sidora_table) {
+format_as_update_existing <- function(sidora_table) {
   
   ## Find valid columns for uploading existing tables
   valid_cols_table_clean <- valid_cols_table <- hash::values(hash_pandora_col_name_update_type, colnames(sidora_table))
   names(valid_cols_table_clean) <- sidora_col_name_to_update_col_name(names(valid_cols_table_clean))
   valid_cols_table_clean_mandatory <- names(valid_cols_table_clean[valid_cols_table_clean %in% "mandatory"])
   
+  ## For upload 'Full_*_Id' column isn't used, but just '_Id', which here is a 
+  ## numeric value . We will replace the latter with the former here for export
+  ## QUESTION maybe put as data object? But will never be used other than here
+  name_map <- c(individual.Full_Individual_Id = "individual.Individual_Id", 
+                sample.Full_Sample_Id = "sample.Sample_Id", 
+                extract.Full_Extract_Id = "extract.Extract_Id", 
+                library.Full_Library_Id = "library.Library_Id", 
+                capture.Full_Capture_Id = "capture.Capture_Id", 
+                sequencing.Full_Sequencing_Id = "sequencing.Sequencing_Id", 
+                raw_data.Full_Raw_Data_Id = "raw_data.Raw_Data_Id"
+                )
+  
+  string_col <- name_map[names(sidora_table)[names(sidora_table) %in% names(name_map)]]
+  
+  sidora_table[string_col] <- sidora_table[names(string_col)]
+  
   ## Clean up tables
   result <- sidora_table[, !is.na(valid_cols_table)]
+  
   colnames(result) <- sidora_col_name_to_update_col_name(names(result))
   
   ## Add formatting for mandatory upload columns
