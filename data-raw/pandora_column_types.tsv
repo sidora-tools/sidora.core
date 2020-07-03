@@ -135,7 +135,7 @@ TAB_Sample	sample	Location_Bone_Room	integer	TAB_Location_Room	Name	optional
 TAB_Sample	sample	Location_Bone	integer	TAB_Location	Name	optional
 TAB_Sample	sample	Location_Powder_Room	integer	TAB_Location_Room	Name	optional
 TAB_Sample	sample	Location_Powder	integer	TAB_Location	Name	optional
-TAB_Sample	sample	Ethically_culturally_sensitive	logical	NA	NA	optional
+TAB_Sample	sample	Ethically_culturally_sensitive	yesno_logical	NA	NA	optional
 TAB_Sample	sample	Files	integer	NA	NA	optional
 TAB_Sample	sample	Notes	character	NA	NA	optional
 TAB_Sample	sample	Contact_Person	character	NA	NA	optional
