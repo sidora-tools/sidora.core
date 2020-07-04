@@ -34,17 +34,26 @@ format_as_update_existing <- function(sidora_table) {
   
   string_col <- name_map[names(sidora_table)[names(sidora_table) %in% names(name_map)]]
   sidora_table[string_col] <- sidora_table[names(string_col)]
-  sidora_table 
   
   ## Clean up tables, subsetting and fixing column types when necessary
   result <- sidora_table[, !is.na(valid_cols_table)] %>% fix_logical_update_existing()
   colnames(result) <- sidora_col_name_to_update_col_name(names(result))
   
-  ## Add formatting for mandatory upload columns
-  result %>% dplyr::rename_with(make_column_mandatory, valid_cols_table_clean_mandatory)
+  # Add formatting for mandatory upload columns and ensure all columns written
+  # as displayed (particularly to prevent datetime saving with TZ info)
+  result %>% 
+    dplyr::rename_with(make_column_mandatory, valid_cols_table_clean_mandatory) %>%
+    dplyr::mutate(across(everything(), as.character))
 }
 
 #' make_column_mandatory
+#' 
+#' For 'batch' uploading to update entries using the Pandora webpage, certain 
+#' columns are mandatory. These are indicated in the header with asterisks. 
+#' This function wraps a column name in the asterisks.
+#' 
+#' e.g. \*Sample_Id\* ,Archaeological ID,<...> where the first column must be 
+#' supplied and the second not.
 #'
 #' @param x column name to wrap with asterisks
 make_column_mandatory <- function(x){
@@ -52,6 +61,10 @@ make_column_mandatory <- function(x){
 }
 
 #' fix_logical_update_existing
+#' 
+#' Sidora converts on data download 'Yes/No' columns to logical column types 
+#' for faster R processing. This converts these back, and also replaces 
+#' non-Sample level ethically sensitive columns back to the dummy '0' data.
 #' 
 #' @param x column name to wrap with asterisks
 
@@ -62,8 +75,8 @@ fix_logical_update_existing <- function(sidora_table){
   }
   
   if ("sample.Ethically_culturally_sensitive" %in% names(sidora_table)) {
-   result <- sidora_table %>% 
-     dplyr::mutate(dplyr::across(dplyr::contains(c("sample", ".Ethically_culturally_sensitive")), function(x) gsub(F, "No", x) %>% gsub(T, "Yes", .)))
+    result <- sidora_table %>% 
+      dplyr::mutate(dplyr::across(dplyr::contains(c("sample", ".Ethically_culturally_sensitive")), function(x) gsub(F, "No", x) %>% gsub(T, "Yes", .)))
   } else {
     result <- sidora_table %>%
       dplyr::mutate(dplyr::across(dplyr::contains(c(".Ethically_culturally_sensitive")), function(x){return(0)}))
@@ -72,6 +85,9 @@ fix_logical_update_existing <- function(sidora_table){
 }
 
 #' sidora_col_name_to_update_col_name
+#'
+#' Reverts sidora-added underscores to spaces ni column names for pandora 
+#' updating
 #'
 #' @param x sidora column name to be converted to Pandora upload existing data column
 sidora_col_name_to_update_col_name <- function(x){
