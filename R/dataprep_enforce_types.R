@@ -58,6 +58,7 @@ string_to_as <- function(x) {
     "logical" = as.logical,
     "character" = as.character,
     "yesno_logical" = yesno_logical_to_logical,
+    "datetime" = as.POSIXct,
     NA
   )
 }
