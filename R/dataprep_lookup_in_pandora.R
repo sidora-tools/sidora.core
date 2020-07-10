@@ -46,8 +46,8 @@ namecol_value_from_id <- function(sidora_col_name, query_id, con, cache_dir = te
 #' A convenience function which simply transforms a given Pandora-Dataframe using all
 #' defined default lookups. Typically will convert a pandora back-end numeric ID to a 'human readable string' actually displayed on the pandora webpage.
 #' 
-#'
-#' @param df A Sidora/Pandora-Dataframe with standard column names.
+#' @param df data.frame. A Sidora/Pandora-Dataframe with sidora column names.
+#' 
 #' @return The converted dataframe with lookup-columns replaced by the actual values.
 #'
 #'
