@@ -56,7 +56,7 @@ convert_all_ids_to_values <- function(df) {
   cols2update <- names(df[sidora.core::sidora_col_name_has_aux(names(df))])
   return (df %>% 
             dplyr::mutate(
-              dplyr::across(all_of(cols2update),
+              dplyr::across(tidyselect::all_of(cols2update),
                             ~namecol_value_from_id(con = con, sidora_col_name = dplyr::cur_column(), query_id = .x)
               )
             )
