@@ -40,3 +40,25 @@ namecol_value_from_id <- function(sidora_col_name, query_id, con, cache_dir = te
   return(res_vector)
   
 }
+
+#' convert_default_lookup
+#'
+#' A convenience function which simply transforms a given Pandora-Dataframe using all
+#' defined default lookups.
+#' 
+#'
+#' @param df A Sidora/Pandora-Dataframe with standard column names.
+#' @return The converted dataframe with lookup-columns replaced by the actual values.
+#'
+#'
+#' @export
+convert_default_lookup <- function(df) {
+  cols2update <- names(df[sidora.core::sidora_col_name_has_aux(names(df))])
+  return (df %>% 
+            dplyr::mutate(
+              dplyr::across(all_of(cols2update),
+                            ~namecol_value_from_id(con = con, sidora_col_name = dplyr::cur_column(), query_id = .x)
+              )
+            )
+  )
+}
