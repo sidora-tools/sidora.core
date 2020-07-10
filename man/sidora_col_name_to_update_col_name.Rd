@@ -10,5 +10,6 @@ sidora_col_name_to_update_col_name(x)
 \item{x}{sidora column name to be converted to Pandora upload existing data column}
 }
 \description{
-sidora_col_name_to_update_col_name
+Reverts sidora-added underscores to spaces ni column names for pandora 
+updating
 }
