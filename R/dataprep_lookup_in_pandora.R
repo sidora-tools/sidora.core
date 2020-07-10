@@ -40,3 +40,25 @@ namecol_value_from_id <- function(sidora_col_name, query_id, con, cache_dir = te
   return(res_vector)
   
 }
+
+#' convert_all_ids_to_values
+#'
+#' A convenience function which simply transforms a given Pandora-Dataframe using all
+#' defined default lookups. Typically will convert a pandora back-end numeric ID to a 'human readable string' actually displayed on the pandora webpage.
+#' 
+#' @param df data.frame. A Sidora/Pandora-Dataframe with sidora column names.
+#' 
+#' @return The converted dataframe with lookup-columns replaced by the actual values.
+#'
+#'
+#' @export
+convert_all_ids_to_values <- function(df) {
+  cols2update <- names(df[sidora.core::sidora_col_name_has_aux(names(df))])
+  return (df %>% 
+            dplyr::mutate(
+              dplyr::across(tidyselect::all_of(cols2update),
+                            ~namecol_value_from_id(con = con, sidora_col_name = dplyr::cur_column(), query_id = .x)
+              )
+            )
+  )
+}
