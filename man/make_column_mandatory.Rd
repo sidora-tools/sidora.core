@@ -10,5 +10,11 @@ make_column_mandatory(x)
 \item{x}{column name to wrap with asterisks}
 }
 \description{
-make_column_mandatory
+For 'batch' uploading to update entries using the Pandora webpage, certain 
+columns are mandatory. These are indicated in the header with asterisks. 
+This function wraps a column name in the asterisks.
+}
+\details{
+e.g. \*Sample_Id\* ,Archaeological ID,<...> where the first column must be 
+supplied and the second not.
 }

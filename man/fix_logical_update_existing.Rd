@@ -10,5 +10,7 @@ fix_logical_update_existing(sidora_table)
 \item{x}{column name to wrap with asterisks}
 }
 \description{
-fix_logical_update_existing
+Sidora converts on data download 'Yes/No' columns to logical column types 
+for faster R processing. This converts these back, and also replaces 
+non-Sample level ethically sensitive columns back to the dummy '0' data.
 }
