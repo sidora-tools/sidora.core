@@ -7,7 +7,7 @@
 fix_logical_update_existing(sidora_table)
 }
 \arguments{
-\item{x}{column name to wrap with asterisks}
+\item{sidora_table}{column name to wrap with asterisks}
 }
 \description{
 Sidora converts on data download 'Yes/No' columns to logical column types 

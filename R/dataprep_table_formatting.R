@@ -43,7 +43,7 @@ format_as_update_existing <- function(sidora_table) {
   # as displayed (particularly to prevent datetime saving with TZ info)
   result %>% 
     dplyr::rename_with(make_column_mandatory, valid_cols_table_clean_mandatory) %>%
-    dplyr::mutate(across(everything(), as.character))
+    dplyr::mutate(dplyr::across(tidyselect::everything(), as.character))
 }
 
 #' make_column_mandatory
@@ -66,7 +66,7 @@ make_column_mandatory <- function(x){
 #' for faster R processing. This converts these back, and also replaces 
 #' non-Sample level ethically sensitive columns back to the dummy '0' data.
 #' 
-#' @param x column name to wrap with asterisks
+#' @param sidora_table column name to wrap with asterisks
 
 fix_logical_update_existing <- function(sidora_table){
   

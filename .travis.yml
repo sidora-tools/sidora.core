@@ -5,7 +5,7 @@ sudo: false
 cache: packages
 r_packages:
   - covr
-warnings_are_errors: false
+warnings_are_errors: true
 
 after_success:
   - Rscript -e 'library(covr); codecov()'
