@@ -59,6 +59,13 @@ get_df_list(c(
 ), con = con) %>% join_pandora_tables()
 ```
 
+Many columns in Pandora have numerical IDs to refer to workers, Protocols, Capture Probe sets and other
+finite sets of identifiers. We have added a function to convert all those numerical IDs to the actual strings:
+
+```
+jt_converted_lookups <- join_pandora_tables(df_list) %>% convert_all_ids_to_values()
+```
+
 ## How do I load the 'development environment'
 
 1. Clone this repository. 
