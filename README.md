@@ -16,7 +16,7 @@ remotes::install_github("sidora-tools/sidora.core")
 
 ## Quickstart
 
-Load the package and establish a database connection to Pandora. To do so you need the right *.credentials* file
+Load the package and establish a database connection to Pandora. To do so you need the right `.credentials` file. Contact Stephan Schiffels, James Fellows Yates or Clemens Schmid to obtain it. You also have to be in the institute's subnet. 
 
 ```
 library(magrittr)
@@ -49,7 +49,31 @@ df_list <- get_df_list(c(
 ), con = con)
 ```
 
-Some Pandora tables can be merged following a hierarchical, pair-wise logic of primary and foreign keys. `join_pandora_tables()` is a join function which is aware of this logic and automatically combines lists of data.frames with Pandora tables (as produced by `get_con_list()` or `get_df_list()`) to long data.frames.
+The main Pandora tables follow a hierarchical, pair-wise logic of primary and foreign keys that represents the real hierarchy of classification, attribution and processing to which a typical aDNA sample is subject. That means there is a defined order of tables:
+
+```
+TAB_Site >
+  TAB_Individual >
+    TAB_Sample > 
+      TAB_Extract > 
+        TAB_Library >
+          TAB_Capture > 
+            TAB_Sequencing >
+              TAB_Raw_Data
+```
+
+A small semantic exception is the capture table, which DOES contain entries even for samples that did not go through a capture step. That is done to maintain the clean database hierarchy.
+
+This architecture has the consequence that you will need intermediate tables to connect information from not directly neighbouring tables. The helper function `make_complete_table_list()` simplifies the step of collecting the relevant intermediate tables in order.
+
+```
+# get "complete"" list of data.frames
+complete_df_list <- get_df_list(c(
+  make_complete_table_list(c("TAB_Site", "TAB_Raw_Data"))
+), con = con)
+```
+
+`join_pandora_tables()` is a join function which is aware of this logic and automatically combines lists of data.frames with Pandora tables (as produced by `get_con_list()` or `get_df_list()`) to long data.frames.
 
 ```
 jt <- join_pandora_tables(df_list)
