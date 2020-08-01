@@ -90,6 +90,19 @@ join_pandora_tables <- function(x) {
       )
     return_table <- "TAB_Sequencing"
   }
+  
+  if (all(c("TAB_Sequencing", "TAB_Raw_Data") %in% tabs)) {
+    x[["TAB_Raw_Data"]] <- dplyr::left_join(
+      x[["TAB_Sequencing"]], 
+      x[["TAB_Raw_Data"]], 
+      by = c("sequencing.Id" = "raw_data.Sequencing")
+    ) %>%
+      dplyr::mutate(
+        raw_data.Sequencing = .data[["sequencing.Id"]]
+      )
+    return_table <- "TAB_Raw_Data"
+  }
+  
   return(x[[return_table]])
 }
 
