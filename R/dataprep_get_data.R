@@ -36,9 +36,11 @@ get_con <- function(tab = sidora.core::pandora_tables, con) {
   }
   
   # establish data connection
-  if (tab %in% sidora.core::pandora_tables_restricted)
+  if (tab %in% sidora.core::pandora_tables_restricted) {
     my_con <- access_restricted_table(tab, con)
-  else {
+  } else if (tab %in% sidora.core::pandora_tables_prejoin) {
+    my_con <- access_prejoined_data(tab, con)
+  } else {
     my_con <- dplyr::tbl(con, tab)
   }
 
@@ -129,3 +131,29 @@ access_restricted_table <- function(tab, con){
     dplyr::as_tibble()
 
 }
+
+
+#' @rdname access_prejoined_data
+#' @export
+#' @noRd
+access_prejoined_data <- function(tab, con){
+  
+  if ( any(!tab %in% sidora.core::pandora_tables_prejoin) )
+    stop(paste0("[sidora.core] error: tab not found in requires prejoining table list. Options: ",
+                paste(sidora.core::pandora_tables_prejoin, collapse = ","),
+                ". Your selection: ", tab))
+  
+  ## Assumes con already generated
+  if ( tab == "TAB_Analysis" )
+    ana_ids <- get_con(tab, con) %>% tibble::as_tibble()
+    cat("[sidora.core] loading analysis may take a while, please be patient.")
+    ana_res <- get_con("TAB_Analysis_Result_String", con) %>% tibble::as_tibble()
+    
+    left_join(ana_ids, ana_res %>% 
+                rename(String_Id = Id), by = c("Id" = "Analysis")) %>% 
+      add_prefix_to_colnames(table_name_to_entity_type(tab)) %>% 
+      enforce_types()
+    
+}
+
+

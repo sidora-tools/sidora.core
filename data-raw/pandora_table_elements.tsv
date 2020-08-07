@@ -1,26 +1,27 @@
-table	entity_type	namecol	restricted	idcol
-TAB_Site	site	Full_Site_Id	FALSE	Id
-TAB_Individual	individual	Full_Individual_Id	FALSE	Id
-TAB_Sample	sample	Full_Sample_Id	FALSE	Id
-TAB_Extract 	extract	Full_Extract_Id	FALSE	Id
-TAB_Library	library	Full_Library_Id	FALSE	Id
-TAB_Capture	capture	Full_Capture_Id	FALSE	Id
-TAB_Sequencing 	sequencing	Full_Sequencing_Id	FALSE	Id
-TAB_Raw_Data	raw_data	Full_Raw_Data_Id	FALSE	Id
-TAB_Sequencing_Sequencer	sequencer	Name	FALSE	Id
-TAB_Tag	tag	Name	FALSE	Id
-TAB_Project	project	Name	FALSE	Id
-TAB_User	user	Name	TRUE	Id
-TAB_Sequencing_Setup	sequencing_setup	Name	FALSE	Id
-TAB_Batch	batch	Name	FALSE	Id
-TAB_Index_Set	index_set	Name	FALSE	Id
-TAB_Location	location	Name	FALSE	Id
-TAB_Location_Room	location_room	Name	FALSE	Id
-TAB_Organism	organism	Name	FALSE	Id
-TAB_Owner	owner	Name	FALSE	Id
-TAB_Probe_Set	probe_set	Name	FALSE	Id
-TAB_Protocol	protocol	Name	FALSE	Id
-TAB_Type	sample_type	Name	FALSE	Id
-TAB_Type_Group	sample_type_group	Name	FALSE	Id
-TAB_Index_Set_P5	index_p5	Index	FALSE	Id
-TAB_Index_Set_P7	index_p7	Index	FALSE	Id
+table	entity_type	namecol	restricted	requires_prejoin	idcol
+TAB_Site	site	Full_Site_Id	FALSE	FALSE	Id
+TAB_Individual	individual	Full_Individual_Id	FALSE	FALSE	Id
+TAB_Sample	sample	Full_Sample_Id	FALSE	FALSE	Id
+TAB_Extract 	extract	Full_Extract_Id	FALSE	FALSE	Id
+TAB_Library	library	Full_Library_Id	FALSE	FALSE	Id
+TAB_Capture	capture	Full_Capture_Id	FALSE	FALSE	Id
+TAB_Sequencing 	sequencing	Full_Sequencing_Id	FALSE	FALSE	Id
+TAB_Raw_Data	raw_data	Full_Raw_Data_Id	FALSE	FALSE	Id
+TAB_Analysis	analysis	Full_Analysis_Id	FALSE	TRUE	Id
+TAB_Sequencing_Sequencer	sequencer	Name	FALSE	FALSE	Id
+TAB_Tag	tag	Name	FALSE	FALSE	Id
+TAB_Project	project	Name	FALSE	FALSE	Id
+TAB_User	user	Name	TRUE	FALSE	Id
+TAB_Sequencing_Setup	sequencing_setup	Name	FALSE	FALSE	Id
+TAB_Batch	batch	Name	FALSE	FALSE	Id
+TAB_Index_Set	index_set	Name	FALSE	FALSE	Id
+TAB_Location	location	Name	FALSE	FALSE	Id
+TAB_Location_Room	location_room	Name	FALSE	FALSE	Id
+TAB_Organism	organism	Name	FALSE	FALSE	Id
+TAB_Owner	owner	Name	FALSE	FALSE	Id
+TAB_Probe_Set	probe_set	Name	FALSE	FALSE	Id
+TAB_Protocol	protocol	Name	FALSE	FALSE	Id
+TAB_Type	sample_type	Name	FALSE	FALSE	Id
+TAB_Type_Group	sample_type_group	Name	FALSE	FALSE	Id
+TAB_Index_Set_P5	index_p5	Index	FALSE	FALSE	Id
+TAB_Index_Set_P7	index_p7	Index	FALSE	FALSE	Id
