@@ -73,6 +73,11 @@ get_df <- function(
   tab = sidora.core::pandora_tables, con, 
   cache = T, cache_dir = tempdir(), cache_max_age = 24 * 60 * 60) {
   
+  if ( any(!tab %in% sidora.core::pandora_tables) )
+    stop(paste0("[sidora.core] error: tab not found in avaliable tables. Options: ",
+                paste(sidora.core::pandora_tables, collapse = ","),
+                ". Your selection: ", tab))
+  
   if (length(tab) != 1) {
     stop("[sidora.core] error: Select one valid PANDORA SQL table.")
   }
@@ -145,9 +150,9 @@ access_prejoined_data <- function(tab, con){
   
   ## Assumes con already generated
   if ( tab == "TAB_Analysis" )
-    ana_ids <- get_con(tab, con) %>% tibble::as_tibble()
+    ana_ids <- dplyr::tbl(con, tab) %>% tibble::as_tibble()
     cat("[sidora.core] loading analysis may take a while, please be patient.")
-    ana_res <- get_con("TAB_Analysis_Result_String", con) %>% tibble::as_tibble()
+    ana_res <- dplyr::tbl(con, "TAB_Analysis_Result_String") %>% tibble::as_tibble()
     
     left_join(ana_ids, ana_res %>% 
                 rename(String_Id = Id), by = c("Id" = "Analysis")) %>% 
