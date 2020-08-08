@@ -181,8 +181,8 @@ access_prejoined_data <- function(tab, con){
     ) %>%
     # rename Id columns (after join for performance reasons!)  
     dplyr::rename(
-      Id = Id.x,
-      String_Id = Id.y
+      Id = .data[["Id.x"]],
+      String_Id = .data[["Id.y"]]
     )
   }
     
