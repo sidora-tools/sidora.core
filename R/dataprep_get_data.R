@@ -129,15 +129,23 @@ get_df_list <- function(
 #' @export
 access_restricted_table <- function(tab, con){
 
-  if ( any(!tab %in% sidora.core::pandora_tables_restricted) )
-    stop(paste0("[sidora.core] error: tab not found in restricted table list. Options: ",
-               paste(sidora.core::pandora_tables_restricted, collapse = ","),
-               ". Your selection: ", tab))
+  if ( any(!tab %in% sidora.core::pandora_tables_restricted) ) {
+    stop(
+      paste0(
+        "[sidora.core] error: tab not found in restricted table list. Options: ",
+        paste(sidora.core::pandora_tables_restricted, collapse = ","),
+        ". Your selection: ", tab
+      )
+    )
+  }
   
   ## Assumes con already generated
-  if ( tab == "TAB_User" )
-    dplyr::tbl(con, dbplyr::build_sql("SELECT Id, Name, Username FROM TAB_User", 
-                                      con = con))
+  if ( tab == "TAB_User" ) {
+    dplyr::tbl(
+      con, 
+      dbplyr::build_sql("SELECT Id, Name, Username FROM TAB_User", con = con)
+    )
+  }
 
 }
 
@@ -146,20 +154,35 @@ access_restricted_table <- function(tab, con){
 #' @export
 access_prejoined_data <- function(tab, con){
   
-  if ( any(!tab %in% sidora.core::pandora_tables_prejoin) )
-    stop(paste0("[sidora.core] error: tab not found in requires prejoining table list. Options: ",
-                paste(sidora.core::pandora_tables_prejoin, collapse = ","),
-                ". Your selection: ", tab))
+  if ( any(!tab %in% sidora.core::pandora_tables_prejoin) ) {
+    stop(
+      paste0(
+        "[sidora.core] error: tab not found in requires prejoining table list. Options: ",
+        paste(sidora.core::pandora_tables_prejoin, collapse = ","),
+        ". Your selection: ", tab
+      )
+    )
+  }
   
   ## Assumes con already generated
   if ( tab == "TAB_Analysis" ) {
-    ana_ids <- dplyr::tbl(con, tab)
+    
     message("[sidora.core] loading analysis may take a while, please be patient.")
+    
+    # get connections to both tables
+    ana_ids <- dplyr::tbl(con, tab)
     ana_res <- dplyr::tbl(con, "TAB_Analysis_Result_String")
     
+    # do join operation
     dplyr::left_join(
       ana_ids, 
-      ana_res %>% dplyr::rename(String_Id = Id), by = c("Id" = "Analysis")
+      ana_res, 
+      by = c("Id" = "Analysis"),
+    ) %>%
+    # rename Id columns (after join for performance reasons!)  
+    dplyr::rename(
+      Id = Id.x,
+      String_Id = Id.y
     )
   }
     
