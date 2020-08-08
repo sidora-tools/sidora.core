@@ -15,6 +15,11 @@
 #' Some tables are restricted, i.e. the Pandora read user does not have access 
 #' to certain columns. \code{access_restricted_table()} allows you to get the open
 #' (non-restricted) columns of these tables.
+#' TAB_Analysis is stored a little awkwardly in Pandora and we do a pre-joining operation
+#' with \code{access_prejoined_data()} to access its content. 
+#' Both \code{access_restricted_table()} and \code{access_prejoined_data()} are called 
+#' automatically if you try to access the relevant tables with \code{get_con()} or 
+#' \code{get_df()}, so you usually do not have to call them explicitly.
 #'
 #' @param tab character vector. Names of tables
 #' @param con database connection object
@@ -132,15 +137,13 @@ access_restricted_table <- function(tab, con){
   ## Assumes con already generated
   if ( tab == "TAB_User" )
     dplyr::tbl(con, dbplyr::build_sql("SELECT Id, Name, Username FROM TAB_User", 
-                                      con = con)) %>%
-    dplyr::as_tibble()
+                                      con = con))
 
 }
 
 
-#' @rdname access_prejoined_data
+#' @rdname get_data
 #' @export
-#' @noRd
 access_prejoined_data <- function(tab, con){
   
   if ( any(!tab %in% sidora.core::pandora_tables_prejoin) )
@@ -149,15 +152,16 @@ access_prejoined_data <- function(tab, con){
                 ". Your selection: ", tab))
   
   ## Assumes con already generated
-  if ( tab == "TAB_Analysis" )
-    ana_ids <- dplyr::tbl(con, tab) %>% tibble::as_tibble()
-    cat("[sidora.core] loading analysis may take a while, please be patient.")
-    ana_res <- dplyr::tbl(con, "TAB_Analysis_Result_String") %>% tibble::as_tibble()
+  if ( tab == "TAB_Analysis" ) {
+    ana_ids <- dplyr::tbl(con, tab)
+    message("[sidora.core] loading analysis may take a while, please be patient.")
+    ana_res <- dplyr::tbl(con, "TAB_Analysis_Result_String")
     
-    left_join(ana_ids, ana_res %>% 
-                rename(String_Id = Id), by = c("Id" = "Analysis")) %>% 
-      add_prefix_to_colnames(table_name_to_entity_type(tab)) %>% 
-      enforce_types()
+    dplyr::left_join(
+      ana_ids, 
+      ana_res %>% dplyr::rename(String_Id = Id), by = c("Id" = "Analysis")
+    )
+  }
     
 }
 
