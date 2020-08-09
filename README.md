@@ -3,7 +3,7 @@
 
 # sidora.core
 
-Functions to access and download tables of the MPI-SHH DAG Pandora database. Serves as backend for all sidora applications. 
+Functions to access and download tables of the MPI-SHH DAG Pandora database. Serves as back-end for all sidora applications. 
 
 ## Install
 
@@ -14,9 +14,9 @@ if(!require('remotes')) install.packages('remotes')
 remotes::install_github("sidora-tools/sidora.core")
 ```
 
-## Quickstart
+## For users: Quickstart guide
 
-Load the package and establish a database connection to Pandora. To do so you need the right *.credentials* file
+Load the package and establish a database connection to Pandora. To do so you need the right `.credentials` file. Contact Stephan Schiffels, James Fellows Yates or Clemens Schmid to obtain it. You also have to be in the institute's subnet. 
 
 ```
 library(magrittr)
@@ -33,7 +33,13 @@ You can access individual tables either by establishing a DBI connection (`get_c
 # get DBI connection
 get_con("TAB_Site", con)
 # get a local data.frame 
-get_df("TAB_Site", con)
+sites <- get_df("TAB_Site", con)
+```
+
+Many columns in Pandora have numerical IDs to refer to workers, Protocols, Capture Probe sets and other finite sets of identifiers. This information usually has be looked up in helper tables. We have added the function `convert_all_ids_to_values()` to automatically convert all numerical IDs to the actual strings.
+
+```
+convert_all_ids_to_values(sites)
 ```
 
 You can download multiple tables at once with `get_con_list()` and `get_df_list()`, which return a named list of objects. The latter again includes the additional transformation and caching features.
@@ -49,26 +55,41 @@ df_list <- get_df_list(c(
 ), con = con)
 ```
 
-Some Pandora tables can be merged following a hierarchical, pair-wise logic of primary and foreign keys. `join_pandora_tables()` is a join function which is aware of this logic and automatically combines lists of data.frames with Pandora tables (as produced by `get_con_list()` or `get_df_list()`) to long data.frames.
+The main Pandora tables follow a hierarchical, pair-wise logic of primary and foreign keys that represents the real hierarchy of classification, attribution and processing to which a typical aDNA sample is subject. That means there is a defined order of tables:
 
 ```
-jt <- join_pandora_tables(df_list)
+TAB_Site >
+  TAB_Individual >
+    TAB_Sample > 
+      TAB_Extract > 
+        TAB_Library >
+          TAB_Capture > 
+            TAB_Sequencing >
+              TAB_Raw_Data
+```
 
+A small semantic exception is the capture table, which DOES contain entries even for samples that did not go through a capture step. That is done to maintain the clean database hierarchy.
+
+This architecture has the consequence that you will need intermediate tables to connect information from not directly neighbouring tables. The helper function `make_complete_table_list()` simplifies the step of collecting the relevant intermediate tables in order.
+
+```
+# get "complete"" list of data.frames
 get_df_list(c(
-  "TAB_Site", "TAB_Individual"
-), con = con) %>% join_pandora_tables()
+  make_complete_table_list(c("TAB_Site", "TAB_Capture"))
+), con = con)
 ```
 
-Many columns in Pandora have numerical IDs to refer to workers, Protocols, Capture Probe sets and other
-finite sets of identifiers. We have added a function to convert all those numerical IDs to the actual strings:
+`join_pandora_tables()` now is a join function aware of Pandora's hierarchical logic. It automatically combines lists of data.frames (as produced by `get_con_list()` or `get_df_list()`) to long data.frames.
 
 ```
-jt_converted_lookups <- join_pandora_tables(df_list) %>% convert_all_ids_to_values()
+join_pandora_tables(df_list)
 ```
 
-## How do I load the 'development environment'
+## For developers: How do I load the 'development environment'
 
 1. Clone this repository. 
 2. Next you will need to create the `.credentials` file - please speak to the repository contributors for details.
 3. Open Rstudio and go to File > Open Project and select the file 'sidora.core.Rproj' in the repository. 
 4. Press `Ctrl` + `shift` + `b` to build the package and load the library. (alternatively, in the top right pane go to the 'Build' tab and press Install and Restart)
+
+A great introduction to R package development is available [here](http://r-pkgs.had.co.nz/).
