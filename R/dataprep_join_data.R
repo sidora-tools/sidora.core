@@ -103,6 +103,18 @@ join_pandora_tables <- function(x) {
     return_table <- "TAB_Raw_Data"
   }
   
+  if (all(c("TAB_Raw_Data", "TAB_Analysis") %in% tabs)) {
+    x[["TAB_Analysis"]] <- dplyr::left_join(
+      x[["TAB_Raw_Data"]], 
+      x[["TAB_Analysis"]], 
+      by = c("raw_data.Id" = "analysis.Raw_Data")
+    ) %>%
+      dplyr::mutate(
+        analysis.Raw_Data = .data[["raw_data.Id"]]
+      )
+    return_table <- "TAB_Analysis"
+  }
+  
   return(x[[return_table]])
 }
 
