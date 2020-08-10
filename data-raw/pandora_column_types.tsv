@@ -255,7 +255,7 @@ TAB_Sequencing	sequencing	Deleted	logical	NA	NA	NA
 TAB_Sequencing	sequencing	Deleted_Date	datetime	NA	NA	NA
 TAB_Analysis	analysis	Id	integer	NA	NA	NA
 TAB_Analysis	analysis	Raw_Data	integer	NA	NA	NA
-TAB_Analysis	analysis	Analysis_Id	integer	NA	NA	NA
+TAB_Analysis	analysis	Analysis_Id	character	NA	NA	NA
 TAB_Analysis	analysis	Full_Analysis_Id	character	NA	NA	NA
 TAB_Analysis	analysis	Protocol	integer	NA	NA	NA
 TAB_Analysis	analysis	Result_Directory	character	NA	NA	NA
