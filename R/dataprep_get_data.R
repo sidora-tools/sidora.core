@@ -15,6 +15,11 @@
 #' Some tables are restricted, i.e. the Pandora read user does not have access 
 #' to certain columns. \code{access_restricted_table()} allows you to get the open
 #' (non-restricted) columns of these tables.
+#' TAB_Analysis is stored a little awkwardly in Pandora and we do a pre-joining operation
+#' with \code{access_prejoined_data()} to access its content. 
+#' Both \code{access_restricted_table()} and \code{access_prejoined_data()} are called 
+#' automatically if you try to access the relevant tables with \code{get_con()} or 
+#' \code{get_df()}, so you usually do not have to call them explicitly.
 #'
 #' @param tab character vector. Names of tables
 #' @param con database connection object
@@ -36,9 +41,11 @@ get_con <- function(tab = sidora.core::pandora_tables, con) {
   }
   
   # establish data connection
-  if (tab %in% sidora.core::pandora_tables_restricted)
+  if (tab %in% sidora.core::pandora_tables_restricted) {
     my_con <- access_restricted_table(tab, con)
-  else {
+  } else if (tab %in% sidora.core::pandora_tables_prejoin) {
+    my_con <- access_prejoined_data(tab, con)
+  } else {
     my_con <- dplyr::tbl(con, tab)
   }
 
@@ -70,6 +77,11 @@ get_con_list <- function(tab = sidora.core::pandora_tables, con) {
 get_df <- function(
   tab = sidora.core::pandora_tables, con, 
   cache = T, cache_dir = tempdir(), cache_max_age = 24 * 60 * 60) {
+  
+  if ( any(!tab %in% sidora.core::pandora_tables) )
+    stop(paste0("[sidora.core] error: tab not found in avaliable tables. Options: ",
+                paste(sidora.core::pandora_tables, collapse = ","),
+                ". Your selection: ", tab))
   
   if (length(tab) != 1) {
     stop("[sidora.core] error: Select one valid PANDORA SQL table.")
@@ -117,15 +129,63 @@ get_df_list <- function(
 #' @export
 access_restricted_table <- function(tab, con){
 
-  if ( any(!tab %in% sidora.core::pandora_tables_restricted) )
-    stop(paste0("[sidora.core] error: tab not found in restricted table list. Options: ",
-               paste(sidora.core::pandora_tables_restricted, collapse = ","),
-               ". Your selection: ", tab))
+  if ( any(!tab %in% sidora.core::pandora_tables_restricted) ) {
+    stop(
+      paste0(
+        "[sidora.core] error: tab not found in restricted table list. Options: ",
+        paste(sidora.core::pandora_tables_restricted, collapse = ","),
+        ". Your selection: ", tab
+      )
+    )
+  }
   
   ## Assumes con already generated
-  if ( tab == "TAB_User" )
-    dplyr::tbl(con, dbplyr::build_sql("SELECT Id, Name, Username FROM TAB_User", 
-                                      con = con)) %>%
-    dplyr::as_tibble()
+  if ( tab == "TAB_User" ) {
+    dplyr::tbl(
+      con, 
+      dbplyr::build_sql("SELECT Id, Name, Username FROM TAB_User", con = con)
+    )
+  }
 
 }
+
+
+#' @rdname get_data
+#' @export
+access_prejoined_data <- function(tab, con){
+  
+  if ( any(!tab %in% sidora.core::pandora_tables_prejoin) ) {
+    stop(
+      paste0(
+        "[sidora.core] error: tab not found in requires prejoining table list. Options: ",
+        paste(sidora.core::pandora_tables_prejoin, collapse = ","),
+        ". Your selection: ", tab
+      )
+    )
+  }
+  
+  ## Assumes con already generated
+  if ( tab == "TAB_Analysis" ) {
+    
+    message("[sidora.core] loading analysis may take a while, please be patient.")
+    
+    # get connections to both tables
+    ana_ids <- dplyr::tbl(con, tab)
+    ana_res <- dplyr::tbl(con, "TAB_Analysis_Result_String")
+    
+    # do join operation
+    dplyr::left_join(
+      ana_ids, 
+      ana_res, 
+      by = c("Id" = "Analysis"),
+    ) %>%
+    # rename Id columns (after join for performance reasons!)  
+    dplyr::rename(
+      Id = .data[["Id.x"]],
+      String_Id = .data[["Id.y"]]
+    )
+  }
+    
+}
+
+

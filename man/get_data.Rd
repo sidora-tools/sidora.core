@@ -7,6 +7,7 @@
 \alias{get_df}
 \alias{get_df_list}
 \alias{access_restricted_table}
+\alias{access_prejoined_data}
 \title{Access and download tables from Pandora}
 \usage{
 get_con(tab = sidora.core::pandora_tables, con)
@@ -30,6 +31,8 @@ get_df_list(
 )
 
 access_restricted_table(tab, con)
+
+access_prejoined_data(tab, con)
 }
 \arguments{
 \item{tab}{character vector. Names of tables}
@@ -61,4 +64,9 @@ includes the additional transformation and caching features. \cr\cr
 Some tables are restricted, i.e. the Pandora read user does not have access 
 to certain columns. \code{access_restricted_table()} allows you to get the open
 (non-restricted) columns of these tables.
+TAB_Analysis is stored a little awkwardly in Pandora and we do a pre-joining operation
+with \code{access_prejoined_data()} to access its content. 
+Both \code{access_restricted_table()} and \code{access_prejoined_data()} are called 
+automatically if you try to access the relevant tables with \code{get_con()} or 
+\code{get_df()}, so you usually do not have to call them explicitly.
 }

@@ -65,7 +65,8 @@ TAB_Site >
         TAB_Library >
           TAB_Capture > 
             TAB_Sequencing >
-              TAB_Raw_Data
+              TAB_Raw_Data >
+                TAB_Analysis
 ```
 
 A small semantic exception is the capture table, which DOES contain entries even for samples that did not go through a capture step. That is done to maintain the clean database hierarchy.

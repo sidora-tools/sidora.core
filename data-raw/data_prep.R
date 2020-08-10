@@ -41,6 +41,9 @@ usethis::use_data(pandora_tables, overwrite = TRUE)
 pandora_tables_restricted <- pandora_table_elements$table[pandora_table_elements$restricted]
 usethis::use_data(pandora_tables_restricted, overwrite = TRUE)
 
+pandora_tables_prejoin <- pandora_table_elements$table[pandora_table_elements$requires_prejoin]
+usethis::use_data(pandora_tables_prejoin, overwrite = TRUE)
+
 #### internal lookup hash tables ####
 
 # hash_sidora_col_name_col_type
