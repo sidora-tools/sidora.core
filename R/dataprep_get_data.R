@@ -78,9 +78,9 @@ get_df <- function(
   tab = sidora.core::pandora_tables, con, 
   cache = T, cache_dir = tempdir(), cache_max_age = 24 * 60 * 60) {
   
-  if ( any(!tab %in% sidora.core::pandora_tables) )
-    stop(paste0("[sidora.core] error: tab not found in avaliable tables. Options: ",
-                paste(sidora.core::pandora_tables, collapse = ","),
+  if ( any(!tab %in% sidora.core::pandora_tables_all) )
+    stop(paste0("[sidora.core] error: tab not found in available tables. Options: ",
+                paste(sidora.core::pandora_tables_all, collapse = " ,"),
                 ". Your selection: ", tab))
   
   if (length(tab) != 1) {

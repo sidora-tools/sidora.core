@@ -12,6 +12,14 @@ NULL
 #' @name pandora_tables_restricted
 NULL
 
+#' all pandora tables
+#' 
+#' List of all tables in Pandora, restricted or not. So \link{pandora_tables} + \link{pandora_tables_restricted}
+#' 
+#' @name pandora_tables_all
+NULL
+
+
 #' pandora tables prejoined
 #' 
 #' List of all Pandora tables for which we do some sort of prejoining in sidora.core.
