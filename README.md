@@ -86,6 +86,8 @@ get_df_list(c(
 join_pandora_tables(df_list)
 ```
 
+A special hint concerning `TAB_Analysis`: It is formatted differently from the other tabs in sidora. Instead of a "wide" format where each analysis method is represented by one column, there are only 2 columns `analysis.Table` and `analysis.Results`. The analysis methods (i.e. Initial reads, Failed reads, etc) and their values are collected as rows of these 2 columns. This "long" data format can be transformed to a "wide" one for example with [`tidyr::pivot_wider()`](https://tidyr.tidyverse.org/reference/pivot_wider.html). 
+
 ## For developers: How do I load the 'development environment'
 
 1. Clone this repository. 
