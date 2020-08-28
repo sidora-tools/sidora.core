@@ -53,6 +53,7 @@ string_to_as <- function(x) {
   switch(
     x,
     "integer" = as.integer,
+    "big_integer" = to_big_int,
     "double" = as.numeric,
     "factor" = as.factor,
     "logical" = as.logical,
@@ -73,4 +74,29 @@ na_introduced_warning_handler <- function(x) {
 
 yesno_logical_to_logical <- function(x) {
   tolower(x) == "yes"
+}
+
+to_big_int <- function(x) {
+  # step 1: get a clean character vector that encodes the numbers in a clean notation
+  cleaned_character_vector <- sapply(x, function(y) {
+    # no data
+    if (is.na(y) || y == "" || !grepl("[0-9]E\\+", y)) {
+      NA_character_
+    # scientific notation
+    } else if (grepl("+", y)) {
+      ss <- strsplit(y, "E\\+")[[1]]
+      multiplier <- sub("\\.", "", ss[1])
+      number_of_zeros <- as.integer(ss[2]) - nchar(multiplier) + 1
+      number_of_zeros <- ifelse(number_of_zeros < 0, 0, number_of_zeros)
+      paste0(
+        sub("\\.", "", ss[1]), 
+        paste(rep("0", number_of_zeros), collapse = "")
+      )
+    # everything is already alright
+    } else {
+      y
+    }
+  })
+  # step 2: transform cleaned character vector to integer64
+  bit64::as.integer64(cleaned_character_vector)
 }
