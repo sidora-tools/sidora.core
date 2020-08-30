@@ -80,10 +80,10 @@ to_big_int <- function(x) {
   # step 1: get a clean character vector that encodes the numbers in a clean notation
   cleaned_character_vector <- sapply(x, function(y) {
     # no data
-    if (is.na(y) || y == "" || !grepl("[0-9]E\\+", y)) {
+    if (is.na(y) || y == "" || !grepl("(^[0-9]*$)|([0-9]E\\+)", y)) {
       NA_character_
     # scientific notation
-    } else if (grepl("+", y)) {
+    } else if (grepl("\\+", y)) {
       ss <- strsplit(y, "E\\+")[[1]]
       multiplier <- sub("\\.", "", ss[1])
       number_of_zeros <- as.integer(ss[2]) - nchar(multiplier) + 1
