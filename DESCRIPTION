@@ -14,6 +14,7 @@ LazyData: true
 Depends:
   R (>= 2.10)
 Imports:
+  bit64,
   dbplyr (>= 1.4.4),
   dplyr (>= 1.0.0),
   hash (>= 2.2.6.1),

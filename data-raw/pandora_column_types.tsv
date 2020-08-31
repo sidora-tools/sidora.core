@@ -185,8 +185,8 @@ TAB_Library	library	P5_Index_Id	integer	TAB_Index_Set_P5	Index	optional
 TAB_Library	library	P5_Index_Sequence	character	NA	NA	optional
 TAB_Library	library	P7_Barcode_Sequence	character	NA	NA	optional
 TAB_Library	library	P5_Barcode_Sequence	character	NA	NA	optional
-TAB_Library	library	Quantification_pre-Indexing_total	integer	NA	NA	optional
-TAB_Library	library	Quantification_post-Indexing_total	integer	NA	NA	optional
+TAB_Library	library	Quantification_pre-Indexing_total	big_integer	NA	NA	optional
+TAB_Library	library	Quantification_post-Indexing_total	big_integer	NA	NA	optional
 TAB_Library	library	Efficiency_Factor	double	NA	NA	optional
 TAB_Library	library	Post-Indexing_elution_volume	integer	NA	NA	optional
 TAB_Library	library	External_Library_Id	character	NA	NA	optional
