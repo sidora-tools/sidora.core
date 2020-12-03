@@ -16,7 +16,7 @@ remotes::install_github("sidora-tools/sidora.core")
 
 ## For users: Quickstart guide
 
-Load the package and establish a database connection to Pandora. To do so you need the right `.credentials` file. Contact Stephan Schiffels, James Fellows Yates or Clemens Schmid to obtain it. You also have to be in the institute's subnet. 
+Load the package and establish a database connection to Pandora. To do so you need the right `.credentials` file. Contact Stephan Schiffels, James Fellows Yates or Clemens Schmid to obtain it. You also have to be in the institute's staff network. 
 
 ```
 library(magrittr)
@@ -32,6 +32,9 @@ You can access individual tables either by establishing a DBI connection (`get_c
 ```
 # get DBI connection
 get_con("TAB_Site", con)
+
+# or
+
 # get a local data.frame 
 sites <- get_df("TAB_Site", con)
 ```
@@ -69,7 +72,7 @@ TAB_Site >
                 TAB_Analysis
 ```
 
-A small semantic exception is the capture table, which DOES contain entries even for samples that did not go through a capture step. That is done to maintain the clean database hierarchy.
+A small semantic exception is the capture table, which **does** contain entries even for samples that did not go through a capture step (i.e. those that went to shotgun sequencing). That is done to maintain the clean database hierarchy.
 
 This architecture has the consequence that you will need intermediate tables to connect information from not directly neighbouring tables. The helper function `make_complete_table_list()` simplifies the step of collecting the relevant intermediate tables in order.
 
@@ -93,6 +96,8 @@ A special hint concerning `TAB_Analysis`: It is formatted differently from the o
 1. Clone this repository. 
 2. Next you will need to create the `.credentials` file - please speak to the repository contributors for details.
 3. Open Rstudio and go to File > Open Project and select the file 'sidora.core.Rproj' in the repository. 
-4. Press `Ctrl` + `shift` + `b` to build the package and load the library. (alternatively, in the top right pane go to the 'Build' tab and press Install and Restart)
+4. Press <kbd>Ctrl</kbd> + <kbd>shift</kbd> + <kbd>b</kbd> to build the package and load the library. (alternatively, in the top right pane go to the 'Build' tab and press Install and Restart)
+
+Additionally, if you've made a modification it's recommended to run build-validation before rebuilding. This can typically be accessed in Rstudio with  <kbd>Ctrl</kbd> + <kbd>shift</kbd> + <kbd>e</kbd>
 
 A great introduction to R package development is available [here](http://r-pkgs.had.co.nz/).
