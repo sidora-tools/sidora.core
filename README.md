@@ -91,6 +91,40 @@ join_pandora_tables(df_list)
 
 A special hint concerning `TAB_Analysis`: It is formatted differently from the other tabs in sidora. Instead of a "wide" format where each analysis method is represented by one column, there are only 2 columns `analysis.Table` and `analysis.Results`. The analysis methods (i.e. Initial reads, Failed reads, etc) and their values are collected as rows of these 2 columns. This "long" data format can be transformed to a "wide" one for example with [`tidyr::pivot_wider()`](https://tidyr.tidyverse.org/reference/pivot_wider.html). 
 
+## Pandora interoperability
+
+`sidora.core` also provides some additional functionality to assist in more programmatically-minded users to activately update Pandora information.
+
+For example, if you wanted to generate a Pandora upload sheet to update fields you have programmatically updated in an R script, you can run
+
+```r
+format_as_update_existing(sites)
+```
+
+To format columns titles in a way that is accepted input by the Pandora upload-update functionality.
+
+As in example, to update tags of `Calculus` samples of site `ALA`:
+
+```r
+library(dplyr)
+
+samples <- get_df("TAB_Sample", con)
+
+# filter
+samples_raw <- samples %>%
+  filter(grepl("^ALA", sample.Full_Sample_Id)) %>%
+  convert_all_ids_to_values() %>%
+  filter(sample.Type_Group == "Calculus")
+
+# update tag and convert for update exisiting entries format
+samples_updated <- samples_raw %>%
+  mutate(sample.Tags = "FoodTransforms") %>%
+  sidora.core::format_as_update_existing()
+
+# save for upload
+write_csv(samples_updated, "Sample.csv")
+```
+
 ## For developers: How do I load the 'development environment'
 
 1. Clone this repository. 
