@@ -1,6 +1,6 @@
 Package: sidora.core
 Title: Basic Interface for PANDORA (MPI-SHH DAG)
-Version: 0.1.0
+Version: 0.1.1
 Authors@R: 
     person(given = "Clemens",
            family = "Schmid",

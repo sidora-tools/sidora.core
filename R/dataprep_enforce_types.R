@@ -85,11 +85,11 @@ to_big_int <- function(x) {
     # scientific notation
     } else if (grepl("\\+", y)) {
       ss <- strsplit(y, "E\\+")[[1]]
-      multiplier <- sub("\\.", "", ss[1])
+      multiplier <- sub("\\.|\\,", "", ss[1])
       number_of_zeros <- as.integer(ss[2]) - nchar(multiplier) + 1
       number_of_zeros <- ifelse(number_of_zeros < 0, 0, number_of_zeros)
       paste0(
-        sub("\\.", "", ss[1]), 
+        multiplier, 
         paste(rep("0", number_of_zeros), collapse = "")
       )
     # everything is already alright
