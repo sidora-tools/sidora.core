@@ -1,6 +1,6 @@
 Package: sidora.core
 Title: Basic Interface for PANDORA (MPI-SHH DAG)
-Version: 0.1.1
+Version: 0.1.2
 Authors@R: 
     person(given = "Clemens",
            family = "Schmid",
@@ -15,17 +15,17 @@ Depends:
   R (>= 2.10)
 Imports:
   bit64,
+  DBI (>= 1.1.0),
   dbplyr (>= 1.4.4),
   dplyr (>= 1.0.0),
   hash (>= 2.2.6.1),
   magrittr (>= 1.5),
   purrr (>= 0.3.4),
   rlang,
+  RMariaDB (>= 1.0.8),
   tibble (>= 3.0.1),
   tidyselect (>= 1.1.0),
-  utils (>= 3.6.3)
+  utils (>= 3.6.3),
 Suggests: 
-  DBI (>= 1.1.0),
-  RMariaDB (>= 1.0.8),
   testthat (>= 2.3.2)
 RoxygenNote: 7.1.1

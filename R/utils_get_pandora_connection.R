@@ -8,7 +8,7 @@
 #' @export
 get_pandora_connection <- function(cred_file = ".credentials") {
   
-  check_if_packages_are_available("RMariaDB")
+  #check_if_packages_are_available("RMariaDB")
   
   if (!file.exists(cred_file)) {
     stop(paste(
