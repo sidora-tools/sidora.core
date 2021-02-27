@@ -16,7 +16,7 @@ remotes::install_github("sidora-tools/sidora.core")
 
 ## For users: Quickstart guide
 
-Load the package and establish a database connection to Pandora. To do so you need the right `.credentials` file. Contact Stephan Schiffels, James Fellows Yates or Clemens Schmid to obtain it. You also have to be in the institute's subnet. 
+Load the package and establish a database connection to Pandora. To do so you need the right `.credentials` file. Contact Stephan Schiffels, James Fellows Yates or Clemens Schmid to obtain it. You also have to be in the institute's staff network. 
 
 ```
 library(magrittr)
@@ -32,6 +32,9 @@ You can access individual tables either by establishing a DBI connection (`get_c
 ```
 # get DBI connection
 get_con("TAB_Site", con)
+
+# or
+
 # get a local data.frame 
 sites <- get_df("TAB_Site", con)
 ```
@@ -69,7 +72,7 @@ TAB_Site >
                 TAB_Analysis
 ```
 
-A small semantic exception is the capture table, which DOES contain entries even for samples that did not go through a capture step. That is done to maintain the clean database hierarchy.
+A small semantic exception is the capture table, which **does** contain entries even for samples that did not go through a capture step (i.e. those that went to shotgun sequencing). That is done to maintain the clean database hierarchy.
 
 This architecture has the consequence that you will need intermediate tables to connect information from not directly neighbouring tables. The helper function `make_complete_table_list()` simplifies the step of collecting the relevant intermediate tables in order.
 
@@ -88,11 +91,47 @@ join_pandora_tables(df_list)
 
 A special hint concerning `TAB_Analysis`: It is formatted differently from the other tabs in sidora. Instead of a "wide" format where each analysis method is represented by one column, there are only 2 columns `analysis.Table` and `analysis.Results`. The analysis methods (i.e. Initial reads, Failed reads, etc) and their values are collected as rows of these 2 columns. This "long" data format can be transformed to a "wide" one for example with [`tidyr::pivot_wider()`](https://tidyr.tidyverse.org/reference/pivot_wider.html). 
 
+## Pandora interoperability
+
+`sidora.core` also provides some additional functionality to assist in more programmatically-minded users to activately update Pandora information.
+
+For example, if you wanted to generate a Pandora upload sheet to update fields you have programmatically updated in an R script, you can run
+
+```r
+format_as_update_existing(sites)
+```
+
+To format columns titles in a way that is accepted input by the Pandora upload-update functionality.
+
+As in example, to update tags of `Calculus` samples of site `ALA`:
+
+```r
+library(dplyr)
+
+samples <- get_df("TAB_Sample", con)
+
+# filter
+samples_raw <- samples %>%
+  filter(grepl("^ALA", sample.Full_Sample_Id)) %>%
+  convert_all_ids_to_values() %>%
+  filter(sample.Type_Group == "Calculus")
+
+# update tag and convert for update exisiting entries format
+samples_updated <- samples_raw %>%
+  mutate(sample.Tags = "FoodTransforms") %>%
+  sidora.core::format_as_update_existing()
+
+# save for upload
+write_csv(samples_updated, "Sample.csv")
+```
+
 ## For developers: How do I load the 'development environment'
 
 1. Clone this repository. 
 2. Next you will need to create the `.credentials` file - please speak to the repository contributors for details.
 3. Open Rstudio and go to File > Open Project and select the file 'sidora.core.Rproj' in the repository. 
-4. Press `Ctrl` + `shift` + `b` to build the package and load the library. (alternatively, in the top right pane go to the 'Build' tab and press Install and Restart)
+4. Press <kbd>Ctrl</kbd> + <kbd>shift</kbd> + <kbd>b</kbd> to build the package and load the library. (alternatively, in the top right pane go to the 'Build' tab and press Install and Restart)
+
+Additionally, if you've made a modification it's recommended to run build-validation before rebuilding. This can typically be accessed in Rstudio with  <kbd>Ctrl</kbd> + <kbd>shift</kbd> + <kbd>e</kbd>
 
 A great introduction to R package development is available [here](http://r-pkgs.had.co.nz/).
