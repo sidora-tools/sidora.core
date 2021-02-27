@@ -2,11 +2,16 @@ Package: sidora.core
 Title: Basic Interface for PANDORA (MPI-SHH DAG)
 Version: 0.1.2
 Authors@R: 
-    person(given = "Clemens",
+    c(person(given = "Clemens",
            family = "Schmid",
            role = c("aut", "cre"),
            email = "clemens@nevrome.de",
-           comment = c(ORCID = "0000-0003-3448-5715"))
+           comment = c(ORCID = "0000-0003-3448-5715")),
+    person(given = "James",
+           family = "Fellows Yates",
+           role = c("aut"),
+           email = "jfy133@gmail.com",
+           comment = c(ORCID = "0000-0001-5585-6277")))    
 Description: A basic interface to access data from the internal database PANDORA (MPI-SHH DAG).
 License: MIT + file LICENSE
 Encoding: UTF-8
