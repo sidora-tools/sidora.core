@@ -11,5 +11,10 @@ A basic interface to access data from the internal database PANDORA (MPI-SHH DAG
 \author{
 \strong{Maintainer}: Clemens Schmid \email{clemens@nevrome.de} (\href{https://orcid.org/0000-0003-3448-5715}{ORCID})
 
+Authors:
+\itemize{
+  \item James Fellows Yates \email{jfy133@gmail.com} (\href{https://orcid.org/0000-0001-5585-6277}{ORCID})
+}
+
 }
 \keyword{internal}
