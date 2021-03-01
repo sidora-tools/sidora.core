@@ -4,10 +4,12 @@
 \alias{convert_all_ids_to_values}
 \title{convert_all_ids_to_values}
 \usage{
-convert_all_ids_to_values(df)
+convert_all_ids_to_values(df, con)
 }
 \arguments{
 \item{df}{data.frame. A Sidora/Pandora-Dataframe with sidora column names.}
+
+\item{con}{a pandora connection}
 }
 \value{
 The converted dataframe with lookup-columns replaced by the actual values.
