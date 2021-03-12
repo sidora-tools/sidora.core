@@ -1,6 +1,6 @@
 Package: sidora.core
 Title: Basic Interface for PANDORA (MPI-SHH DAG)
-Version: 0.1.3
+Version: 0.1.4
 Authors@R: 
     c(person(given = "Clemens",
            family = "Schmid",
@@ -17,20 +17,20 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Depends:
-  R (>= 2.10)
+  R (>= 3.3.0)
 Imports:
-  bit64,
+  bit64 (>= 4.0.0),
   DBI (>= 1.1.0),
-  dbplyr (>= 1.4.4),
-  dplyr (>= 1.0.0),
+  dbplyr (>= 2.1.0),
+  dplyr (>= 1.0.5),
   hash (>= 2.2.6.1),
-  magrittr (>= 1.5),
+  magrittr (>= 2.0.0),
   purrr (>= 0.3.4),
-  rlang,
-  RMariaDB (>= 1.0.8),
-  tibble (>= 3.0.1),
+  rlang (>= 0.4.10),
+  RMariaDB (>= 1.1.0),
+  tibble (>= 3.1.0),
   tidyselect (>= 1.1.0),
-  utils (>= 3.6.3),
+  utils
 Suggests: 
-  testthat (>= 2.3.2)
+  testthat (>= 3.0.0)
 RoxygenNote: 7.1.1
