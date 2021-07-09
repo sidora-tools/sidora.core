@@ -42,15 +42,14 @@ df_list <- get_df_list(c(
 ```
 
 This produces a list of tables.
-
-> :warning: you cannot join non-adjacent tabs. You must follow the Pandora hierarchy. E.g. You cannot join `TAB_Site` and `TAB_Sample` without `TAB_Individual`.
-> You can automatically get all intermediate tables using the helper function `make_complete_table_list(c("TAB_Site", "TAB_Capture"))`.
-
 If you want to join these together into a single table, you can do:
 
 ```r
 join_pandora_tables(df_list)
 ```
+
+> :warning: you cannot join non-adjacent tables. You must follow the Pandora hierarchy. E.g. You cannot join `TAB_Site` and `TAB_Sample` without `TAB_Individual`.
+> You can automatically get all intermediate tables using the helper function `make_complete_table_list(c("TAB_Site", "TAB_Capture"))`.
 
 Many columns in Pandora displayed as dropdown menus on the Pandora webpage actually use internal numerical IDs. Examples are: workers, protocols, capture probe sets and other finite sets of identifiers.
 
@@ -69,7 +68,7 @@ sidora.core::filter_pr_tag(samples, "sample.Tags", ins = c("Oral_Microbiome"), o
 
 If you want to programmatically update a single Pandora table (e.g. with `dplyr::mutate`), you can convert the table to a Pandora webpage compatible upload sheet.
 
-As in example, to update tags of `Calculus` samples of site `ALA`:
+As in example, to add tags of `Calculus` samples of the previously untagged site `ALA`:
 
 ```r
 library(magrittr)
