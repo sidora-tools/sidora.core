@@ -16,6 +16,8 @@ remotes::install_github("sidora-tools/sidora.core")
 
 ## For users: Quickstart guide
 
+> If you want to skip the basics and see a quick list of useful functions see [TL;DR](#tldr)
+
 Load the package and establish a database connection to Pandora. To do so you need the right `.credentials` file. Contact Stephan Schiffels, James Fellows Yates or Clemens Schmid to obtain it. You also have to be in the institute's staff network. 
 
 ```
@@ -135,3 +137,23 @@ write_csv(samples_updated, "Sample.csv")
 Additionally, if you've made a modification it's recommended to run build-validation before rebuilding. This can typically be accessed in Rstudio with  <kbd>Ctrl</kbd> + <kbd>shift</kbd> + <kbd>e</kbd>
 
 A great introduction to R package development is available [here](http://r-pkgs.had.co.nz/).
+
+## TL;DR
+
+### Replace numeric IDs with actual entries
+
+In some cases PANDORA internally records certain dropdown entries with numeric IDs rather than the strings you see on the Pandora webpage (e.g. `worker`, `protocol` etc.).
+
+To convert these IDs in a sidora loaded table, you can use the following function.
+
+```
+sidora.core::cget_df("TAB_Sample", con) %>% sidora.core::convert_all_ids_to_values()
+```
+
+### Filter for entries based on project or tag
+
+To find all entries with and without certain projects or tags, you can use the following function.
+
+```
+sidora.core::cget_df("TAB_Sample", con) %>% sidora.core::filter_pr_tag(samples, "sample.Tags", ins = c("Oral_Microbiome"), outs = c("Deep_Evolution"))
+```
