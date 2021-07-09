@@ -43,13 +43,13 @@ df_list <- get_df_list(c(
 
 This produces a list of tables.
 
-> :warning: you cannot join non-adjacent tabs. You must follow the Pandora hierarchy. E.g. You cannot join `TAB_Site` and `TAB_Sample` without `TAB_Individual`.
 
 If you want to join these together into a single table, you can do:
 
 ```r
 join_pandora_tables(df_list)
 ```
+> :warning: you cannot join non-adjacent tabs. You must follow the Pandora hierarchy. E.g. You cannot join `TAB_Site` and `TAB_Sample` without `TAB_Individual`.
 
 Many columns in Pandora displayed as dropdown menus on the Pandora webpage actually use internal numerical IDs. Examples are: workers, protocols, capture probe sets and other finite sets of identifiers.
 
