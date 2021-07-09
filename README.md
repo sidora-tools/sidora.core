@@ -14,7 +14,7 @@ if(!require('remotes')) install.packages('remotes')
 remotes::install_github("sidora-tools/sidora.core")
 ```
 
-## For users: Quickstart guide
+## Quickstart guide
 
 Load the package and establish a database connection to Pandora. To do so you need the right `.credentials` file. Contact Stephan Schiffels, James Fellows Yates, or Clemens Schmid to obtain it. You also have to be in the institute's subnet.
 
@@ -44,6 +44,7 @@ df_list <- get_df_list(c(
 This produces a list of tables.
 
 > :warning: you cannot join non-adjacent tabs. You must follow the Pandora hierarchy. E.g. You cannot join `TAB_Site` and `TAB_Sample` without `TAB_Individual`.
+> You can automatically get all intermediate tables using the helper function `make_complete_table_list(c("TAB_Site", "TAB_Capture"))`.
 
 If you want to join these together into a single table, you can do:
 
@@ -94,7 +95,7 @@ write_csv(samples_updated, "Sample.csv")
 
 For all other functions, please check the sidora.core R package documentation.
 
-## For developers: Background
+## Behind the scenes
 
 Individual tables are accessed either by establishing a DBI connection (`get_con()`) to them or by downloading them as a data.frame (`get_df()`). You'll probably not need the former, which is only relevant if you want to interact with the database server directly.
 
@@ -156,7 +157,7 @@ get_df_list(c(
 
 A special hint concerning `TAB_Analysis`: It is formatted differently from the other tabs in sidora. Instead of a "wide" format where each analysis method is represented by one column, there are only 2 columns `analysis.Table` and `analysis.Results`. The analysis methods (i.e. Initial reads, Failed reads, etc) and their values are collected as rows of these 2 columns. This "long" data format can be transformed to a "wide" one for example with [`tidyr::pivot_wider()`](https://tidyr.tidyverse.org/reference/pivot_wider.html).
 
-## For developers: How do I load the 'development environment'
+## How do I load the 'development environment'
 
 1. Clone this repository.
 2. Next you will need to create the `.credentials` file - please speak to the repository contributors for details.
