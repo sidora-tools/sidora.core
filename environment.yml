@@ -1,0 +1,19 @@
+name: sidora.core
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - conda-forge::r-base=4.1
+  - conda-forge::r-bit64=4.0.5
+  - conda-forge::r-dbi=1.1.1
+  - conda-forge::r-dbplyr=2.1.1
+  - conda-forge::r-dplyr=1.0.7
+  - conda-forge::r-hash=3.0.1
+  - conda-forge::r-magrittr=2.0.1
+  - conda-forge::r-purrr=0.3.4
+  - conda-forge::r-rlang=0.4.11
+  - conda-forge::r-rmariadb=1.1.2
+  - conda-forge::r-tibble=3.1.4
+  - conda-forge::r-tidyselect=1.1.1
+  - conda-forge::r-r.utils=2.10.1
+  - conda-forge::r-testthat=3.0.4

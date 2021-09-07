@@ -7,12 +7,41 @@ Functions to access and download tables of the MPI-SHH DAG Pandora database usin
 
 ## Install
 
+### Development
+
 You can install the development version from github:
 
 ```r
 if(!require('remotes')) install.packages('remotes')
 remotes::install_github("sidora-tools/sidora.core")
 ```
+
+### Conda
+
+If you wish to set up a conda environment for using `sidora.core`, instructions are as follows:
+
+1. Either clone the repository and change into it, or download the file `environmental.yml`.
+2. Create an environment using the file
+
+    ```bash
+    conda env create -f environmental.yml
+    ```
+
+3. Once created, activate the environment
+
+
+   ```bash
+   conda activate sidora.core
+   ```
+
+4. Open `R` and install the `sidora.core` package
+
+    ```r                                                                            
+    if(!require('remotes')) install.packages('remotes')                             
+    remotes::install_github("sidora-tools/sidora.core")                             
+    ``` 
+
+
 
 ## Quickstart guide
 
