@@ -6,3 +6,5 @@
 ^tests/testthat/\.credentials$
 ^LICENSE\.md$
 ^\.credentials$
+^\.github$
+^environment\.yml$

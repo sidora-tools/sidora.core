@@ -1,7 +1,7 @@
 # This code runs before the tests.
 
 # should not run on travis
-if (Sys.getenv("USER") != "travis") {
+if (!isTRUE(as.logical(Sys.getenv("CI")))) {
 
   # path to credentials file that is also valid in case of check
   cred_file <- file.path(gsub(".Rcheck", "", getwd()), ".credentials")
