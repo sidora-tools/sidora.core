@@ -14,7 +14,7 @@ Authors@R:
            comment = c(ORCID = "0000-0001-5585-6277")),
     person(given = "Stephan",
            family = "Schiffels",
-           role = c("ctp"),
+           role = c("ctb"),
            comment = c(ORCID = "0000-0002-1017-9150")))    
 Description: A basic interface to access data from the internal database PANDORA (MPI-EVA DAG).
 License: MIT + file LICENSE
