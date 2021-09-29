@@ -1,5 +1,6 @@
-[![R-CMD-check](https://github.com/sidora-tools/sidora.core/actions/workflows/check-release.yaml/badge.svg)](https://github.com/sidora-tools/sidora.core/actions/workflows/check-release.yaml)
-[![Coverage Status](https://img.shields.io/codecov/c/github/sidora-tools/sidora.core/master.svg)](https://codecov.io/github/sidora-tools/sidora.core?branch=master)
+[![R-CMD-check](https://github.com/sidora-tools/sidora.core/actions/workflows/check-release.yaml/badge.svg?style=for-the-badge&logo=appveyor)](https://github.com/sidora-tools/sidora.core/actions/workflows/check-release.yaml)
+[![Coverage Status](https://img.shields.io/codecov/c/github/sidora-tools/sidora.core/master.svg?style=for-the-badge&logo=appveyor)](https://codecov.io/github/sidora-tools/sidora.core?branch=master)
+[![Latest release](https://img.shields.io/badge/Version-1.0.0-blue)
 
 # sidora.core
 
