@@ -12,10 +12,10 @@ Authors@R:
            role = c("aut"),
            email = "jfy133@gmail.com",
            comment = c(ORCID = "0000-0001-5585-6277")),
-           given = "Stephan",
+    person(given = "Stephan",
            family = "Schiffels",
            role = c("ctp"),
-           comment = c(ORCID = "0000-0002-1017-9150"))    
+           comment = c(ORCID = "0000-0002-1017-9150")))    
 Description: A basic interface to access data from the internal database PANDORA (MPI-EVA DAG).
 License: MIT + file LICENSE
 Encoding: UTF-8
