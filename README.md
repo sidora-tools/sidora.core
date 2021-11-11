@@ -86,7 +86,7 @@ Many columns in Pandora displayed as dropdown menus on the Pandora webpage actua
 We have added the function `convert_all_ids_to_values()` to automatically convert all numerical IDs to the actual strings.
 
 ```r
-convert_all_ids_to_values(sites)
+convert_all_ids_to_values(sites, con)
 ```
 
 If you wish to filter a table by project or tag, there is a special function to allow you to 'include' and 'exclude' certain tags from your filtering operation.
