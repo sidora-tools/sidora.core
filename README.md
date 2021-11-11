@@ -51,7 +51,7 @@ To use this package you have to follow these steps:
 4. Establish an ssh tunnel to the pandora database server with
 
     ```bash
-    ssh -L 10001:pandora.eva.mpg.de:3306 <your username>@daghead1` on the command line
+    ssh -L 10001:pandora.eva.mpg.de:3306 <your username>@daghead1`
     ```
 
 5. Run this in R to establish a connection to the database: 
