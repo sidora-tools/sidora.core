@@ -74,7 +74,6 @@ Only one specific account has the right read permissions to access the Pandora d
 If all of that worked, then you can acccess Pandora with sidora.core. For example load a specific Pandora table:
 
 ```r
-library(magrittr)
 library(sidora.core)
 
 sites <- get_df("TAB_Site", con)
