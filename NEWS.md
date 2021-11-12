@@ -1,4 +1,4 @@
-# sidora 2.0.0 - Briareus
+# sidora 2.0.0 - Phoebe
 
 Applied some small but breaking changes to the way connections to the Pandora database server are established.
 
