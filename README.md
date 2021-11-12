@@ -54,6 +54,8 @@ To use this package you have to follow these steps:
     ssh -L 10001:pandora.eva.mpg.de:3306 <your username>@daghead1
     ```
 
+    > You must make a new tunnel each time you want to connect (e.g. after you log out or reboot your machine)
+
 5. Run this in R to establish a connection to the database: 
 
     ```r
