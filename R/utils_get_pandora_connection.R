@@ -22,8 +22,9 @@ get_pandora_connection <- function(cred_file = ".credentials") {
   con <- DBI::dbConnect(
     RMariaDB::MariaDB(), 
     host = creds[1],
-    user = creds[2],
-    password = creds[3],
+    port = creds[2],
+    user = creds[3],
+    password = creds[4],
     db = "pandora"
   )
   

@@ -4,7 +4,7 @@
 
 # sidora.core
 
-Functions to access and download tables of the MPI-SHH DAG Pandora database using R. Serves as back-end for all sidora applications.
+Functions to access and download tables of the MPI-EVA DAG Pandora database using R. Serves as back-end for all sidora applications.
 
 ## Install
 
@@ -30,7 +30,6 @@ If you wish to set up a conda environment for using `sidora.core`, instructions 
 
 3. Once created, activate the environment
 
-
    ```bash
    conda activate sidora.core
    ```
@@ -42,22 +41,43 @@ If you wish to set up a conda environment for using `sidora.core`, instructions 
     remotes::install_github("sidora-tools/sidora.core")                             
     ``` 
 
-
-
 ## Quickstart guide
 
-Load the package and establish a database connection to Pandora. To do so you need the right `.credentials` file. Contact Stephan Schiffels, James Fellows Yates, or Clemens Schmid to obtain it. You also have to be in the institute's subnet.
+To use this package you have to follow these steps:
 
-```r
-library(magrittr)
-library(sidora.core)
+1. Install the sidora.core package in R (see above)
+2. Create a `.credentials` file\*
+3. Connect to the institutes subnet via VPN (see the instructions in kbase)
+4. Establish an ssh tunnel to the pandora database server with
 
-con <- get_pandora_connection(".credentials")
+    ```bash
+    ssh -L 10001:pandora.eva.mpg.de:3306 <your username>@daghead1
+    ```
+
+    > You must make a new tunnel each time you want to connect (e.g. after you log out or reboot your machine)
+
+5. Run this in R to establish a connection to the database: 
+
+    ```r
+    con <- sidora.core::get_pandora_connection("<path to your .credentials file>")
+    ```
+
+\* The `.credentials` file must have the following content and structure:
+
+```
+<host name of the database server>
+<port of the database server>
+<database username>
+<database password>
 ```
 
-Load specific a specific Pandora table with:
+Only one specific account has the right read permissions to access the Pandora database directly. Please contact Stephan Schiffels, James Fellows Yates, or Clemens Schmid to obtain the relevant username and password.
+
+If all of that worked, then you can acccess Pandora with sidora.core. For example load a specific Pandora table:
 
 ```r
+library(sidora.core)
+
 sites <- get_df("TAB_Site", con)
 ```
 
