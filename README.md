@@ -48,13 +48,14 @@ To use this package you have to follow these steps:
 1. Install the sidora.core package in R (see above)
 2. Create a `.credentials` file\*
 3. Connect to the institutes subnet via VPN (see the instructions in kbase)
-4. Establish an ssh tunnel to the pandora database server with
+4. If working locally, establish an ssh tunnel to the pandora database server with
 
     ```bash
     ssh -L 10001:pandora.eva.mpg.de:3306 <your username>@daghead1
     ```
 
-    > You must make a new tunnel each time you want to connect (e.g. after you log out or reboot your machine)
+    > You must make a new tunnel each time you want to connect (e.g. after you log out or reboot your machine).  
+    > ⚠️ This step is not necessary when working on the EVA servers directly.
 
 5. Run this in R to establish a connection to the database: 
 
