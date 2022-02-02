@@ -4,3 +4,6 @@
 .Ruserdata
 .credentials
 playground/*.html
+playground/*.log
+playground/*.tex
+playground/*.pdf
