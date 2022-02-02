@@ -170,3 +170,8 @@ sidora.core::get_df("TAB_Library", con) |>
 ```
 
 *c("Marieke van de Loosdrecht","Alissa Mittnik","Antje Wissgott", ...)*
+
+## Demo time!
+
+<!-- https://i.redd.it/x8m7tpqzktx01.jpg -->
+![](x8m7tpqzktx01.jpg)
