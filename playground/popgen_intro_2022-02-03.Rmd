@@ -1,6 +1,6 @@
 ---
 output: beamer_presentation
-title: A short FAQ for sidora.core
+title: A short How-to for sidora.core
 subtitle: Popgen meeting 2022-02-03
 editor_options: 
   chunk_output_type: console
@@ -60,7 +60,7 @@ This means the server listens now on your computer at `127.0.0.1:10001`.
 
 ## How to connect to Pandora with sidora.core?
 
-- The first two entries are what we enabled with the SSH tunnel to the Pandora server:
+- The first two entries are what we enabled with the SSH tunnel to the Pandora server
     
 ```{bash}
 127.0.0.1
@@ -71,7 +71,7 @@ This means the server listens now on your computer at `127.0.0.1:10001`.
     
 - The last two entries are the credentials of one specific user account, which has the necessary permissions to query data from Pandora
 - It's **not your username and password**, but a specific user!
-- We can not share this information publicly, but you can get it from Thiseas/James/Stephan/Kay/...
+- We can not share this information publicly, but you can get it from Thiseas/James/Stephan/...
 
 ## How to connect to Pandora with sidora.core?
 
@@ -85,5 +85,88 @@ con <- sidora.core::get_pandora_connection(
 
 - This `con` object is, what most functions in **sidora.core** need to run and retrieve information from the Pandora database.
 
+## How to access Pandora tables with sidora.core?
 
+There are two options:
 
+1. Download the tables as `data.frame`s into your Computer's memory and run all computations there
+
+```{r}
+sidora.core::get_df("TAB_Site", con) |>
+  dplyr::filter(site.Country == "Germany")
+```
+
+- The output of `get_df()` is directly compatible with the tidyverse
+- All columns should have the correct data type
+- All columns are renamed with an added table prefix: 
+    - `Country` -> `site.Country`
+    - `Creation_Date` -> `library.Creation_Date`
+
+## How to access Pandora tables with sidora.core?
+
+2. Send queries (dplyr -> SQL) to the database server and only download the results
+
+```{r}
+sidora.core::get_con("TAB_Site", con) |>
+  dplyr::filter(Country == "Germany") |>
+  tibble::as_tibble()
+```
+
+- IMHO: Option 2 is for advanced users and specific applications
+- A lot of the magic of the **sidora.core** package will not work with that: You know what you are doing.
+
+## How to download and merge multiple tables?
+
+Multiple tables can be downloaded with `get_df_list()` and automatically joined with `join_pandora_tables()`
+
+```{r}
+sidora.core::get_df_list(c(
+  "TAB_Individual", "TAB_Sample"
+), con = con) |>
+  sidora.core::join_pandora_tables()
+```
+
+## How to download and merge multiple tables?
+
+- This works, because Pandora is strictly hierarchical: Joins always behave the same, and every super-element is present
+
+```{bash}
+TAB_Site >
+  TAB_Individual >
+    TAB_Sample >
+      TAB_Extract >
+        TAB_Library >
+          TAB_Capture >
+            TAB_Sequencing >
+              TAB_Raw_Data >
+                TAB_Analysis
+```
+
+- This also allows to automatically bridge the gabs
+
+```{r}
+sidora.core::make_complete_table_list(
+  c("TAB_Site", "TAB_Capture")
+)
+```
+
+## How to replace lookup-table keys with real values?
+
+Some values in Pandora are only ids referencing lookup tables (e.g. `Worker`). 
+
+```{r}
+sidora.core::get_df("TAB_Library", con) |> 
+  (\(x) x$library.Worker)() |> unique()
+```
+
+*c(22, 4, 15, ...)*
+
+- We can decode them automatically
+
+```{r}
+sidora.core::get_df("TAB_Library", con) |> 
+  sidora.core::convert_all_ids_to_values(con) |> 
+  (\(x) x$library.Worker)() |> unique()
+```
+
+*c("Marieke van de Loosdrecht","Alissa Mittnik","Antje Wissgott", ...)*
