@@ -13,16 +13,16 @@ knitr::opts_chunk$set(eval = FALSE)
 ## What is sidora?
 
 - A collection of media and tools to interact with Pandora -- https://github.com/sidora-tools
-  - **pandora-explorer-website**: Blog posts exploring Pandora. https://sidora.eva.mpg.de/blog
+  - **pandora-the-explorer**: Blog posts exploring Pandora. https://sidora.eva.mpg.de/blog
   - **sidora**: An R shiny app with predefined tables and plots. https://sidora.eva.mpg.de/sidora
-  - **pandora2eager**: A script to pump Pandora data into eager. https://github.com/sidora-tools/pandora2eager
+  - **pandora2eager**: A script to pump Pandora data into eager2. https://github.com/sidora-tools/pandora2eager
   - ... a number of other things that didn't reach maturity
   - **sidora.core**
   
 ## What is sidora.core?
 
 - An R package with a number of convenience functions to access Pandora data
-- The backbone of **sidora** (webapp) and **pandora2eager** (that's why it's called "core")
+- **sidora.core** is also the backbone of **sidora** (webapp) and **pandora2eager** (that's why it's called "core")
 
 ## How to install sidora.core on your computer?
 
@@ -36,15 +36,15 @@ knitr::opts_chunk$set(eval = FALSE)
 
 These steps are necessary every time you want to connect to the Pandora server (not the website!):
 
-1. Connect to the institutes subnet via VPN (see the instructions in kbase)
-2. Establish an SSH tunnel to the Pandora database server with -- and keep it open!
+1. Connect to the institute's subnet via VPN (see the instructions in kbase)
+2. Establish an SSH tunnel to the Pandora database server -- and keep it open!
 
 ```{bash}
 ssh -L 10001:pandora.eva.mpg.de:3306 \
 <your username>@daghead1
 ```
 
-This means the server listens now on your computer at `127.0.0.1:10001`.
+This means that the database server now listens on your computer at `127.0.0.1:10001`.
 
 ## How to connect to Pandora with sidora.core?
 
@@ -83,16 +83,16 @@ con <- sidora.core::get_pandora_connection(
 )
 ```
 
-- This `con` object is, what most functions in **sidora.core** need to run and retrieve information from the Pandora database.
+- This `con` object is what most functions in **sidora.core** need to run and retrieve information from the Pandora database
 
 ## How to access Pandora tables with sidora.core?
 
 There are two options:
 
-1. Download the tables as `data.frame`s into your Computer's memory and run all computations there
+1. Download the tables as `data.frame`s into your computer's memory and run all computations there
 
 ```{r}
-sidora.core::get_df("TAB_Site", con) |>
+sidora.core::get_df("TAB_Site", con) %>%
   dplyr::filter(site.Country == "Germany")
 ```
 
@@ -107,8 +107,8 @@ sidora.core::get_df("TAB_Site", con) |>
 2. Send queries (dplyr -> SQL) to the database server and only download the results
 
 ```{r}
-sidora.core::get_con("TAB_Site", con) |>
-  dplyr::filter(Country == "Germany") |>
+sidora.core::get_con("TAB_Site", con) %>%
+  dplyr::filter(Country == "Germany") %>%
   tibble::as_tibble()
 ```
 
@@ -122,7 +122,7 @@ Multiple tables can be downloaded with `get_df_list()` and automatically joined 
 ```{r}
 sidora.core::get_df_list(c(
   "TAB_Individual", "TAB_Sample"
-), con = con) |>
+), con = con) %>%
   sidora.core::join_pandora_tables()
 ```
 
@@ -155,8 +155,8 @@ sidora.core::make_complete_table_list(
 Some values in Pandora are only ids referencing lookup tables (e.g. `Worker`). 
 
 ```{r}
-sidora.core::get_df("TAB_Library", con) |> 
-  (\(x) x$library.Worker)() |> unique()
+sidora.core::get_df("TAB_Library", con) %$% 
+  library.Worker %>% unique()
 ```
 
 *c(22, 4, 15, ...)*
@@ -164,14 +164,9 @@ sidora.core::get_df("TAB_Library", con) |>
 - We can decode them automatically
 
 ```{r}
-sidora.core::get_df("TAB_Library", con) |> 
-  sidora.core::convert_all_ids_to_values(con) |> 
-  (\(x) x$library.Worker)() |> unique()
+sidora.core::get_df("TAB_Library", con) %>% 
+  sidora.core::convert_all_ids_to_values(con) %$% 
+  library.Worker %>% unique()
 ```
 
 *c("Marieke van de Loosdrecht","Alissa Mittnik","Antje Wissgott", ...)*
-
-## Demo time!
-
-<!-- https://i.redd.it/x8m7tpqzktx01.jpg -->
-![](x8m7tpqzktx01.jpg)
