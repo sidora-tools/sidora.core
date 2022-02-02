@@ -1,0 +1,74 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(eval = FALSE)
+```
+
+# A short introduction to sidora (Popgen meeting 2022-02-03)
+
+## What is sidora?
+
+- A collection of media and tools to interact with Pandora (https://github.com/sidora-tools)
+  - **pandora-explorer-website**: Blog posts exploring Pandora (https://sidora.eva.mpg.de/blog)
+  - **sidora**: An R shiny app with predefined tables and plots (https://sidora.eva.mpg.de/sidora)
+  - **pandora2eager**: A script to pump Pandora data into eager (https://github.com/sidora-tools/pandora2eager)
+  - ... (a number of other things that didn't reach maturity)
+  - **sidora.core**
+  
+## What is sidora.core?
+
+- An R package with a number of convenience functions to access Pandora data
+- The backbone of **sidora** (webapp) and **pandora2eager** (that's why it's called "core")
+
+## How to install sidora.core on your computer?
+
+- **sidora.core** is not in the CRAN, so it can not be installed with `install.packages()`
+- Instead you have to install it from GitHub
+  1. Install the package **remotes**, which allows to install R packages from GitHub: `install.packages('remotes')`
+  2. Install **sidora.core**: `remotes::install_github("sidora-tools/sidora.core")`
+- On Windows you can only install **sidora.core**, if you have installed the Rtools (https://cran.r-project.org/bin/windows/Rtools/rtools40.html, not an R package!)
+
+## How to connect to the Pandora database server from your computer?
+
+These steps are necessary every time you want to connect to Pandora:
+
+1. Connect to the institutes subnet via VPN (see the instructions in kbase)
+2. Establish an SSH tunnel to the Pandora database server with
+
+```{bash}
+ssh -L 10001:pandora.eva.mpg.de:3306 <your username>@daghead1
+```
+
+This means the server listens now on your computer at `127.0.0.1:10001`.
+
+## How to connect to Pandora with sidora.core?
+
+1. Create a `.credentials` file somewhere on your computer
+    - This file stores the relevant login information in a way **sidora.core** can understand
+```
+<host name of the database server>
+<port of the database server>
+<database username>
+<database password>
+```
+    - The first two entries are what we enabled with the SSH tunnel to the Pandora server:
+```
+127.0.0.1
+10001
+<database username>
+<database password>
+```
+    - The last two entries are the credentials of one specific user, which has the necessary permissions to query data from Pandora
+    - It's not your username and password, but a specific user!
+    - We can not share this information publicly, but you can get it from Thiseas/James/Stephan/Kay/...
+
+2. Create a connection object in R with the `.credentials` file
+```{r}
+con <- sidora.core::get_pandora_connection("<path to your .credentials file>")
+```
+This `con` object is, what most functions in **sidora.core** need to run and retrieve information from the Pandora database.
+
