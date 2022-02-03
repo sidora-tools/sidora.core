@@ -1,5 +1,7 @@
 library(magrittr)
 
+#### download and prepare the data from poseidon & pandora ####
+
 con <- sidora.core::get_pandora_connection(".credentials")
 
 pandora <- sidora.core::get_df_list(c("TAB_Site", "TAB_Individual", "TAB_Sample"), con) %>%
@@ -14,6 +16,10 @@ poseidon <- poseidonR::read_janno("~/agora/published_data", validate = F) %>%
   dplyr::select(Poseidon_ID, Latitude, Longitude) %>%
   dplyr::filter(!is.na(Latitude) & !is.na(Longitude)) %>%
   tibble::as_tibble()
+
+#### prepare spatial data objects ####
+
+world_coastline <- rnaturalearth::ne_coastline(scale = "medium", returnclass = "sf")
 
 world <- rnaturalearth::ne_countries(scale = "medium", returnclass = "sf")
 world_6933 <- sf::st_transform(world, 6933)
@@ -32,6 +38,8 @@ poseidon_sf <- poseidon %>%
   sf::st_as_sf(coords = c('Longitude', 'Latitude'), crs = 4326) %>%
   sf::st_transform(6933)
 
+#### perform counting in spatial bins ####
+
 world_with_count <- world_grid_6933 %>%
   dplyr::mutate(
     pandora_count = sf::st_intersects(world_grid_6933, pandora_sf) %>% lengths(),
@@ -40,15 +48,56 @@ world_with_count <- world_grid_6933 %>%
   ) %>%
   dplyr::filter(pandora_count != 0 & poseidon_count != 0)
 
-world_coastline <- rnaturalearth::ne_coastline(scale = "medium", returnclass = "sf")
+
+#### plots ####
 
 library(ggplot2)
+
+# pandora map
+ggplot() +
+  geom_sf(data = world_with_count, mapping = aes(fill = pandora_count), color = NA) +
+  geom_sf(data = world_coastline, color = "black", cex = 0.2) +
+  coord_sf(crs = "+proj=robin +lon_0=0 +x_0=0 +y_0=0 +ellps=WGS84 +datum=WGS84 +units=m no_defs") +
+  scale_fill_gradientn(
+    colours = c("lightgrey","red"),
+    guide = "colorbar"
+  ) +
+  theme_minimal() +
+  theme(
+    legend.position = "bottom",
+    legend.background = element_blank(),
+    panel.grid.major = element_line(colour = "black", size = 0.2)
+  ) +
+  guides(
+    fill = guide_colorbar(title = "Pandora individuals count", barwidth = 20, barheight = 1.5)
+  )
+
+# poseidon map
+ggplot() +
+  geom_sf(data = world_with_count, mapping = aes(fill = poseidon_count), color = NA) +
+  geom_sf(data = world_coastline, color = "black", cex = 0.2) +
+  coord_sf(crs = "+proj=robin +lon_0=0 +x_0=0 +y_0=0 +ellps=WGS84 +datum=WGS84 +units=m no_defs") +
+  scale_fill_gradientn(
+    colours = c("lightgrey","#3A77F1"),
+    guide = "colorbar"
+  ) +
+  theme_minimal() +
+  theme(
+    legend.position = "bottom",
+    legend.background = element_blank(),
+    panel.grid.major = element_line(colour = "black", size = 0.2)
+  ) +
+  guides(
+    fill = guide_colorbar(title = "Poseidon individuals count", barwidth = 20, barheight = 1.5)
+  )
+
+# difference map
 ggplot() +
   geom_sf(data = world_with_count, mapping = aes(fill = difference), color = NA) +
   geom_sf(data = world_coastline, color = "black", cex = 0.2) +
   coord_sf(crs = "+proj=robin +lon_0=0 +x_0=0 +y_0=0 +ellps=WGS84 +datum=WGS84 +units=m no_defs") +
   scale_fill_gradientn(
-    colours = c("blue","grey","red"), 
+    colours = c("#3A77F1","lightgrey","red"), 
     values = scales::rescale(c(min(world_with_count$difference),0,max(world_with_count$difference))),
     guide = "colorbar", 
     limits = c(min(world_with_count$difference),max(world_with_count$difference)),
@@ -57,7 +106,8 @@ ggplot() +
   theme_minimal() +
   theme(
     legend.position = "bottom",
-    legend.background = element_blank()
+    legend.background = element_blank(),
+    panel.grid.major = element_line(colour = "black", size = 0.2)
   ) +
   guides(
     fill = guide_colorbar(title = "Difference (Pandora - Poseidon)", barwidth = 20, barheight = 1.5)
