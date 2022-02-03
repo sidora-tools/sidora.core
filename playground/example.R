@@ -17,9 +17,8 @@ world <- rnaturalearth::ne_countries(scale = "medium", returnclass = "sf")
 world_6933 <- sf::st_transform(world, 6933)
 world_grid_6933 <- sf::st_make_grid(
   world_6933,
-  n = c(100,100),
+  cellsize = c(500000,500000),
   what = 'polygons',
-  square = FALSE,
   flat_topped = TRUE
 ) %>% sf::st_as_sf()
   
@@ -35,7 +34,8 @@ world_with_count <- world_grid_6933 %>%
   dplyr::mutate(
     pandora_count = sf::st_intersects(world_grid_6933, pandora_sf) %>% lengths(),
     poseidon_count = sf::st_intersects(world_grid_6933, poseidon_sf) %>% lengths(),
-    difference = pandora_count - poseidon_count
+    difference = pandora_count - poseidon_count#,
+    #difference_class = 
   ) %>%
   dplyr::filter(pandora_count != 0 & poseidon_count != 0)
 
@@ -46,4 +46,10 @@ ggplot() +
   geom_sf(data = world_with_count, mapping = aes(fill = difference), color = NA) +
   geom_sf(data = world_coastline, color = "black", cex = 0.2) +
   coord_sf(crs = "+proj=robin +lon_0=0 +x_0=0 +y_0=0 +ellps=WGS84 +datum=WGS84 +units=m no_defs") +
-  scale_fill_gradient2(low = "black", mid = "yellow", high = "red", midpoint = 0)
+  scale_fill_gradientn(
+    colours = c("blue","grey","red"), 
+    values = scales::rescale(c(min(world_with_count$difference),0,max(world_with_count$difference))),
+    guide = "colorbar", 
+    limits = c(min(world_with_count$difference),max(world_with_count$difference))
+  ) +
+  theme_minimal()
