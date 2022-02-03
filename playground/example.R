@@ -2,10 +2,12 @@ library(magrittr)
 
 con <- sidora.core::get_pandora_connection(".credentials")
 
-pandora <- sidora.core::get_df_list(c("TAB_Site", "TAB_Individual"), con) %>%
+pandora <- sidora.core::get_df_list(c("TAB_Site", "TAB_Individual", "TAB_Sample"), con) %>%
   sidora.core::join_pandora_tables() %>%
+  dplyr::filter(!sample.Ethically_culturally_sensitive) %>%
   dplyr::select(individual.Full_Individual_Id, site.Latitude, site.Longitude) %>%
-  dplyr::filter(!is.na(site.Latitude) & !is.na(site.Longitude))
+  dplyr::filter(!is.na(site.Latitude) & !is.na(site.Longitude)) %>%
+  unique # necessary, because the input table is on sample level, but individuals are relevant here
 
 poseidon <- poseidonR::read_janno("~/agora/published_data", validate = F) %>%
   dplyr::filter(Date_Type %in% c("C14", "contextual")) %>%
@@ -17,7 +19,7 @@ world <- rnaturalearth::ne_countries(scale = "medium", returnclass = "sf")
 world_6933 <- sf::st_transform(world, 6933)
 world_grid_6933 <- sf::st_make_grid(
   world_6933,
-  cellsize = c(500000,500000),
+  cellsize = c(400000,400000),
   what = 'polygons',
   flat_topped = TRUE
 ) %>% sf::st_as_sf()
@@ -34,8 +36,7 @@ world_with_count <- world_grid_6933 %>%
   dplyr::mutate(
     pandora_count = sf::st_intersects(world_grid_6933, pandora_sf) %>% lengths(),
     poseidon_count = sf::st_intersects(world_grid_6933, poseidon_sf) %>% lengths(),
-    difference = pandora_count - poseidon_count#,
-    #difference_class = 
+    difference = pandora_count - poseidon_count
   ) %>%
   dplyr::filter(pandora_count != 0 & poseidon_count != 0)
 
@@ -50,6 +51,14 @@ ggplot() +
     colours = c("blue","grey","red"), 
     values = scales::rescale(c(min(world_with_count$difference),0,max(world_with_count$difference))),
     guide = "colorbar", 
-    limits = c(min(world_with_count$difference),max(world_with_count$difference))
+    limits = c(min(world_with_count$difference),max(world_with_count$difference)),
+    breaks = c(-80, seq(0, 1400, 200))
   ) +
-  theme_minimal()
+  theme_minimal() +
+  theme(
+    legend.position = "bottom",
+    legend.background = element_blank()
+  ) +
+  guides(
+    fill = guide_colorbar(title = "Difference (Pandora - Poseidon)", barwidth = 20, barheight = 1.5)
+  )
