@@ -143,6 +143,7 @@ TAB_Sample	sample	Tags	character	NA	NA	optional
 TAB_Sample	sample	Projects	character	NA	NA	optional
 TAB_Sample	sample	Deleted	logical	NA	NA	NA
 TAB_Sample	sample	Deleted_Date	datetime	NA	NA	NA
+TAB_Sample	sample	CoreDB_Id	character	NA	NA	optional
 TAB_Extract	extract	Id	integer	NA	NA	NA
 TAB_Extract	extract	Sample	integer	NA	NA	NA
 TAB_Extract	extract	Extract_Id	character	NA	NA	mandatory
@@ -167,6 +168,7 @@ TAB_Extract	extract	Tags	character	NA	NA	optional
 TAB_Extract	extract	Projects	character	NA	NA	optional
 TAB_Extract	extract	Deleted	logical	NA	NA	NA
 TAB_Extract	extract	Deleted_Date	datetime	NA	NA	NA
+TAB_Extract	extract	CoreDB_Id	character	NA	NA	optional
 TAB_Library	library	Id	integer	NA	NA	NA
 TAB_Library	library	Extract	integer	NA	NA	NA
 TAB_Library	library	Library_Id	integer	NA	NA	mandatory
@@ -201,6 +203,7 @@ TAB_Library	library	Tags	character	NA	NA	optional
 TAB_Library	library	Projects	character	NA	NA	optional
 TAB_Library	library	Deleted	logical	NA	NA	NA
 TAB_Library	library	Deleted_Date	datetime	NA	NA	NA
+TAB_Library	library	CoreDB_Id	character	NA	NA	optional
 TAB_Capture	capture	Id	integer	NA	NA	NA
 TAB_Capture	capture	Library	integer	NA	NA	NA
 TAB_Capture	capture	Capture_Id	character	NA	NA	mandatory
@@ -223,6 +226,7 @@ TAB_Capture	capture	Tags	character	NA	NA	optional
 TAB_Capture	capture	Projects	character	NA	NA	optional
 TAB_Capture	capture	Deleted	logical	NA	NA	NA
 TAB_Capture	capture	Deleted_Date	datetime	NA	NA	NA
+TAB_Capture	capture	CoreDB_Id	character	NA	NA	optional
 TAB_Sequencing	sequencing	Id	integer	NA	NA	NA
 TAB_Sequencing	sequencing	Capture	integer	NA	NA	NA
 TAB_Sequencing	sequencing	Sequencing_Id	integer	NA	NA	mandatory
