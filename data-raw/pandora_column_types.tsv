@@ -129,7 +129,6 @@ TAB_Sample	sample	Creation_Date	datetime	NA	NA	optional
 TAB_Sample	sample	Experiment_Date	datetime	NA	NA	optional
 TAB_Sample	sample	Batch	integer	TAB_Batch	Name	optional
 TAB_Sample	sample	Sampled_Quantity	double	NA	NA	optional
-TAB_Sample	sample	Sampled_Quantity	double	NA	NA	optional
 TAB_Sample	sample	External_Sample_Id	character	NA	NA	optional
 TAB_Sample	sample	Location_Bone_Room	integer	TAB_Location_Room	Name	optional
 TAB_Sample	sample	Location_Bone	integer	TAB_Location	Name	optional
