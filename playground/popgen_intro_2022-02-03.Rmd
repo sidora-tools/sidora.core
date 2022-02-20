@@ -46,6 +46,18 @@ ssh -L 10001:pandora.eva.mpg.de:3306 \
 
 This means that the database server now listens on your computer at `127.0.0.1:10001`.
 
+## How to connect to the Pandora database server from your computer?
+
+We can actually send direct queries to the server there, e.g.
+
+```{bash}
+mysql --host=localhost --port=10001 \
+--user=<secret> --password=<secret> pandora \
+-e "select Sampled_Quantity from TAB_Sample"
+```
+
+But working with R and sidora.core might be more convinient for many applications
+
 ## How to connect to Pandora with sidora.core?
 
 1. Create a `.credentials` file somewhere on your computer
