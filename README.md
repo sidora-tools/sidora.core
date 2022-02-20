@@ -131,7 +131,7 @@ samples <- get_df("TAB_Sample", con)
 # filter
 samples_raw <- samples %>%
   filter(grepl("^ALA", sample.Full_Sample_Id)) %>%
-  convert_all_ids_to_values() %>%
+  convert_all_ids_to_values(con) %>%
   filter(sample.Type_Group == "Calculus")
 
 # update tag and convert for update existing entries format
@@ -164,7 +164,7 @@ sites <- get_df("TAB_Site", con)
 Many columns in Pandora have numerical IDs to refer to workers, Protocols, Capture Probe sets and other finite sets of identifiers. This information usually has be looked up in helper tables. We have added the function `convert_all_ids_to_values()` to automatically convert all numerical IDs to the actual strings.
 
 ```r
-convert_all_ids_to_values(sites)
+convert_all_ids_to_values(sites, con)
 ```
 
 You can download multiple tables at once with `get_con_list()` and `get_df_list()`, which return a named list of objects. The latter again includes the additional transformation and caching features.
