@@ -43,7 +43,7 @@ format_as_update_existing <- function(sidora_table) {
   # as displayed (particularly to prevent datetime saving with TZ info)
   result %>% 
     dplyr::rename_with(make_column_mandatory, valid_cols_table_clean_mandatory) %>%
-    dplyr::mutate(dplyr::across(tidyselect::everything(), as.character))
+    dplyr::mutate(dplyr::across(tidyselect::everything(), format, trim = TRUE))
 }
 
 #' make_column_mandatory
@@ -76,7 +76,7 @@ fix_logical_update_existing <- function(sidora_table){
   
   if ("sample.Ethically_culturally_sensitive" %in% names(sidora_table)) {
     result <- sidora_table %>% 
-      dplyr::mutate(dplyr::across(dplyr::contains(c("sample", ".Ethically_culturally_sensitive")), function(x) gsub(F, "No", x) %>% gsub(T, "Yes", .)))
+      dplyr::mutate(dplyr::across(dplyr::contains(c("sample.Ethically_culturally_sensitive")), function(x) gsub(F, "No", x) %>% gsub(T, "Yes", .)))
   } else {
     result <- sidora_table %>%
       dplyr::mutate(dplyr::across(dplyr::contains(c(".Ethically_culturally_sensitive")), function(x){return(0)}))
