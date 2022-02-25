@@ -1,3 +1,7 @@
+# sidora 2.0.3
+
+A small fix in `format_as_update_existing()`.
+
 # sidora 2.0.2
 
 Adds a type definition for the CoreDB_Id column in TAB_Sample, TAB_Extract, TAB_Library and TAB_Capture.
