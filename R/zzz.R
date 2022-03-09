@@ -12,8 +12,8 @@ startupmsg <- function() {
 "
    / \\    Pandora contains many samples that are ethically
   / | \\   and/or culturally sensitive and are therefore
- /  °  \\  off-limits for many analyses.
- ˜˜˜˜˜˜˜  
+ /  *  \\  off-limits for many analyses.
+
 They are indicated in the column Ethically_culturally_sensitive of TAB_Sample. Make sure to exclude these samples depending on your application and permissions!"
 }
 
