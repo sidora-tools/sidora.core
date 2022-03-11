@@ -45,6 +45,9 @@ TAB_Batch	batch	Projects	character	NA	NA	optional
 TAB_Batch	batch	Files	integer	NA	NA	optional
 TAB_Batch	batch	Deleted	logical	NA	NA	NA
 TAB_Batch	batch	Deleted_Date	datetime	NA	NA	NA
+TAB_Field_Comment Table character	NA	NA	NA	NA
+TAB_Field_Comment Field character	NA	NA	NA	NA
+TAB_Field_Comment Comment character	NA	NA	NA
 TAB_Index_Set	index_set	Id	integer	NA	NA	NA
 TAB_Index_Set	index_set	Name	character	NA	NA	NA
 TAB_Location	location	Id	integer	NA	NA	NA
