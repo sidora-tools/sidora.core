@@ -71,19 +71,28 @@ make_column_mandatory <- function(x){
 fix_logical_update_existing <- function(sidora_table){
   
   if (any(grepl("Robot", colnames(sidora_table)))) {
-    sidora_table <- sidora_table %>% dplyr::mutate(dplyr::across(dplyr::contains(".Robot"), function(x) gsub(F, "No", x) %>% gsub(T, "Yes", .)))
+    sidora_table <- sidora_table %>% 
+      dplyr::mutate(dplyr::across(tidyselect::contains(".Robot"),
+                                  function(x) 
+                                    dplyr::case_when(x ~ "Yes", !x ~ "No")))
   }
   
   if (any(grepl("CT_scanned", colnames(sidora_table)))) {
-    sidora_table <- sidora_table %>% dplyr::mutate(dplyr::across(dplyr::contains(".CT_scanned"), function(x) gsub(F, "No", x) %>% gsub(T, "Yes", .)))
+    sidora_table <- sidora_table %>% 
+      dplyr::mutate(dplyr::across(tidyselect::contains(".CT_scanned"), 
+                                  function(x) 
+                                    dplyr::case_when(x ~ "Yes", !x ~ "No")))
   }
   
   if ("sample.Ethically_culturally_sensitive" %in% names(sidora_table)) {
     result <- sidora_table %>% 
-      dplyr::mutate(dplyr::across(dplyr::contains(c("sample.Ethically_culturally_sensitive")), function(x) gsub(F, "No", x) %>% gsub(T, "Yes", .)))
+      dplyr::mutate(dplyr::across(tidyselect::contains(c("sample.Ethically_culturally_sensitive")), 
+                                  function(x) 
+                                    dplyr::case_when(x ~ "Yes", !x ~ "No")))
   } else {
     result <- sidora_table %>%
-      dplyr::mutate(dplyr::across(dplyr::contains(c(".Ethically_culturally_sensitive")), function(x){return(0)}))
+      dplyr::mutate(dplyr::across(tidyselect::contains(c(".Ethically_culturally_sensitive")), 
+                                  function(x){return(0)}))
   }
   return(result)
 }
