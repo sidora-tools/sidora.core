@@ -34,7 +34,6 @@ Imports:
   RMariaDB (>= 1.1.0),
   tibble (>= 3.1.0),
   tidyselect (>= 1.1.0),
-  crayon (>= 1.4.1),
   utils
 Suggests: 
   testthat (>= 3.0.0)

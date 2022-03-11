@@ -7,9 +7,11 @@
 field_help(tab, field, con)
 }
 \arguments{
-\item{tab}{character. Name of the table of the field of interest}
+\item{tab}{character. Name of the table of the field of interest in
+"TAB_<table>" format. E.g. "TAB_Sample"}
 
-\item{field}{character vector. Name of the field of interest}
+\item{field}{character vector. Name of the field of interest. In Pandora
+format E.g. "Sampled_Quantity"}
 
 \item{con}{database connection object}
 }
