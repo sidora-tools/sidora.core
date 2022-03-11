@@ -74,6 +74,10 @@ fix_logical_update_existing <- function(sidora_table){
     sidora_table <- sidora_table %>% dplyr::mutate(dplyr::across(dplyr::contains(".Robot"), function(x) gsub(F, "No", x) %>% gsub(T, "Yes", .)))
   }
   
+  if (any(grepl("CT_scanned", colnames(sidora_table)))) {
+    sidora_table <- sidora_table %>% dplyr::mutate(dplyr::across(dplyr::contains(".CT_scanned"), function(x) gsub(F, "No", x) %>% gsub(T, "Yes", .)))
+  }
+  
   if ("sample.Ethically_culturally_sensitive" %in% names(sidora_table)) {
     result <- sidora_table %>% 
       dplyr::mutate(dplyr::across(dplyr::contains(c("sample.Ethically_culturally_sensitive")), function(x) gsub(F, "No", x) %>% gsub(T, "Yes", .)))
