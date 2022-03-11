@@ -2,9 +2,13 @@
 .Rhistory
 .RData
 .Ruserdata
-.credentials
+.credentials*
 playground/*.html
 playground/*.log
 playground/*.tex
 playground/*.pdf
 playground/*.jpg
+playground/*.R
+playground/*.Rmd
+playground/
+testing/
