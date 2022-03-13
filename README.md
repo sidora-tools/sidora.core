@@ -143,6 +143,12 @@ samples_updated <- samples_raw %>%
 write_csv(samples_updated, "Sample.csv")
 ```
 
+If at any point you can't remember what you need to add to a given column, you can use `get_help_field()` to print the Pandora webpage help tooltip. E.g.:
+
+```r
+get_help_field("TAB_Sample", "Worker", con)
+```
+
 For all other functions, please check the sidora.core R package documentation.
 
 ## Behind the scenes
