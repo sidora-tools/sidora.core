@@ -14,7 +14,8 @@ startupmsg <- function() {
   / | \\   and/or culturally sensitive and are therefore
  /  *  \\  off-limits for many analyses.
 
-They are indicated in the column Ethically_culturally_sensitive of TAB_Sample. Make sure to exclude these samples depending on your application and permissions!"
+They are indicated in the column Ethically_culturally_sensitive of TAB_Sample.
+Ensure you exclude these samples and all upstream and downstream entries depending on permissions and context!"
 }
 
 # package startup message
