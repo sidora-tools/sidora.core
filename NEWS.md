@@ -1,31 +1,30 @@
+# sidora 2.1.1
+
+- Added a package start-up message to warn about potential ethical snares.
+
 # sidora 2.1.0
 
-Added new function `get_field_help()` for printing Pandora webpage help messages on the R console
-Added support for field CT_scanned
-Updated renamed column Owning Institution -> Institution of Origin
+- Added new function `get_field_help()` for printing Pandora webpage help messages on the R console.
+- Added support for field CT_scanned.
+- Updated renamed column Owning Institution -> Institution of Origin.
 
 # sidora 2.0.3
 
-A small fix in `format_as_update_existing()`.
+- A small fix in `format_as_update_existing()`.
 
 # sidora 2.0.2
 
-Adds a type definition for the CoreDB_Id column in TAB_Sample, TAB_Extract, TAB_Library and TAB_Capture.
+- Adds a type definition for the CoreDB_Id column in TAB_Sample, TAB_Extract, TAB_Library and TAB_Capture.
 
 # sidora 2.0.1
 
-Small fixes in the documentation and in an error message.
+- Small fixes in the documentation and in an error message.
 
 # sidora 2.0.0 - Phoebe
 
-Applied some small but breaking changes to the way connections to the Pandora database server are established.
+- Applied some small but breaking changes to the way connections to the Pandora database server are established.
 
 # sidora 1.0.0 - Mnemosyne
 
-## Added
-
-* First stable release
+- First stable release.
   
-## Updated
-
-## Fixed
