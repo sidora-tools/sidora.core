@@ -60,10 +60,6 @@ get_field_help <- function(tab, field, con) {
   
   if ( length(result) < 1 ) { result = "Currently no help message for this field is available. Please complain on ~Pandora." }
     
-    paste0("Table: ", 
-           tab, " | Field: ", 
-           field, 
-           " | Definition: ", 
-           result)
+  result
 }
   
