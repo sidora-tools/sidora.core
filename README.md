@@ -216,6 +216,6 @@ A special hint concerning `TAB_Analysis`: It is formatted differently from the o
 
 Additionally, if you've made a modification it's recommended to run build-validation before rebuilding. This can typically be accessed in Rstudio with  <kbd>Ctrl</kbd> + <kbd>shift</kbd> + <kbd>e</kbd>
 
-If you need to update any field names or add new tables, make sure to update the TSV in `data-raw`, and run the `data_prep.R` script. Don't be stupid like James and edit the TSVs in the Rstudio text editor - do it in a spreadsheet tool. 
+If you need to update any field names or add new tables for Pandora, make sure to update the TSV in `data-raw`, and run the `data_prep.R` script. The .tsv files can be edited in a spreadsheet tool like [LibreOffice](https://www.libreoffice.org).
 
 A great introduction to R package development is available [here](http://r-pkgs.had.co.nz/).
