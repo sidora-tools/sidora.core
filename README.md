@@ -143,6 +143,12 @@ samples_updated <- samples_raw %>%
 write_csv(samples_updated, "Sample.csv")
 ```
 
+If at any point you can't remember what you need to add to a given column, you can use `get_help_field()` to print the Pandora webpage help tooltip. E.g.:
+
+```r
+get_help_field("TAB_Sample", "Worker", con)
+```
+
 For all other functions, please check the sidora.core R package documentation.
 
 ## Behind the scenes
@@ -215,5 +221,7 @@ A special hint concerning `TAB_Analysis`: It is formatted differently from the o
 4. Press <kbd>Ctrl</kbd> + <kbd>shift</kbd> + <kbd>b</kbd> to build the package and load the library. (alternatively, in the top right pane go to the 'Build' tab and press Install and Restart)
 
 Additionally, if you've made a modification it's recommended to run build-validation before rebuilding. This can typically be accessed in Rstudio with  <kbd>Ctrl</kbd> + <kbd>shift</kbd> + <kbd>e</kbd>
+
+If you need to update any field names or add new tables for Pandora, make sure to update the TSV in `data-raw`, and run the `data_prep.R` script. The .tsv files can be edited in a spreadsheet tool like [LibreOffice](https://www.libreoffice.org).
 
 A great introduction to R package development is available [here](http://r-pkgs.had.co.nz/).

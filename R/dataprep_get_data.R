@@ -80,7 +80,7 @@ get_df <- function(
   
   if ( any(!tab %in% sidora.core::pandora_tables_all) )
     stop(paste0("[sidora.core] error: tab not found in available tables. Options: ",
-                paste(sidora.core::pandora_tables_all, collapse = " ,"),
+                paste(sidora.core::pandora_tables_all, collapse = ", "),
                 ". Your selection: ", tab))
   
   if (length(tab) != 1) {
