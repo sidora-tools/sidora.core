@@ -24,7 +24,7 @@ check_if_packages_are_available <- function(packages_ch) {
   }
 }
 
-#' Access field Pandora help tooltip
+#' Access field Pandora help tooltip information
 #'
 #' This functions allows you to call the 'tooltip' help/documentation message
 #' present on the Pandora webpage for a given entry.
@@ -37,11 +37,11 @@ check_if_packages_are_available <- function(packages_ch) {
 #'
 #' @return help text of the given field
 #' 
-#' @name field_help
+#' @name get_field_help
 #' 
 #' @export
 
-field_help <- function(tab, field, con) {
+get_field_help <- function(tab, field, con) {
   
   if ( !tab %in% sidora.core::pandora_tables ) {
     stop("[sidora.core] error: Select one valid PANDORA SQL table.")
