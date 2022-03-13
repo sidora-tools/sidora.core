@@ -1,4 +1,4 @@
-# dev
+# sidora 2.0.4
 
 Added support for field CT_scanned
 Updated renamed column Owning Institution -> Institution of Origin
