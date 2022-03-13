@@ -99,7 +99,7 @@ TAB_Individual	individual	Id	integer	NA	NA	NA
 TAB_Individual	individual	Site	integer	NA	NA	NA
 TAB_Individual	individual	Individual_Id	integer	NA	NA	mandatory
 TAB_Individual	individual	Full_Individual_Id	character	NA	NA	NA
-TAB_Individual	individual	Owning_institution	integer	TAB_Owner	Name	mandatory
+TAB_Individual	individual	Institution_of_Origin	integer	TAB_Owner	Name	mandatory
 TAB_Individual	individual	Contact_Person	character	NA	NA	optional
 TAB_Individual	individual	Provenience	character	NA	NA	optional
 TAB_Individual	individual	Worker	integer	TAB_User	Name	mandatory
@@ -146,6 +146,7 @@ TAB_Sample	sample	Projects	character	NA	NA	optional
 TAB_Sample	sample	Deleted	logical	NA	NA	NA
 TAB_Sample	sample	Deleted_Date	datetime	NA	NA	NA
 TAB_Sample	sample	CoreDB_Id	character	NA	NA	optional
+TAB_Sample	sample	CT_scanned	yesno_logical	NA	NA	optional
 TAB_Extract	extract	Id	integer	NA	NA	NA
 TAB_Extract	extract	Sample	integer	NA	NA	NA
 TAB_Extract	extract	Extract_Id	character	NA	NA	mandatory

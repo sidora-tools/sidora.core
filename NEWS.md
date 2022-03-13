@@ -1,3 +1,9 @@
+# sidora 2.1.0
+
+Added new function `get_field_help()` for printing Pandora webpage help messages on the R console
+Added support for field CT_scanned
+Updated renamed column Owning Institution -> Institution of Origin
+
 # sidora 2.0.3
 
 A small fix in `format_as_update_existing()`.
