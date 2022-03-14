@@ -224,4 +224,6 @@ Additionally, if you've made a modification it's recommended to run build-valida
 
 If you need to update any field names or add new tables for Pandora, make sure to update the TSV in `data-raw`, and run the `data_prep.R` script. The .tsv files can be edited in a spreadsheet tool like [LibreOffice](https://www.libreoffice.org).
 
+For each update, please update NEWS.md (the changelog) and bump the the corresponding version number DESCRIPTION. Every merged PR change can have a minor number bump (i.e., x.x.**x**)
+
 A great introduction to R package development is available [here](http://r-pkgs.had.co.nz/).
