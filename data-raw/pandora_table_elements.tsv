@@ -26,3 +26,5 @@ TAB_Type_Group	sample_type_group	Name	FALSE	FALSE	Id
 TAB_Index_Set_P5	index_p5	Index	FALSE	FALSE	Id
 TAB_Index_Set_P7	index_p7	Index	FALSE	FALSE	Id
 TAB_Field_Comment	field_comment	NA	FALSE	FALSE	NA
+TAB_Osteological_Age	osteoage	Name	FALSE	FALSE	Id
+TAB_C14_Labs	c14labs	Name	FALSE	FALSE	Id
