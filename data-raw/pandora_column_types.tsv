@@ -301,4 +301,4 @@ TAB_C14_Labs	c14labs	Id	integer	NA	NA	NA
 TAB_C14_Labs	c14labs	Name	character	NA	NA	NA
 TAB_C14_Labs	c14labs	Full_Name	character	NA	NA	NA
 TAB_C14_Labs	c14labs	Country	character	NA	NA	NA
-TAB_C14_Labs	c14labs	Active	logical	NA	NA	NA
+TAB_C14_Labs	c14labs	Active	yesno_logical	NA	NA	NA
