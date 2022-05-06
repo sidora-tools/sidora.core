@@ -19,6 +19,7 @@ Authors:
 Other contributors:
 \itemize{
   \item Stephan Schiffels (\href{https://orcid.org/0000-0002-1017-9150}{ORCID}) [contributor]
+  \item Thiseas Christos Lamnidis \email{thiseas_christos_lamnidis@eva.mpg.de} (\href{https://orcid.org/0000-0003-4485-8570}{ORCID}) [contributor]
 }
 
 }

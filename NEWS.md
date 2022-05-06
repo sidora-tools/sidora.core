@@ -1,3 +1,7 @@
+# sidora 2.3.0 - 2022-05-06
+
+- Added new column and auxiliary table information (TAB_Individual)
+
 # sidora 2.2.0 - 2022-05-06
 
 - Added documentation of internal sidora data structure
