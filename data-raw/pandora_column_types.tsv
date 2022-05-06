@@ -276,3 +276,8 @@ TAB_Analysis	analysis	String_Id	integer	NA	NA	NA
 TAB_Analysis	analysis	Order	integer	NA	NA	NA
 TAB_Analysis	analysis	Title	character	NA	NA	NA
 TAB_Analysis	analysis	Result	character	NA	NA	NA
+TAB_Protocol	protocol	Id	integer	NA	NA	NA
+TAB_Protocol	protocol	Type	character	NA	NA	NA
+TAB_Protocol	protocol	Library_Strandedness	character	NA	NA	NA
+TAB_Protocol	protocol	DOI	character	NA	NA	NA
+TAB_Protocol	protocol	Name	character	NA	NA	NA
