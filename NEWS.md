@@ -1,3 +1,7 @@
+# sidora 2.2.0 - 2022-05-06
+
+- Added documentation of internal sidora data structure
+
 # sidora 2.1.1
 
 - Added a package start-up message to warn about potential ethical snares.

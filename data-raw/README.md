@@ -1,6 +1,16 @@
 # Data Description
 
-## pandora_column_types.tsv
+## Usage
+
+To use these tables, fill in new rows accordingly, then run `data_prep.R` to convert these to 
+`.rda` objects. The script will convert the tables to fast-lookup hash tables to speed up 
+computation.
+
+## Table Description
+
+Each table used for loading, formatting, joining etc. Pandora tables in sidora are described below.
+
+### pandora_column_types.tsv
 
 This stores metadata about each column of each table.
 
@@ -10,11 +20,11 @@ This stores metadata about each column of each table.
 | entity_type       | Sidora simplified version of the name in `table`. Used for prefixing column names during data loading                    |
 |	col_name	        | Name of the column in `table`                                                                                            |
 | type	            | Data type of the column (integer, character, etc.)                                                                       |
-| auxiliary_table	  | Whether the column contains an Id that must be looked up against a Pandora 'auxiliary' table                              |
+| auxiliary_table	  | Whether the column contains an Id that must be looked up against a Pandora 'auxiliary' table                             |
 | auxiliary_namecol	| The full character-type name of the column in the auxiliary table corresponding to the integer Id type in the main table |
 | update_col_type   | Whether this column is mandatory to be included when using the Pandora web interface's 'upload' function                 |
 
-## pandora_table_elements.tsv
+### pandora_table_elements.tsv
 
 This stores metadata about each table itself.
 
