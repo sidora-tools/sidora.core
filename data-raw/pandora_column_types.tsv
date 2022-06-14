@@ -200,9 +200,9 @@ TAB_Library	library	Robot	yesno_logical	NA	NA	mandatory
 TAB_Library	library	Protocol	integer	TAB_Protocol	Name	mandatory
 TAB_Library	library	Quantity_Extract	double	NA	NA	optional
 TAB_Library	library	Index_Set	integer	TAB_Index_Set	Name	mandatory
-TAB_Library	library	P7_Index_Id	integer	TAB_Index_Set_P7	Index	optional
+TAB_Library	library	P7_Index_Id	integer	NA	NA	optional
 TAB_Library	library	P7_Index_Sequence	character	NA	NA	optional
-TAB_Library	library	P5_Index_Id	integer	TAB_Index_Set_P5	Index	optional
+TAB_Library	library	P5_Index_Id	integer	NA	NA	optional
 TAB_Library	library	P5_Index_Sequence	character	NA	NA	optional
 TAB_Library	library	P7_Barcode_Sequence	character	NA	NA	optional
 TAB_Library	library	P5_Barcode_Sequence	character	NA	NA	optional

@@ -1,3 +1,7 @@
+# sidora 2.3.1 - 2022-06-14
+
+- Fix bug in covert_all_ids_to_values() where Index IDs were incorrectly reported.
+
 # sidora 2.3.0 - 2022-05-06
 
 - Added new column and auxiliary table information (TAB_Individual)
