@@ -1,3 +1,7 @@
+# sidora 2.3.2 - 2022-11-04
+
+- Update dependencies versions in conda environment.yml: r-lang 0.4.11 to 1.0.5
+
 # sidora 2.3.1 - 2022-07-06
 
 - Fix bug in covert_all_ids_to_values() where Index IDs were incorrectly reported to due inconsistency within Pandora in the way it calls index information compared to other tables.
