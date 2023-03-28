@@ -1,3 +1,7 @@
+# sidora 2.3.3 - 2023-03-28
+
+- Fixed a small bug arising from a change in dplyr 1.1.0. The fix is implemented in a backwards compatible way. See https://github.com/sidora-tools/sidora.core/pull/68
+
 # sidora 2.3.2 - 2022-11-04
 
 - Update dependencies versions in conda environment.yml: r-lang 0.4.11 to 1.0.5

@@ -174,16 +174,27 @@ access_prejoined_data <- function(tab, con){
     ana_res <- dplyr::tbl(con, "TAB_Analysis_Result_String")
     
     # do join operation
-    dplyr::left_join(
+    res <- dplyr::left_join(
       ana_ids, 
       ana_res, 
       by = c("Id" = "Analysis"),
     ) %>%
     # rename Id columns (after join for performance reasons!)  
     dplyr::rename(
-      Id = .data[["Id.x"]],
       String_Id = .data[["Id.y"]]
     )
+    
+    # for older dplyr versions (probably below 1.1.0)
+    # can be removed eventually
+    if ("Id.x" %in% colnames(res)) {
+      res <- res %>%
+        dplyr::rename(
+          Id = .data[["Id.x"]]
+        )
+    }
+    
+    return(res)
+    
   }
     
 }
