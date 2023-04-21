@@ -1,3 +1,7 @@
+# sidora 2.4.0 - 2023-04-21
+
+- Add new Individual columns (Archaeological Date, Archaeological Date Info, Archaeological Culture)
+
 # sidora 2.3.3 - 2023-03-28
 
 - Fixed a small bug arising from a change in dplyr 1.1.0. The fix is implemented in a backwards compatible way. See https://github.com/sidora-tools/sidora.core/pull/68
