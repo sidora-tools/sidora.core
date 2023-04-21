@@ -191,6 +191,7 @@ TAB_Extract	extract	Projects	character	NA	NA	optional
 TAB_Extract	extract	Deleted	logical	NA	NA	NA
 TAB_Extract	extract	Deleted_Date	datetime	NA	NA	NA
 TAB_Extract	extract	CoreDB_Id	character	NA	NA	optional
+TAB_Extract	extract	CoreDB_Lysate_Id	character	NA	NA	optional
 TAB_Library	library	Id	integer	NA	NA	NA
 TAB_Library	library	Extract	integer	NA	NA	NA
 TAB_Library	library	Library_Id	integer	NA	NA	mandatory
@@ -297,6 +298,7 @@ TAB_Analysis	analysis	Title	character	NA	NA	NA
 TAB_Analysis	analysis	Result	character	NA	NA	NA
 TAB_Protocol	protocol	Id	integer	NA	NA	NA
 TAB_Protocol	protocol	Type	character	NA	NA	NA
+TAB_Protocol	protocol	Library_UDG	character	NA	NA	NA
 TAB_Protocol	protocol	Library_Strandedness	character	NA	NA	NA
 TAB_Protocol	protocol	DOI	character	NA	NA	NA
 TAB_Protocol	protocol	Name	character	NA	NA	NA

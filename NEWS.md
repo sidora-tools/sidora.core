@@ -1,6 +1,8 @@
 # sidora 2.4.0 - 2023-04-21
 
 - Add new Individual columns (Archaeological Date, Archaeological Date Info, Archaeological Culture)
+- Add new Protocol column (Library_UDG)
+- Add CoreDB columns ID (Lysate, Pool) to extract and capture
 
 # sidora 2.3.3 - 2023-03-28
 
