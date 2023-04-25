@@ -5,7 +5,8 @@ test_that("all columns in Pandora tables are defined in sidora.core", {
   skip_on_ci()
   
   # get all tables and their columns in Pandora
-  cons_to_all_tables <- get_con_list(pandora_tables, con)
+  all_tables <- unique(c(pandora_tables, pandora_tables_restricted))
+  cons_to_all_tables <- get_con_list(all_tables, con)
   
   pandora_columns <- cons_to_all_tables %>%
     purrr::map2_dfr(names(.), ., function(pandora_table_name, pandora_table_con) {
@@ -31,10 +32,12 @@ test_that("all columns in Pandora tables are defined in sidora.core", {
   if (length(c(in_pandora_not_sidora, in_sidora_not_pandora)) != 0) {
     warning(
       "Columns in Pandora, but not pandora_column_types.tsv:\n",
-      paste(in_pandora_not_sidora, collapse = ", "),
+      if (length(in_pandora_not_sidora) == 0) {"none"} else {
+      paste(in_pandora_not_sidora, collapse = ", ") },
       "\n",
       "Columns in pandora_column_types.tsv, but not Pandora:\n",
-      paste(in_sidora_not_pandora, collapse = ", ")
+      if (length(in_sidora_not_pandora) == 0) {"none"} else {
+      paste(in_sidora_not_pandora, collapse = ", ") }
     )
   }
   
