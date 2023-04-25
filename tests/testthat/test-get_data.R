@@ -5,7 +5,7 @@ test_that("get_con() behaves as expected", {
   expect_error(get_con("Wurstbrot", con))
   ind_table_con <- get_con("TAB_Site", con)
   expect_s3_class(ind_table_con, c("tbl_MariaDBConnection", "tbl_dbi", "tbl_sql", "tbl_lazy", "tbl"), exact = T)
-  expect_equal(ncol(ind_table_con), 17)
+  expect_equal(ncol(ind_table_con), 20)
 })
 
 test_that("get_con_list() behaves as expected", {
@@ -23,7 +23,7 @@ test_that("get_df() behaves as expected", {
   skip_on_ci()
   ind_table_df <- get_df("TAB_Site", con)
   expect_s3_class(ind_table_df, c("tbl_df", "tbl", "data.frame"), exact = T)
-  expect_equal(ncol(ind_table_df), 17)
+  expect_equal(ncol(ind_table_df), 20)
   expect_gt(nrow(ind_table_df), 1000)
   expect_false(as.logical(unique(ind_table_df$site.Deleted)))
 })
