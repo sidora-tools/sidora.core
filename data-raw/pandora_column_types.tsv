@@ -106,6 +106,7 @@ TAB_Individual	individual	Provenience	character	NA	NA	optional
 TAB_Individual	individual	Worker	integer	TAB_User	Name	mandatory
 TAB_Individual	individual	Creation_Date	datetime	NA	NA	optional
 TAB_Individual	individual	Organism	integer	TAB_Organism	Name	mandatory
+TAB_Individual	individual	Genetic_Sex	character	NA	NA	optional
 TAB_Individual	individual	Osteological_Sex	character	NA	NA	optional
 TAB_Individual	individual	Osteological_Age_Generic	character	NA	NA	optional
 TAB_Individual	individual	Osteological_Age	integer	TAB_Osteological_Age	Name	optional
@@ -114,6 +115,7 @@ TAB_Individual	individual	Archaeological_ID	character	NA	NA	mandatory
 TAB_Individual	individual	Archaeological_Date	integer	NA	NA	optional
 TAB_Individual	individual	Archaeological_Date_Info	character	NA	NA	optional
 TAB_Individual	individual	Archaeological_Culture	integer	TAB_Archaeological_Culture	Name	optional
+TAB_Individual	individual	Archaeological_Period	integer	TAB_Archaeological_Period	Name	optional
 TAB_Individual	individual	C14_Uncalibrated	integer	NA	NA	optional
 TAB_Individual	individual	C14_Uncalibrated_Variation	integer	NA	NA	optional
 TAB_Individual	individual	C14_Calibrated_From	integer	NA	NA	optional
