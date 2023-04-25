@@ -3,7 +3,8 @@
 ## New features
 
 - `get_df()` allows now to request tables not known to sidora.core. The respective error was turned into a warning (#64)
-- added a new test to check if `pandora_column_types.tsv` actually specifies all columns in Pandora
+- added a new test to check if `pandora_column_types` and `pandora_table_elements` are in sync
+- added a new test to check if `pandora_column_types` actually specifies all variables in Pandora
 
 ## Changes in columns/tables
 

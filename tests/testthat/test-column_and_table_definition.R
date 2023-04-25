@@ -1,6 +1,21 @@
-context("pandora_column_types.tsv")
+context("pandora_column_types + pandora_table_elements")
 
-test_that("all columns in Pandora tables are defined in sidora.core", {
+test_that("pandora_column_types and pandora_table_elements include the same tables", {
+  
+  pandora_column_types_tables <- c(
+    pandora_column_types$table,
+    pandora_column_types$auxiliary_table %>% na.omit()
+  ) %>% unique() %>% sort()
+  
+  pandora_table_elements_tables <- c(
+    pandora_table_elements$table
+  ) %>% unique() %>% sort()
+  
+  expect_identical(pandora_column_types_tables, pandora_table_elements_tables)
+  
+})
+
+test_that("all columns in Pandora tables are defined in sidora.core (in pandora_column_types.tsv)", {
   
   skip_on_ci()
   
@@ -31,11 +46,11 @@ test_that("all columns in Pandora tables are defined in sidora.core", {
   
   if (length(c(in_pandora_not_sidora, in_sidora_not_pandora)) != 0) {
     warning(
-      "Columns in Pandora, but not pandora_column_types.tsv:\n",
+      "Columns in Pandora, but not pandora_column_types:\n",
       if (length(in_pandora_not_sidora) == 0) {"none"} else {
       paste(in_pandora_not_sidora, collapse = ", ") },
       "\n",
-      "Columns in pandora_column_types.tsv, but not Pandora:\n",
+      "Columns in pandora_column_types, but not Pandora:\n",
       if (length(in_sidora_not_pandora) == 0) {"none"} else {
       paste(in_sidora_not_pandora, collapse = ", ") }
     )
