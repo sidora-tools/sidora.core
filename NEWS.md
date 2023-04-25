@@ -3,12 +3,20 @@
 ## New features
 
 - `get_df()` allows now to request tables not known to sidora.core. The respective error was turned into a warning (#64)
+- added a new test to check if `pandora_column_types.tsv` actually specifies all columns in Pandora
 
-## New columns
+## Changes in columns/tables
 
-- Add new Individual columns (Genetic_Sex, Archaeological Date, Archaeological Date Info, Archaeological Culture, Archaeological_Period)
-- Add new Protocol column (Library_UDG)
-- Add CoreDB columns ID (Lysate, Pool) to extract and capture
+- TAB_Site: +Date_From, +Date_To, +Date_Info
+- TAB_Individual: +Genetic_Sex, +Archaeological_Date_From, +Archaeological_Date_To, +Archaeological_Date_Info, +Archaeological_Culture, +Archaeological_Period, C14_C:N -> C14_C_N
+- TAB_Extract: +Robot_Name, -Position_on_Plate, +CoreDB_Lysate_Id
+- TAB_Library: +Robot_Name, -Position_on_Plate
+- TAB_Capture: +Robot_Name, -Position_on_Plate, +CoreDB_Pool_Id
+- TAB_Protocol: +Library_UDG
+- +TAB_Archaeological_Culture
+- +TAB_Archaeological_Period
+- +TAB_Osteological_Age
+- +TAB_Sequencing_Setup
 
 # sidora 2.3.3 - 2023-03-28
 
