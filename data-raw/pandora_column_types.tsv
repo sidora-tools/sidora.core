@@ -90,6 +90,9 @@ TAB_Site	site	Province	character	NA	NA	mandatory
 TAB_Site	site	Country	character	NA	NA	mandatory
 TAB_Site	site	Latitude	double	NA	NA	optional
 TAB_Site	site	Longitude	double	NA	NA	optional
+TAB_Site	site	Date_From	integer	NA	NA	optional
+TAB_Site	site	Date_To	integer	NA	NA	optional
+TAB_Site	site	Date_Info	character	NA	NA	optional
 TAB_Site	site	Files	integer	NA	NA	optional
 TAB_Site	site	Notes	character	NA	NA	optional
 TAB_Site	site	Tags	character	NA	NA	optional
