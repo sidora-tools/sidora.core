@@ -1,5 +1,11 @@
 # sidora 2.4.0 - 2023-04-21
 
+## New features
+
+- `get_df()` allows now to request tables not known to sidora.core. The respective error was turned into a warning (#64)
+
+## New columns
+
 - Add new Individual columns (Genetic_Sex, Archaeological Date, Archaeological Date Info, Archaeological Culture, Archaeological_Period)
 - Add new Protocol column (Library_UDG)
 - Add CoreDB columns ID (Lysate, Pool) to extract and capture
