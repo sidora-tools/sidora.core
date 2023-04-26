@@ -78,10 +78,17 @@ get_df <- function(
   tab = sidora.core::pandora_tables, con, 
   cache = T, cache_dir = tempdir(), cache_max_age = 24 * 60 * 60) {
   
-  if ( any(!tab %in% sidora.core::pandora_tables_all) )
-    stop(paste0("[sidora.core] error: tab not found in available tables. Options: ",
-                paste(sidora.core::pandora_tables_all, collapse = ", "),
-                ". Your selection: ", tab))
+  if ( any(!tab %in% sidora.core::pandora_tables_all) ) {
+    warning(paste0(
+      "[sidora.core] error: tab \"", tab ,"\" not found in the list of documented tables. ",
+      "If it exists it will be downloaded, but not modified by sidora.core. ",
+      "Maybe you meant instead: ",
+      paste(sidora.core::pandora_tables_all, collapse = ", "), "."
+    ))
+    download_function <- core_tab_download_unknown_table
+  } else {
+    download_function <- core_tab_download
+  }
   
   if (length(tab) != 1) {
     stop("[sidora.core] error: Select one valid PANDORA SQL table.")
@@ -94,19 +101,25 @@ get_df <- function(
     if (file.exists(tab_cache_file) & file.mtime(tab_cache_file) > (Sys.time() - cache_max_age)) {
       load(tab_cache_file)
     } else {
-      this_tab <- core_tab_download(tab, con)
+      this_tab <- download_function(tab, con)
       save(this_tab, file = tab_cache_file)
     }
   # caching is not activated
   } else {
-    this_tab <- core_tab_download(tab, con)
+    this_tab <- download_function(tab, con)
   }
   
   return(this_tab) 
 }
 
+core_tab_download_unknown_table <- function(tab, con) {
+  get_con(tab, con) %>% tibble::as_tibble()
+}
+
 core_tab_download <- function(tab, con) {
-  get_con(tab, con) %>% tibble::as_tibble() %>% add_prefix_to_colnames(table_name_to_entity_type(tab)) %>% enforce_types()
+  get_con(tab, con) %>% tibble::as_tibble() %>%
+    add_prefix_to_colnames(table_name_to_entity_type(tab)) %>%
+    enforce_types()
 }
 
 #' @rdname get_data

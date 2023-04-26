@@ -68,9 +68,6 @@ TAB_Type	sample_type	Type_Group	character	TAB_Type_Group	Name	NA
 TAB_Type	sample_type	Name	character	NA	NA	NA
 TAB_Type_Group	sample_type_group	Id	integer	NA	NA	NA
 TAB_Type_Group	sample_type_group	Name	character	NA	NA	NA
-TAB_User	worker	Id	integer	NA	NA	NA
-TAB_User	worker	Name	character	NA	NA	NA
-TAB_User	worker	Username	character	NA	NA	NA
 TAB_Index_Set_P5	index_p5	Id	integer	NA	NA	NA
 TAB_Index_Set_P5	index_p5	Index_Set	integer	TAB_Index_Set	Name	NA
 TAB_Index_Set_P5	index_p5	Index	character	NA	NA	NA
@@ -90,6 +87,9 @@ TAB_Site	site	Province	character	NA	NA	mandatory
 TAB_Site	site	Country	character	NA	NA	mandatory
 TAB_Site	site	Latitude	double	NA	NA	optional
 TAB_Site	site	Longitude	double	NA	NA	optional
+TAB_Site	site	Date_From	integer	NA	NA	optional
+TAB_Site	site	Date_To	integer	NA	NA	optional
+TAB_Site	site	Date_Info	character	NA	NA	optional
 TAB_Site	site	Files	integer	NA	NA	optional
 TAB_Site	site	Notes	character	NA	NA	optional
 TAB_Site	site	Tags	character	NA	NA	optional
@@ -106,11 +106,17 @@ TAB_Individual	individual	Provenience	character	NA	NA	optional
 TAB_Individual	individual	Worker	integer	TAB_User	Name	mandatory
 TAB_Individual	individual	Creation_Date	datetime	NA	NA	optional
 TAB_Individual	individual	Organism	integer	TAB_Organism	Name	mandatory
+TAB_Individual	individual	Genetic_Sex	character	NA	NA	optional
 TAB_Individual	individual	Osteological_Sex	character	NA	NA	optional
 TAB_Individual	individual	Osteological_Age_Generic	character	NA	NA	optional
 TAB_Individual	individual	Osteological_Age	integer	TAB_Osteological_Age	Name	optional
 TAB_Individual	individual	Age_in_Years	character	NA	NA	optional
 TAB_Individual	individual	Archaeological_ID	character	NA	NA	mandatory
+TAB_Individual	individual	Archaeological_Date_From	integer	NA	NA	optional
+TAB_Individual	individual	Archaeological_Date_To	integer	NA	NA	optional
+TAB_Individual	individual	Archaeological_Date_Info	character	NA	NA	optional
+TAB_Individual	individual	Archaeological_Culture	integer	TAB_Archaeological_Culture	Name	optional
+TAB_Individual	individual	Archaeological_Period	integer	TAB_Archaeological_Period	Name	optional
 TAB_Individual	individual	C14_Uncalibrated	integer	NA	NA	optional
 TAB_Individual	individual	C14_Uncalibrated_Variation	integer	NA	NA	optional
 TAB_Individual	individual	C14_Calibrated_From	integer	NA	NA	optional
@@ -124,7 +130,7 @@ TAB_Individual	individual	C14_Material	character	NA	NA	optional
 TAB_Individual	individual	C14_PcCollagen	double	NA	NA	optional
 TAB_Individual	individual	C14_PcC	double	NA	NA	optional
 TAB_Individual	individual	C14_Delta13C	double	NA	NA	optional
-TAB_Individual	individual	C14_C:N	double	NA	NA	optional
+TAB_Individual	individual	C14_C_N	double	NA	NA	optional
 TAB_Individual	individual	C14_Info	character	NA	NA	optional
 TAB_Individual	individual	C14_Id_Lab	integer	TAB_C14_Labs	Name	optional
 TAB_Individual	individual	C14_Id	character	NA	NA	optional
@@ -173,10 +179,10 @@ TAB_Extract	extract	Creation_Date	datetime	NA	NA	optional
 TAB_Extract	extract	Experiment_Date	datetime	NA	NA	optional
 TAB_Extract	extract	Batch	integer	TAB_Batch	Name	optional
 TAB_Extract	extract	Robot	yesno_logical	NA	NA	mandatory
+TAB_Extract	capture	Robot_Name	character	NA	NA	optional
 TAB_Extract	extract	Quantity_Sample	double	NA	NA	optional
 TAB_Extract	extract	Quantity_Lysate	double	NA	NA	optional
 TAB_Extract	extract	External_Extract_Id	character	NA	NA	optional
-TAB_Extract	extract	Position_on_Plate	character	NA	NA	optional
 TAB_Extract	extract	Position_on_Plate	character	NA	NA	optional
 TAB_Extract	extract	Location_Room	integer	TAB_Location_Room	Name	optional
 TAB_Extract	extract	Location	integer	TAB_Location	Name	optional
@@ -188,6 +194,7 @@ TAB_Extract	extract	Projects	character	NA	NA	optional
 TAB_Extract	extract	Deleted	logical	NA	NA	NA
 TAB_Extract	extract	Deleted_Date	datetime	NA	NA	NA
 TAB_Extract	extract	CoreDB_Id	character	NA	NA	optional
+TAB_Extract	extract	CoreDB_Lysate_Id	character	NA	NA	optional
 TAB_Library	library	Id	integer	NA	NA	NA
 TAB_Library	library	Extract	integer	NA	NA	NA
 TAB_Library	library	Library_Id	integer	NA	NA	mandatory
@@ -197,6 +204,7 @@ TAB_Library	library	Creation_Date	datetime	NA	NA	optional
 TAB_Library	library	Experiment_Date	datetime	NA	NA	optional
 TAB_Library	library	Batch	integer	TAB_Batch	Name	optional
 TAB_Library	library	Robot	yesno_logical	NA	NA	mandatory
+TAB_Library	capture	Robot_Name	character	NA	NA	optional
 TAB_Library	library	Protocol	integer	TAB_Protocol	Name	mandatory
 TAB_Library	library	Quantity_Extract	double	NA	NA	optional
 TAB_Library	library	Index_Set	integer	TAB_Index_Set	Name	mandatory
@@ -211,7 +219,6 @@ TAB_Library	library	Quantification_post-Indexing_total	big_integer	NA	NA	optiona
 TAB_Library	library	Efficiency_Factor	double	NA	NA	optional
 TAB_Library	library	Post-Indexing_elution_volume	integer	NA	NA	optional
 TAB_Library	library	External_Library_Id	character	NA	NA	optional
-TAB_Library	library	Position_on_Plate	character	NA	NA	optional
 TAB_Library	library	Position_on_Plate	character	NA	NA	optional
 TAB_Library	library	Location_Room	integer	TAB_Location_Room	Name	optional
 TAB_Library	library	Location	integer	TAB_Location	Name	optional
@@ -232,9 +239,9 @@ TAB_Capture	capture	Creation_Date	datetime	NA	NA	optional
 TAB_Capture	capture	Experiment_Date	datetime	NA	NA	optional
 TAB_Capture	capture	Batch	integer	TAB_Batch	Name	optional
 TAB_Capture	capture	Robot	yesno_logical	NA	NA	mandatory
+TAB_Capture	capture	Robot_Name	character	NA	NA	optional
 TAB_Capture	capture	Protocol	integer	TAB_Protocol	Name	mandatory
 TAB_Capture	capture	Probe_Set	integer	TAB_Probe_Set	Name	mandatory
-TAB_Capture	capture	Position_on_Plate	character	NA	NA	optional
 TAB_Capture	capture	Position_on_Plate	character	NA	NA	optional
 TAB_Capture	capture	Location_Room	integer	TAB_Location_Room	Name	optional
 TAB_Capture	capture	Location	integer	TAB_Location	Name	optional
@@ -246,6 +253,7 @@ TAB_Capture	capture	Projects	character	NA	NA	optional
 TAB_Capture	capture	Deleted	logical	NA	NA	NA
 TAB_Capture	capture	Deleted_Date	datetime	NA	NA	NA
 TAB_Capture	capture	CoreDB_Id	character	NA	NA	optional
+TAB_Capture	capture	CoreDB_Pool_Id	character	NA	NA	optional
 TAB_Sequencing	sequencing	Id	integer	NA	NA	NA
 TAB_Sequencing	sequencing	Capture	integer	NA	NA	NA
 TAB_Sequencing	sequencing	Sequencing_Id	integer	NA	NA	mandatory
@@ -294,6 +302,7 @@ TAB_Analysis	analysis	Title	character	NA	NA	NA
 TAB_Analysis	analysis	Result	character	NA	NA	NA
 TAB_Protocol	protocol	Id	integer	NA	NA	NA
 TAB_Protocol	protocol	Type	character	NA	NA	NA
+TAB_Protocol	protocol	Library_UDG	character	NA	NA	NA
 TAB_Protocol	protocol	Library_Strandedness	character	NA	NA	NA
 TAB_Protocol	protocol	DOI	character	NA	NA	NA
 TAB_Protocol	protocol	Name	character	NA	NA	NA
@@ -302,3 +311,11 @@ TAB_C14_Labs	c14labs	Name	character	NA	NA	NA
 TAB_C14_Labs	c14labs	Full_Name	character	NA	NA	NA
 TAB_C14_Labs	c14labs	Country	character	NA	NA	NA
 TAB_C14_Labs	c14labs	Active	yesno_logical	NA	NA	NA
+TAB_Archaeological_Culture	archcult	Id	integer	NA	NA	NA
+TAB_Archaeological_Culture	archcult	Name	character	NA	NA	NA
+TAB_Archaeological_Period	archperiod	Id	integer	NA	NA	NA
+TAB_Archaeological_Period	archperiod	Name	character	NA	NA	NA
+TAB_Osteological_Age	ostage	Id	integer	NA	NA	NA
+TAB_Osteological_Age	ostage	Name	character	NA	NA	NA
+TAB_Sequencing_Setup	seqset	Id	integer	NA	NA	NA
+TAB_Sequencing_Setup	seqset	Name	character	NA	NA	NA

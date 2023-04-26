@@ -34,5 +34,5 @@ This stores metadata about each table itself.
 | entity_type       | Sidora simplified version of the name in `table`. Used for prefixing column names during data loading                    |
 | namecol	          | Name of column containing the full text-based ID of a given entry in the database                                        |
 | restricted	      | Whether this table is accessible to normal users (i.e. `pandora_read`)                                                   |
-| requires_prejoin	| Whether this table needs to be joined with another auxilary table before display                                         |
+| requires_prejoin	| Whether this table needs to be joined with another auxiliary table before display                                         |
 | idcol             | Name of column containing the numeric Id of a given entry in the database                                                |

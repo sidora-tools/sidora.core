@@ -28,3 +28,5 @@ TAB_Index_Set_P7	index_p7	Index	FALSE	FALSE	Id
 TAB_Field_Comment	field_comment	NA	FALSE	FALSE	NA
 TAB_Osteological_Age	osteoage	Name	FALSE	FALSE	Id
 TAB_C14_Labs	c14labs	Name	FALSE	FALSE	Id
+TAB_Archaeological_Culture	archaeological_culture	Name	FALSE	FALSE	Id
+TAB_Archaeological_Period	archaeological_period	Name	FALSE	FALSE	Id
