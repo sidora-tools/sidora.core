@@ -222,7 +222,7 @@ A special hint concerning `TAB_Analysis`: It is formatted differently from the o
 3. Open Rstudio and go to File > Open Project and select the file 'sidora.core.Rproj' in the repository.
 4. Press <kbd>Ctrl</kbd> + <kbd>shift</kbd> + <kbd>b</kbd> to build the package and load the library. (alternatively, in the top right pane go to the 'Build' tab and press Install and Restart)
 
-Additionally, if you've made a modification it's recommended to run build-validation before rebuilding. This can typically be accessed in Rstudio with  <kbd>Ctrl</kbd> + <kbd>shift</kbd> + <kbd>e</kbd>
+Additionally, if you've made a modification it's recommended to run build-validation before rebuilding. This can typically be accessed in RStudio with <kbd>Ctrl</kbd> + <kbd>shift</kbd> + <kbd>e</kbd>. This will also run the unit tests, for which a connection to Pandora is necessary. Running them locally is essential, because the automatic testing on GitHub can not test in conjunction with Pandora.
 
 If you need to update any field names or add new tables for Pandora, make sure to update the TSV in `data-raw`, and run the `data_prep.R` script. The .tsv files can be edited in a spreadsheet tool like [LibreOffice](https://www.libreoffice.org).
 
