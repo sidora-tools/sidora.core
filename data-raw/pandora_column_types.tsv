@@ -201,7 +201,7 @@ TAB_Extract	extract	Deleted_Date	datetime	NA	NA	NA
 TAB_Extract	extract	CoreDB_Id	character	NA	NA	optional
 TAB_Extract	extract	CoreDB_Lysate_Id	character	NA	NA	optional
 TAB_Extract	extract	CoreDB_Subsample_Id	character	NA	NA	optional
-TAB_Individual	individual	Exclude	yesno_logical	NA	NA	NA	optional
+TAB_Extract	extract	Exclude	yesno_logical	NA	NA	NA	optional
 TAB_Library	library	Id	integer	NA	NA	NA
 TAB_Library	library	Extract	integer	NA	NA	NA
 TAB_Library	library	Library_Id	integer	NA	NA	mandatory
