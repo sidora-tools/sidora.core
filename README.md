@@ -1,5 +1,4 @@
 [![R-CMD-check](https://github.com/sidora-tools/sidora.core/actions/workflows/check-release.yaml/badge.svg?style=for-the-badge&logo=appveyor)](https://github.com/sidora-tools/sidora.core/actions/workflows/check-release.yaml)
-[![Coverage Status](https://img.shields.io/codecov/c/github/sidora-tools/sidora.core/master.svg?style=for-the-badge&logo=appveyor)](https://codecov.io/github/sidora-tools/sidora.core?branch=master)
 ![GitHub R package version](https://img.shields.io/github/r-package/v/sidora-tools/sidora.core)
 
 # sidora.core
