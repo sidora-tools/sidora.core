@@ -74,7 +74,7 @@ To use this package you have to follow these steps:
 
 > ⚠️ The host name and port varies depending on whether you are running on the cluster vs locally
 
-Only one specific account has the right read permissions to access the Pandora database directly. Please contact Stephan Schiffels, James Fellows Yates, or Clemens Schmid to obtain the relevant username and password.
+Only one specific account has the right read permissions to access the Pandora database directly. Please see the sidora department-only page on Kbase for the credentials information!
 
 If all of that worked, then you can acccess Pandora with sidora.core. For example load a specific Pandora table:
 
