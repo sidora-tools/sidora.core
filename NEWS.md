@@ -1,3 +1,15 @@
+# sidora 2.4.1 - 2024-05-02
+
+## Changes in columns/tables
+
+TAB_Site: +Master_Site_Id
+TAB_Individual: +Main_Individual_Id, +Publication, +Exclude
+TAB_Sample: +Exclude
+TAB_Extract: +CoreDB_Subsample_Id, +Exclude
+TAB_Library: +Concentration_Post_Plateau_Indexing, +Exclude
+TAB_Capture: +Exclude
+TAB_Sequencing: +Exclude
+
 # sidora 2.4.0 - 2023-04-21
 
 ## New features
