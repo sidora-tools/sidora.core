@@ -78,6 +78,7 @@ TAB_Index_Set_P7	index_p7	Index	character	NA	NA	NA
 TAB_Index_Set_P7	index_p7	Sequence	character	NA	NA	NA
 TAB_Site	site	Id	integer	NA	NA	NA
 TAB_Site	site	Site_Id	character	NA	NA	mandatory
+TAB_Site	site	Master_Site_Id	integer	NA	NA	mandatory
 TAB_Site	site	Full_Site_Id	character	NA	NA	NA
 TAB_Site	site	Name	character	NA	NA	mandatory
 TAB_Site	site	Worker	integer	TAB_User	Name	mandatory
@@ -100,9 +101,11 @@ TAB_Individual	individual	Id	integer	NA	NA	NA
 TAB_Individual	individual	Site	integer	NA	NA	NA
 TAB_Individual	individual	Individual_Id	integer	NA	NA	mandatory
 TAB_Individual	individual	Full_Individual_Id	character	NA	NA	NA
+TAB_Individual	individual	Main_Individual_Id	integer	NA	NA	NA
 TAB_Individual	individual	Institution_of_Origin	integer	TAB_Owner	Name	mandatory
 TAB_Individual	individual	Contact_Person	character	NA	NA	optional
 TAB_Individual	individual	Provenience	character	NA	NA	optional
+TAB_Individual	individual	Publication	character	NA	NA	optional
 TAB_Individual	individual	Worker	integer	TAB_User	Name	mandatory
 TAB_Individual	individual	Creation_Date	datetime	NA	NA	optional
 TAB_Individual	individual	Organism	integer	TAB_Organism	Name	mandatory
@@ -139,6 +142,7 @@ TAB_Individual	individual	Files	integer	NA	NA	optional
 TAB_Individual	individual	Notes	character	NA	NA	optional
 TAB_Individual	individual	Tags	character	NA	NA	optional
 TAB_Individual	individual	Projects	character	NA	NA	optional
+TAB_Individual	individual	Exclude	yesno_logical	NA	NA	NA
 TAB_Individual	individual	Deleted	logical	NA	NA	NA
 TAB_Individual	individual	Deleted_Date	datetime	NA	NA	NA
 TAB_Sample	sample	Id	integer	NA	NA	NA
@@ -169,6 +173,7 @@ TAB_Sample	sample	Deleted	logical	NA	NA	NA
 TAB_Sample	sample	Deleted_Date	datetime	NA	NA	NA
 TAB_Sample	sample	CoreDB_Id	character	NA	NA	optional
 TAB_Sample	sample	CT_scanned	yesno_logical	NA	NA	optional
+TAB_Sample	sample	Exclude	yesno_logical	NA	NA	NA
 TAB_Extract	extract	Id	integer	NA	NA	NA
 TAB_Extract	extract	Sample	integer	NA	NA	NA
 TAB_Extract	extract	Extract_Id	character	NA	NA	mandatory
@@ -195,6 +200,7 @@ TAB_Extract	extract	Deleted	logical	NA	NA	NA
 TAB_Extract	extract	Deleted_Date	datetime	NA	NA	NA
 TAB_Extract	extract	CoreDB_Id	character	NA	NA	optional
 TAB_Extract	extract	CoreDB_Lysate_Id	character	NA	NA	optional
+TAB_Extract	extract	CoreDB_Subsample_Id	character	NA	NA	optional
 TAB_Library	library	Id	integer	NA	NA	NA
 TAB_Library	library	Extract	integer	NA	NA	NA
 TAB_Library	library	Library_Id	integer	NA	NA	mandatory
