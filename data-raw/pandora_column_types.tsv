@@ -78,7 +78,7 @@ TAB_Index_Set_P7	index_p7	Index	character	NA	NA	NA
 TAB_Index_Set_P7	index_p7	Sequence	character	NA	NA	NA
 TAB_Site	site	Id	integer	NA	NA	NA
 TAB_Site	site	Site_Id	character	NA	NA	mandatory
-TAB_Site	site	Master_Site_Id	integer	NA	NA	mandatory	optional
+TAB_Site	site	Master_Site_Id	integer	NA	NA	optional
 TAB_Site	site	Full_Site_Id	character	NA	NA	NA
 TAB_Site	site	Name	character	NA	NA	mandatory
 TAB_Site	site	Worker	integer	TAB_User	Name	mandatory
