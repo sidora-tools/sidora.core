@@ -4,7 +4,7 @@
 \name{sidora.core-package}
 \alias{sidora.core}
 \alias{sidora.core-package}
-\title{sidora.core: Basic Interface for PANDORA (MPI-SHH DAG)}
+\title{sidora.core: Basic Interface for PANDORA (MPI-EVA DAG)}
 \description{
 A basic interface to access data from the internal database PANDORA (MPI-EVA DAG).
 }

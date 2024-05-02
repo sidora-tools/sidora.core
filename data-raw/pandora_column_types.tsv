@@ -78,6 +78,7 @@ TAB_Index_Set_P7	index_p7	Index	character	NA	NA	NA
 TAB_Index_Set_P7	index_p7	Sequence	character	NA	NA	NA
 TAB_Site	site	Id	integer	NA	NA	NA
 TAB_Site	site	Site_Id	character	NA	NA	mandatory
+TAB_Site	site	Master_Site_Id	integer	NA	NA	optional
 TAB_Site	site	Full_Site_Id	character	NA	NA	NA
 TAB_Site	site	Name	character	NA	NA	mandatory
 TAB_Site	site	Worker	integer	TAB_User	Name	mandatory
@@ -100,9 +101,11 @@ TAB_Individual	individual	Id	integer	NA	NA	NA
 TAB_Individual	individual	Site	integer	NA	NA	NA
 TAB_Individual	individual	Individual_Id	integer	NA	NA	mandatory
 TAB_Individual	individual	Full_Individual_Id	character	NA	NA	NA
+TAB_Individual	individual	Main_Individual_Id	integer	NA	NA	NA	optional
 TAB_Individual	individual	Institution_of_Origin	integer	TAB_Owner	Name	mandatory
 TAB_Individual	individual	Contact_Person	character	NA	NA	optional
 TAB_Individual	individual	Provenience	character	NA	NA	optional
+TAB_Individual	individual	Publication	character	NA	NA	optional
 TAB_Individual	individual	Worker	integer	TAB_User	Name	mandatory
 TAB_Individual	individual	Creation_Date	datetime	NA	NA	optional
 TAB_Individual	individual	Organism	integer	TAB_Organism	Name	mandatory
@@ -139,6 +142,7 @@ TAB_Individual	individual	Files	integer	NA	NA	optional
 TAB_Individual	individual	Notes	character	NA	NA	optional
 TAB_Individual	individual	Tags	character	NA	NA	optional
 TAB_Individual	individual	Projects	character	NA	NA	optional
+TAB_Individual	individual	Exclude	yesno_logical	NA	NA	NA	optional
 TAB_Individual	individual	Deleted	logical	NA	NA	NA
 TAB_Individual	individual	Deleted_Date	datetime	NA	NA	NA
 TAB_Sample	sample	Id	integer	NA	NA	NA
@@ -169,6 +173,7 @@ TAB_Sample	sample	Deleted	logical	NA	NA	NA
 TAB_Sample	sample	Deleted_Date	datetime	NA	NA	NA
 TAB_Sample	sample	CoreDB_Id	character	NA	NA	optional
 TAB_Sample	sample	CT_scanned	yesno_logical	NA	NA	optional
+TAB_Sample	sample	Exclude	yesno_logical	NA	NA	NA	optional
 TAB_Extract	extract	Id	integer	NA	NA	NA
 TAB_Extract	extract	Sample	integer	NA	NA	NA
 TAB_Extract	extract	Extract_Id	character	NA	NA	mandatory
@@ -195,6 +200,8 @@ TAB_Extract	extract	Deleted	logical	NA	NA	NA
 TAB_Extract	extract	Deleted_Date	datetime	NA	NA	NA
 TAB_Extract	extract	CoreDB_Id	character	NA	NA	optional
 TAB_Extract	extract	CoreDB_Lysate_Id	character	NA	NA	optional
+TAB_Extract	extract	CoreDB_Subsample_Id	character	NA	NA	optional
+TAB_Extract	extract	Exclude	yesno_logical	NA	NA	NA	optional
 TAB_Library	library	Id	integer	NA	NA	NA
 TAB_Library	library	Extract	integer	NA	NA	NA
 TAB_Library	library	Library_Id	integer	NA	NA	mandatory
@@ -218,6 +225,7 @@ TAB_Library	library	Quantification_pre-Indexing_total	big_integer	NA	NA	optional
 TAB_Library	library	Quantification_post-Indexing_total	big_integer	NA	NA	optional
 TAB_Library	library	Efficiency_Factor	double	NA	NA	optional
 TAB_Library	library	Post-Indexing_elution_volume	integer	NA	NA	optional
+TAB_Library	library	Concentration_Post_Plateau_Indexing	double	NA	NA	optional
 TAB_Library	library	External_Library_Id	character	NA	NA	optional
 TAB_Library	library	Position_on_Plate	character	NA	NA	optional
 TAB_Library	library	Location_Room	integer	TAB_Location_Room	Name	optional
@@ -230,6 +238,7 @@ TAB_Library	library	Projects	character	NA	NA	optional
 TAB_Library	library	Deleted	logical	NA	NA	NA
 TAB_Library	library	Deleted_Date	datetime	NA	NA	NA
 TAB_Library	library	CoreDB_Id	character	NA	NA	optional
+TAB_Library	library	Exclude	yesno_logical	NA	NA	optional
 TAB_Capture	capture	Id	integer	NA	NA	NA
 TAB_Capture	capture	Library	integer	NA	NA	NA
 TAB_Capture	capture	Capture_Id	character	NA	NA	mandatory
@@ -254,6 +263,7 @@ TAB_Capture	capture	Deleted	logical	NA	NA	NA
 TAB_Capture	capture	Deleted_Date	datetime	NA	NA	NA
 TAB_Capture	capture	CoreDB_Id	character	NA	NA	optional
 TAB_Capture	capture	CoreDB_Pool_Id	character	NA	NA	optional
+TAB_Capture	capture	Exclude	yesno_logical	NA	NA	optional
 TAB_Sequencing	sequencing	Id	integer	NA	NA	NA
 TAB_Sequencing	sequencing	Capture	integer	NA	NA	NA
 TAB_Sequencing	sequencing	Sequencing_Id	integer	NA	NA	mandatory
@@ -284,6 +294,7 @@ TAB_Sequencing	sequencing	Tags	character	NA	NA	optional
 TAB_Sequencing	sequencing	Projects	character	NA	NA	optional
 TAB_Sequencing	sequencing	Deleted	logical	NA	NA	NA
 TAB_Sequencing	sequencing	Deleted_Date	datetime	NA	NA	NA
+TAB_Sequencing	sequencing	Exclude	yesno_logical	NA	NA	optional
 TAB_Analysis	analysis	Id	integer	NA	NA	NA
 TAB_Analysis	analysis	Raw_Data	integer	NA	NA	NA
 TAB_Analysis	analysis	Analysis_Id	character	NA	NA	NA

@@ -1,6 +1,6 @@
 Package: sidora.core
-Title: Basic Interface for PANDORA (MPI-SHH DAG)
-Version: 2.4.0
+Title: Basic Interface for PANDORA (MPI-EVA DAG)
+Version: 2.4.1
 Authors@R: 
     c(person(given = "Clemens",
            family = "Schmid",
@@ -42,4 +42,4 @@ Imports:
   utils
 Suggests: 
   testthat (>= 3.0.0)
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.1
