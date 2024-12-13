@@ -5,7 +5,7 @@ TAB_Raw_Data	raw_data	Raw_Data_Id	character	NA	NA	NA
 TAB_Raw_Data	raw_data	Full_Raw_Data_Id	character	NA	NA	NA
 TAB_Raw_Data	raw_data	Protocol	integer	TAB_Protocol	Name	NA
 TAB_Raw_Data	raw_data	Creation_Date	datetime	NA	NA	NA
-TAB_Raw_Data	raw_data	Demultiplexed_Reads	integer	NA	NA	NA
+TAB_Raw_Data	raw_data	Demultiplexed_Reads	big_integer	NA	NA	NA
 TAB_Raw_Data	raw_data	FastQ_Files	character	NA	NA	NA
 TAB_Raw_Data	raw_data	Public_Database_Accessions	character	NA	NA	NA
 TAB_Raw_Data	raw_data	Pubmed_Id	character	NA	NA	NA
