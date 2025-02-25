@@ -101,7 +101,7 @@ TAB_Individual	individual	Id	integer	NA	NA	NA
 TAB_Individual	individual	Site	integer	NA	NA	NA
 TAB_Individual	individual	Individual_Id	integer	NA	NA	mandatory
 TAB_Individual	individual	Full_Individual_Id	character	NA	NA	NA
-TAB_Individual	individual	Main_Individual_Id	integer	NA	NA	optional
+TAB_Individual	individual	Main_Individual_Id	character	NA	NA	optional
 TAB_Individual	individual	Institution_of_Origin	integer	TAB_Owner	Name	mandatory
 TAB_Individual	individual	Contact_Person	character	NA	NA	optional
 TAB_Individual	individual	Provenience	character	NA	NA	optional
