@@ -1,3 +1,25 @@
+# sidora 2.4.4 - 2025-04-16
+
+- Made `to_big_int()` work properly in case the input is already of type `integer64`. This fixes reading `TAB_Raw_Data` with `sidora.core::get_df()`.
+
+# sidora 2.4.3 - 2025-02-25
+
+- Update type of `individual.Main_Individual_Id` column to `character`
+- Bump version in DESCRIPTION
+
+# sidora 2.4.2 - 2024-12-16
+
+This patch release updates the typing:
+
+ - `raw_data.Demultiplexed_Reads`: `integer` -> `big_integer`
+
+Additionally, it set the `update_col_type` attribute of the following columns to `optional`, from `NA`
+
+ - `individual.Main_Individual_Id`
+ - `individual.Exclude`
+ - `sample.Exclude`
+ - `extract.Exclude`
+
 # sidora 2.4.1 - 2024-05-02
 
 ## Changes in columns/tables
