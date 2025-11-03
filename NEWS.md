@@ -1,3 +1,7 @@
+# sidora 2.4.5 - 2025-11-03
+
+- Bugfix: Exclude codes with a reason were falsely converted to FALSE. Now they are correctly converted to TRUE.
+
 # sidora 2.4.4 - 2025-04-16
 
 - Made `to_big_int()` work properly in case the input is already of type `integer64`. This fixes reading `TAB_Raw_Data` with `sidora.core::get_df()`.

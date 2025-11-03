@@ -1,6 +1,6 @@
 Package: sidora.core
 Title: Basic Interface for PANDORA (MPI-EVA DAG)
-Version: 2.4.4
+Version: 2.4.5
 Authors@R: 
     c(person(given = "Clemens",
            family = "Schmid",

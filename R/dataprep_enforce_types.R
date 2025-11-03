@@ -59,6 +59,7 @@ string_to_as <- function(x) {
     "logical" = as.logical,
     "character" = as.character,
     "yesno_logical" = yesno_logical_to_logical,
+    "yesno_with_reason_logical" = yesno_with_reason_logical_to_logical,
     "datetime" = as.POSIXct,
     NA
   )
@@ -74,6 +75,13 @@ na_introduced_warning_handler <- function(x) {
 
 yesno_logical_to_logical <- function(x) {
   tolower(x) == "yes"
+}
+
+yesno_with_reason_logical_to_logical <- function(x) {
+  sapply(x, function(x) {
+    first <- strsplit(x, ",\\s*")[[1]][1]
+    tolower(first) == "yes"
+  })
 }
 
 to_big_int <- function(x) {
