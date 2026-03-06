@@ -217,7 +217,7 @@ A special hint concerning `TAB_Analysis`: It is formatted differently from the o
 ## How do I load the 'development environment'
 
 1. Clone this repository.
-2. Next you will need to create the `.credentials` file - please speak to the repository contributors for details.
+2. Next you will need to create the `.credentials` file - please see internal dept. knowledge base for credentials.
 3. Open Rstudio and go to File > Open Project and select the file 'sidora.core.Rproj' in the repository.
 4. Press <kbd>Ctrl</kbd> + <kbd>shift</kbd> + <kbd>b</kbd> to build the package and load the library. (alternatively, in the top right pane go to the 'Build' tab and press Install and Restart)
 
